@@ -1,4 +1,4 @@
-﻿# ðŸŽ¬ Dublar - Sistema de Dublagem AutomÃ¡tica de VÃ­deos
+# ðŸŽ¬ Dublar - Sistema de Dublagem AutomÃ¡tica de VÃ­deos
 
 Sistema completo de dublagem automÃ¡tica de vÃ­deos usando IA para transcriÃ§Ã£o, traduÃ§Ã£o e sÃ­ntese de voz.
 
@@ -16,7 +16,7 @@ Sistema completo de dublagem automÃ¡tica de vÃ­deos usando IA para transcri�
 
 ### Windows:
 ```bash
-git clone https://github.com/inematds/dublar.git
+git clone https://github.com/linnoff88-dev/dublar.git
 cd dublar
 instalar.bat
 dublar.bat video.mp4
@@ -24,7 +24,7 @@ dublar.bat video.mp4
 
 ### Linux:
 ```bash
-git clone https://github.com/inematds/dublar.git
+git clone https://github.com/linnoff88-dev/dublar.git
 cd dublar
 python3 -m venv venv
 source venv/bin/activate
@@ -273,4 +273,4 @@ Este projeto Ã© open source.
 
 ---
 
-Projeto adaptado da comunidade INEMA TDS - Marca Arckhe
+Projeto adaptado da comunidade ARCKHÉ TDS - Marca Arckhe
