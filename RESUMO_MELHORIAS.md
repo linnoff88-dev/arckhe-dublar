@@ -7,7 +7,7 @@
 Agora, antes de cada etapa demorada, você verá:
 
 ```
-=== ETAPA 4: Tradução TÉCNICA ===
+=== ETAPA 4: Traduçêo TÉCNICA ===
 ============================================================
   Total de segmentos: 146
   Tempo estimado: ~1 minuto(s)
@@ -33,7 +33,7 @@ E depois:
 
 Durante processamento, você vê:
 
-**Na Tradução:**
+**Na Traduçêo:**
 ```
   Traduzidos 10/146 (6.8%) - ETA: 67s
   Traduzidos 20/146 (13.7%) - ETA: 58s
@@ -63,7 +63,7 @@ Ao terminar cada etapa:
 Para um vídeo de 7 minutos com 146 segmentos:
 
 ```
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 Usando CPU (mais estável)...
 Transcrevendo áudio...
 ✓ Idioma detectado: en (confiança: 1.00)
@@ -73,7 +73,7 @@ Processando segmentos...
   Processados 140 segmentos...
 ✓ Total: 146 segmentos transcritos
 
-=== ETAPA 4: Tradução TÉCNICA ===
+=== ETAPA 4: Traduçêo TÉCNICA ===
 ============================================================
   Total de segmentos: 146
   Tempo estimado: ~1 minuto(s)
@@ -81,7 +81,7 @@ Processando segmentos...
 
 Carregando modelo M2M100...
   Modo técnico: preservando 100+ termos
-  Simplificação: ATIVA
+  Simplificaçêo: ATIVA
   Traduzindo en → pt...
 
   Traduzidos 10/146 (6.8%) - ETA: 67s
@@ -90,7 +90,7 @@ Carregando modelo M2M100...
   Traduzidos 140/146 (95.9%) - ETA: 3s
 
 Traduzido: 146 segmentos
-Taxa de compressão média: 0.92x
+Taxa de compressêo média: 0.92x
 
 === ETAPA 6: TTS (Bark) ===
 ============================================================
@@ -112,10 +112,10 @@ Gerando áudio dos segmentos...
 
 ✓ TTS Bark gerou: 146 arquivos em 19m 34s
 
-=== ETAPA 7: Sincronização ===
+=== ETAPA 7: Sincronizaçêo ===
 ...
 
-=== ETAPA 8: Concatenação ===
+=== ETAPA 8: Concatenaçêo ===
 ...
 
 === ETAPA 9: Pós-processo ===
@@ -137,12 +137,12 @@ Para vídeo de 7 minutos (~146 segmentos):
 
 | Etapa | Tempo Estimado | Tempo Real |
 |-------|----------------|------------|
-| Extração áudio | 2s | 2s |
-| Transcrição (Whisper) | 5-8 min | Varia |
-| Tradução (M2M100) | 1-2 min | ~1m 15s |
+| Extraçêo áudio | 2s | 2s |
+| Transcriçêo (Whisper) | 5-8 min | Varia |
+| Traduçêo (M2M100) | 1-2 min | ~1m 15s |
 | **TTS (Bark)** | **19 min** | **15-25 min** |
-| Sincronização | 30s | 20-40s |
-| Concatenação | 10s | 5-15s |
+| Sincronizaçêo | 30s | 20-40s |
+| Concatenaçêo | 10s | 5-15s |
 | Pós-processo | 30s | 20-40s |
 | Mux final | 10s | 5-15s |
 | **TOTAL** | **~27 min** | **20-35 min** |
@@ -154,7 +154,7 @@ Para vídeo de 7 minutos (~146 segmentos):
 ### Antes:
 ```
 === ETAPA 6: TTS (Bark) ===
-[Silêncio por 20 minutos... usuário não sabe se travou]
+[Silêncio por 20 minutos... usuário nêo sabe se travou]
 ```
 
 ### Agora:
@@ -169,7 +169,7 @@ Para vídeo de 7 minutos (~146 segmentos):
 ```
 
 ✅ Você sabe exatamente:
-- Quantos segmentos serão processados
+- Quantos segmentos serêo processados
 - Quanto tempo vai demorar
 - Quanto tempo falta
 - Se está progredindo ou travado

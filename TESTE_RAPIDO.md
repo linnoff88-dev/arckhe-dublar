@@ -4,7 +4,7 @@ Teste mais simples e rápido: apenas junta os arquivos WAV existentes e aplica o
 
 ---
 
-## ⚡ EXECUÇÃO RÁPIDA
+## ⚡ EXECUÇêO RÁPIDA
 
 ```batch
 python test_quick.py
@@ -34,7 +34,7 @@ python test_quick.py
 ✅ Encontrados 19 arquivos seg_*.wav
 
 ======================================================================
-ETAPA 1: Criando lista de concatenação
+ETAPA 1: Criando lista de concatenaçêo
 ======================================================================
 ✅ Lista criada: dub_work\test_list.txt
    Total: 19 arquivos
@@ -43,14 +43,14 @@ ETAPA 1: Criando lista de concatenação
 ETAPA 2: Concatenando arquivos WAV
 ======================================================================
 ✅ Concatenado: dub_work\test_concat.wav
-   Duração: 294.11s
+   Duraçêo: 294.11s
 
 ======================================================================
 ETAPA 3: Pós-processamento (FILTROS NOVOS)
 ======================================================================
 Filtros: loudnorm=I=-14:TP=-1.5:LRA=11
 ✅ Pós-processado: dub_work\test_final_CORRECTED.wav
-   Duração: 294.11s
+   Duraçêo: 294.11s
 
 ======================================================================
 ETAPA 4: Análise de Volume
@@ -96,14 +96,14 @@ Volume:
 
 ---
 
-## ✅ VALIDAÇÃO
+## ✅ VALIDAÇêO
 
 ### **1. Testar áudio audível**:
 ```batch
 ffplay test_VIDEO_CORRECTED.mp4
 ```
 
-**Esperado**: Áudio deve estar **audível** (não mais mudo)
+**Esperado**: Áudio deve estar **audível** (nêo mais mudo)
 
 ---
 
@@ -125,28 +125,28 @@ ffplay test_VIDEO_CORRECTED.mp4
 ffmpeg -i test_VIDEO_CORRECTED.mp4 -af volumedetect -vn -f null - 2>&1 | findstr "volume"
 ```
 
-**Esperado**: `mean_volume: -22.5 dB` (não -91 dB)
+**Esperado**: `mean_volume: -22.5 dB` (nêo -91 dB)
 
 ---
 
-### **4. Verificar duração**:
+### **4. Verificar duraçêo**:
 ```batch
 ffprobe -v error -show_entries format=duration -of default=nw=1 test_VIDEO_CORRECTED.mp4
 ```
 
 **Esperado**: ~294 segundos (igual ao dub_raw.wav)
 
-**NOTA**: A duração ainda está errada (294s em vez de 114s) porque os arquivos `seg_*.wav` foram gerados com a versão ANTIGA do split. Para corrigir isso, precisa rodar `dublar nei.mp4` novamente.
+**NOTA**: A duraçêo ainda está errada (294s em vez de 114s) porque os arquivos `seg_*.wav` foram gerados com a versêo ANTIGA do split. Para corrigir isso, precisa rodar `dublar nei.mp4` novamente.
 
 ---
 
 ## ⚠️ LIMITAÇÕES DESTE TESTE
 
-Este teste **APENAS valida a correção do pós-processamento de áudio**.
+Este teste **APENAS valida a correçêo do pós-processamento de áudio**.
 
-**O que NÃO testa**:
+**O que NêO testa**:
 - ❌ Split com timestamps proporcionais (arquivos seg_*.wav já foram gerados)
-- ❌ Sincronização (arquivos seg_*.wav já foram gerados)
+- ❌ Sincronizaçêo (arquivos seg_*.wav já foram gerados)
 
 **Para testar as correções completas**, você precisa:
 1. Deletar `dub_work/`
@@ -162,9 +162,9 @@ Após rodar `python test_quick.py`:
 - [ ] Arquivo `test_VIDEO_CORRECTED.mp4` foi gerado
 - [ ] Volume mostrado é > -30 dB
 - [ ] Diferença de volume é > +50 dB
-- [ ] Ao reproduzir, áudio está audível (não mudo)
+- [ ] Ao reproduzir, áudio está audível (nêo mudo)
 
-Se todos os ✅, a correção do **pós-processamento** está funcionando!
+Se todos os ✅, a correçêo do **pós-processamento** está funcionando!
 
 ---
 
@@ -182,7 +182,7 @@ dublar nei.mp4
 
 Isso testará:
 - ✅ Split com timestamps proporcionais
-- ✅ Sincronização inteligente
+- ✅ Sincronizaçêo inteligente
 - ✅ Pós-processamento corrigido
 - ✅ Arquivo salvo em `dublado/nei.mp4`
 
@@ -191,10 +191,10 @@ Isso testará:
 ## 🔍 ANÁLISE DE RESULTADOS
 
 ### ✅ **SE PASSOU** (volume > -30 dB):
-A correção do pós-processamento está funcionando! O problema de áudio mudo foi resolvido.
+A correçêo do pós-processamento está funcionando! O problema de áudio mudo foi resolvido.
 
 ### ⚠️ **SE FALHOU** (volume ainda < -50 dB):
-O problema está nos arquivos `seg_*.wav` gerados pelo Bark, não no pós-processamento. Verifique:
+O problema está nos arquivos `seg_*.wav` gerados pelo Bark, nêo no pós-processamento. Verifique:
 ```batch
 ffmpeg -i dub_work/seg_0001.wav -af volumedetect -f null - 2>&1 | findstr "volume"
 ```

@@ -1,18 +1,18 @@
 # Análise da Dublagem - nei.mp4
 
-## 📊 Resumo da Execução
+## 📊 Resumo da Execuçêo
 
 **Vídeo Original**: `nei.mp4` (37 MB)
 **Vídeo Dublado**: `dublagem/video_dublado.mp4` (38 MB)
-**Duração**: ~1min 53s
+**Duraçêo**: ~1min 53s
 **Segmentos**: 19
 
 ---
 
-## 1. ✅ Qualidade da Tradução
+## 1. ✅ Qualidade da Traduçêo
 
 ### Análise Geral:
-A tradução foi **parcialmente boa**, mas apresenta alguns problemas:
+A traduçêo foi **parcialmente boa**, mas apresenta alguns problemas:
 
 ### ✅ Pontos Positivos:
 1. **Vocabulário técnico preservado**:
@@ -25,13 +25,13 @@ A tradução foi **parcialmente boa**, mas apresenta alguns problemas:
    - Frases traduzidas seguem a lógica do original
    - Contexto preservado
 
-3. **Tradução funcional**:
+3. **Traduçêo funcional**:
    - Mensagem principal compreensível
    - Termos técnicos corretos
 
-### ❌ Problemas de Tradução:
+### ❌ Problemas de Traduçêo:
 
-#### 1. **Tradução Literal Demais**:
+#### 1. **Traduçêo Literal Demais**:
 ```
 Original: "some of our folks put together"
 Traduzido: "alguns de nossos povos colocam juntos"
@@ -59,9 +59,9 @@ Traduzido: "esplêndido, brilhante, belo"
 Melhor: "novinho em folha, brilhante e bonito"
 ```
 
-#### 5. **Pontuação Problemática**:
+#### 5. **Pontuaçêo Problemática**:
 ```
-"Bem, ambicioso.Então, isso é o que vou fazer.Vou ir para N8n."
+"Bem, ambicioso.Entêo, isso é o que vou fazer.Vou ir para N8n."
 Faltam espaços após pontos
 ```
 
@@ -80,12 +80,12 @@ Faltam espaços após pontos
 
 ### Por que isso acontece?
 
-1. **Bark não respeita duração alvo**
-   - Bark gera áudio baseado no texto, não na duração
+1. **Bark nêo respeita duraçêo alvo**
+   - Bark gera áudio baseado no texto, nêo na duraçêo
    - Texto em português é mais longo que em inglês
    - Bark fala devagar para articular bem
 
-2. **Sincronização Smart não comprimiu**
+2. **Sincronizaçêo Smart nêo comprimiu**
    - Parâmetro: `tolerance=0.0` (zero tolerância)
    - `maxstretch=2.0` (permite até 2x de alongamento)
    - Smart só comprime se ultrapassar `high = target*(1+tolerance)`
@@ -98,34 +98,34 @@ low = target*(1-tol);  # 9.99 * (1-0.0) = 9.99
 high = target*(1+tol)  # 9.99 * (1+0.0) = 9.99
 
 # Com tolerance=0.0:
-if cur < low:         # 11.77 < 9.99? NÃO
+if cur < low:         # 11.77 < 9.99? NêO
     pad
 elif cur > high:      # 11.77 > 9.99? SIM ✓ (deveria comprimir)
     fit
 ```
 
-**O problema**: A função `fit` deveria ter comprimido, mas não funcionou!
+**O problema**: A funçêo `fit` deveria ter comprimido, mas nêo funcionou!
 
-### Solução:
+### Soluçêo:
 
-**Opção 1**: Usar `--sync fit` (forçar compressão):
+**Opçêo 1**: Usar `--sync fit` (forçar compressêo):
 ```batch
 dublar nei.mp4 --sync fit --maxstretch 1.3
 ```
 
-**Opção 2**: Aumentar tolerância (permitir voz mais natural):
+**Opçêo 2**: Aumentar tolerância (permitir voz mais natural):
 ```batch
 dublar nei.mp4 --sync smart --tolerance 0.2 --maxstretch 1.5
 ```
 
-**Opção 3**: Usar Coqui TTS (mais rápido e preciso):
+**Opçêo 3**: Usar Coqui TTS (mais rápido e preciso):
 ```batch
 dublar nei.mp4 --tts coqui
 ```
 
 ---
 
-## 3. 📁 Localização do Vídeo
+## 3. 📁 Localizaçêo do Vídeo
 
 ### ✅ Vídeo Movido para Pasta Dublagem
 
@@ -141,9 +141,9 @@ dublar nei.mp4 --tts coqui
 ```
 dub_work/
 ├── asr.srt              # Legendas originais (inglês)
-├── asr.json             # Transcrição JSON
+├── asr.json             # Transcriçêo JSON
 ├── asr_trad.srt         # Legendas traduzidas (português)
-├── asr_trad.json        # Tradução JSON
+├── asr_trad.json        # Traduçêo JSON
 ├── segments.csv         # Mapeamento de segmentos
 ├── seg_0001.wav         # 19 arquivos de áudio TTS
 ├── ...
@@ -173,7 +173,7 @@ dub_work/
 
 ## 5. 🔧 Recomendações de Melhoria
 
-### Melhorar Tradução:
+### Melhorar Traduçêo:
 
 **Usar modelo M2M100 maior** (mais contexto):
 ```batch
@@ -181,7 +181,7 @@ dub_work/
 model_name = "facebook/m2m100_1.2B"  # em vez de 418M
 ```
 
-**Pós-processar tradução** (remover erros óbvios):
+**Pós-processar traduçêo** (remover erros óbvios):
 - Adicionar dicionário de correções
 - "escândalo" → "zero"
 - "promptes" → "prompts"
@@ -210,9 +210,9 @@ audio = generate_audio(
 )
 ```
 
-### Melhorar Sincronização:
+### Melhorar Sincronizaçêo:
 
-**Debug da função smart**:
+**Debug da funçêo smart**:
 ```python
 # Adicionar logs em sync_smart():
 print(f"[DEBUG] Segmento {i}: target={target:.2f}s, atual={cur:.2f}s, low={low:.2f}s, high={high:.2f}s")
@@ -222,11 +222,11 @@ print(f"[DEBUG] Segmento {i}: target={target:.2f}s, atual={cur:.2f}s, low={low:.
 
 ## 6. ✅ Checklist de Qualidade
 
-| Item | Status | Observação |
+| Item | Status | Observaçêo |
 |------|--------|------------|
 | Vídeo gerado | ✅ | `dublagem/video_dublado.mp4` |
 | Áudio sincronizado | ⚠️ | Alguns trechos lentos |
-| Tradução precisa | ⚠️ | Erros: "escândalo", "promptes" |
+| Traduçêo precisa | ⚠️ | Erros: "escândalo", "promptes" |
 | Voz natural | ❌ | Bark muito lento em alguns trechos |
 | GPU usada | ✅ | M2M100 e Bark em GPU |
 | Legendas geradas | ✅ | SRT em português disponível |
@@ -279,14 +279,14 @@ dublar nei_30s.mp4 --tts coqui --out dublagem/teste_30s.mp4
 
 ---
 
-## Conclusão
+## Conclusêo
 
-**Tradução**: 6/10 (funcional mas com erros)
+**Traduçêo**: 6/10 (funcional mas com erros)
 **Voz**: 5/10 (lenta demais em alguns trechos)
-**Sincronização**: 6/10 (precisa ajuste)
+**Sincronizaçêo**: 6/10 (precisa ajuste)
 **Resultado Final**: 5.5/10
 
-**Melhor opção**: Redublar com Coqui TTS + sync fit para velocidade correta.
+**Melhor opçêo**: Redublar com Coqui TTS + sync fit para velocidade correta.
 
 ---
 

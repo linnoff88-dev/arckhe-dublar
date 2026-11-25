@@ -1,13 +1,13 @@
 # dublar_tech_v2.py
 # Pipeline de dublagem OTIMIZADO PARA CONTEÚDO TÉCNICO
-# Inclui: glossário técnico, tradução consciente de comprimento, preservação de termos
+# Inclui: glossário técnico, traduçêo consciente de comprimento, preservaçêo de termos
 
 import os, sys, json, csv, argparse, subprocess, shutil, re, warnings
 from pathlib import Path
 import numpy as np
 from datetime import datetime
 
-# Detecção automática de GPU/CUDA
+# Detecçêo automática de GPU/CUDA
 # Se quiser forçar CPU, descomente a linha abaixo:
 # os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
@@ -29,10 +29,10 @@ def save_checkpoint(workdir, step_num, step_name):
 
 # ---------------- GLOSSÁRIO TÉCNICO ----------------
 TECH_GLOSSARY = {
-    # Programação
+    # Programaçêo
     "string": "string",
     "array": "array",
-    "function": "função",
+    "function": "funçêo",
     "method": "método",
     "class": "classe",
     "object": "objeto",
@@ -49,7 +49,7 @@ TECH_GLOSSARY = {
     "promise": "promise",
     "API": "API",
     "endpoint": "endpoint",
-    "request": "requisição",
+    "request": "requisiçêo",
     "response": "resposta",
     "database": "banco de dados",
     "query": "query",
@@ -115,7 +115,7 @@ TECH_GLOSSARY = {
     "lint": "lint",
     "test": "teste",
     "unit test": "teste unitário",
-    "integration test": "teste de integração",
+    "integration test": "teste de integraçêo",
     "bug": "bug",
     "feature": "feature",
     "refactor": "refatorar",
@@ -155,7 +155,7 @@ def protect_technical_terms(text):
         pattern = r'\b' + re.escape(term) + r'\b'
         matches = list(re.finditer(pattern, protected, re.IGNORECASE))
 
-        for match in reversed(matches):  # Reversed para não afetar índices
+        for match in reversed(matches):  # Reversed para nêo afetar índices
             original = match.group()
             placeholder = f"__TECH{i:03d}__"
             replacements[placeholder] = original
@@ -170,7 +170,7 @@ def restore_technical_terms(text, replacements):
         restored = restored.replace(placeholder, original)
     return restored
 
-# ---------------- TRADUÇÃO COM CONTROLE DE COMPRIMENTO ----------------
+# ---------------- TRADUÇêO COM CONTROLE DE COMPRIMENTO ----------------
 def translate_with_length_control(text, src_lang, tgt_lang, target_duration, tokenizer, model):
     """
     Traduz tentando manter comprimento similar ao original
@@ -185,14 +185,14 @@ def translate_with_length_control(text, src_lang, tgt_lang, target_duration, tok
 
     # Traduz
     tokenizer.src_lang = src_lang
-    # CORRIGIDO: Aumenta max_length para não truncar frases longas
+    # CORRIGIDO: Aumenta max_length para nêo truncar frases longas
     encoded = tokenizer(protected_text, return_tensors="pt", padding=True, truncation=True, max_length=1024)
 
     # Gera com controle de comprimento
     generated = model.generate(
         **encoded,
         forced_bos_token_id=tokenizer.get_lang_id(tgt_lang),
-        # CORRIGIDO: Aumenta limite para não cortar traduções
+        # CORRIGIDO: Aumenta limite para nêo cortar traduções
         max_new_tokens=min(target_words + 100, 512),  # Permite traduções completas
         min_length=max(target_words - 20, 10),
         num_beams=5,  # Melhor qualidade
@@ -212,7 +212,7 @@ def translate_with_length_control(text, src_lang, tgt_lang, target_duration, tok
 
 def fix_mixed_language(text, target_lang):
     """
-    Detecta e corrige palavras em inglês que vazaram na tradução portuguesa
+    Detecta e corrige palavras em inglês que vazaram na traduçêo portuguesa
     """
     if target_lang != "pt":
         return text
@@ -223,7 +223,7 @@ def fix_mixed_language(text, target_lang):
         r'\bthis video\b': 'este vídeo',
         r'\bthis code\b': 'este código',
         r'\bthis file\b': 'este arquivo',
-        r'\bthis function\b': 'esta função',
+        r'\bthis function\b': 'esta funçêo',
         r'\bthat\b': 'isso',
         r'\bthese\b': 'estes',
         r'\bthose\b': 'aqueles',
@@ -257,7 +257,7 @@ def simplify_for_dubbing(text, max_words=None):
     simplifications = {
         r'\bvocê sabe\b': '',
         r'\bbem,?\s*': '',
-        r'\bentão,?\s*': '',
+        r'\bentêo,?\s*': '',
         r'\bassim,?\s*': '',
         r'\bbasicamente\b': '',
         r'\bnormalmente\b': '',
@@ -310,7 +310,7 @@ def make_silence_wav(workdir, idx, dur, sr):
 def ensure_ffmpeg():
     for bin in ("ffmpeg","ffprobe"):
         if not shutil.which(bin):
-            print(f"{bin} não encontrado no PATH.")
+            print(f"{bin} nêo encontrado no PATH.")
             sys.exit(1)
 
 def ffprobe_duration(path):
@@ -382,7 +382,7 @@ def detect_speech_pauses(audio_path, min_silence_dur=0.3):
         print(f"  Detectadas {len(pauses)} pausas naturais (>{min_silence_dur}s)")
         return pauses
     except ImportError:
-        print("  [AVISO] librosa não instalado. VAD desabilitado.")
+        print("  [AVISO] librosa nêo instalado. VAD desabilitado.")
         return []
     except Exception as e:
         print(f"  [AVISO] Erro no VAD: {e}")
@@ -400,17 +400,17 @@ def estimate_tts_duration(text, lang="pt", base_wps=2.5):
 
 # ---------------- ASR ----------------
 def transcribe_faster_whisper(wav_path, workdir, src_lang):
-    print("\n=== ETAPA 3: Transcrição (Whisper) ===")
+    print("\n=== ETAPA 3: Transcriçêo (Whisper) ===")
     from faster_whisper import WhisperModel
     import torch
 
-    # Estima duração do áudio
+    # Estima duraçêo do áudio
     audio_duration = ffprobe_duration(wav_path)
     estimated_segments = int(audio_duration / 3)  # ~1 segmento a cada 3 segundos
     estimated_time_min = int(audio_duration / 60)  # ~1min de processamento por 1min de áudio
 
     print(f"\n{'='*60}")
-    print(f"  Duração do áudio: {int(audio_duration/60)}m {int(audio_duration%60)}s")
+    print(f"  Duraçêo do áudio: {int(audio_duration/60)}m {int(audio_duration%60)}s")
     print(f"  Segmentos estimados: ~{estimated_segments}")
     print(f"  Tempo estimado: ~{estimated_time_min} minuto(s)")
     print(f"{'='*60}\n")
@@ -431,7 +431,7 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
         segments, info = model.transcribe(str(wav_path), language=src_lang, vad_filter=use_vad)
         print(f"[OK] Idioma detectado: {info.language} (confiança: {info.language_probability:.2f})")
     except Exception as e:
-        print(f"ERRO na transcrição: {e}")
+        print(f"ERRO na transcriçêo: {e}")
         raise
 
     segs = []
@@ -458,9 +458,9 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
     print(f"Transcrito: {len(segs)} segmentos")
     return json_path, srt_path, segs
 
-# ---------------- TRADUÇÃO MELHORADA PARA CONTEÚDO TÉCNICO ----------------
+# ---------------- TRADUÇêO MELHORADA PARA CONTEÚDO TÉCNICO ----------------
 def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
-    print("\n=== ETAPA 4: Tradução TÉCNICA com controle de comprimento ===")
+    print("\n=== ETAPA 4: Traduçêo TÉCNICA com controle de comprimento ===")
     import time
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 
@@ -473,7 +473,7 @@ def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
     print("  - Carregando tokenizer...")
     tok = AutoTokenizer.from_pretrained(model_name)
 
-    print("  - Carregando modelo de tradução...")
+    print("  - Carregando modelo de traduçêo...")
     model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
     print("[OK] Modelo carregado!\n")
@@ -484,7 +484,7 @@ def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
     print(f"{'='*60}")
     print(f"  Total de segmentos: {total_segments}")
     print(f"  Tempo estimado: ~{estimated_minutes} minuto(s)")
-    print(f"  (Apenas tradução, modelo já carregado)")
+    print(f"  (Apenas traduçêo, modelo já carregado)")
     print(f"{'='*60}\n")
 
     src = (src or "en").lower()
@@ -496,7 +496,7 @@ def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
     out = []
 
     print(f"  Modo técnico: preservando {len(PRESERVE_TERMS)} termos")
-    print(f"  Simplificação: {'ATIVA' if simplify else 'DESATIVA'}")
+    print(f"  Simplificaçêo: {'ATIVA' if simplify else 'DESATIVA'}")
     print(f"  Traduzindo {src} -> {tgt}...\n")
 
     start_time = time.time()
@@ -510,7 +510,7 @@ def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
 
         # Simplifica se necessário
         if simplify:
-            # Calcula palavras máximas baseado na duração
+            # Calcula palavras máximas baseado na duraçêo
             max_words = int((dur * 2.5) * 1.1)  # 2.5 palavras/seg + 10% margem
             translation = simplify_for_dubbing(translation, max_words)
 
@@ -542,7 +542,7 @@ def translate_segments_technical(segs, src, tgt, workdir, simplify=True):
     # Estatísticas
     avg_compression = np.mean([s['compression_ratio'] for s in out])
     print(f"\nTraduzido: {len(out)} segmentos")
-    print(f"Taxa de compressão média: {avg_compression:.2f}x")
+    print(f"Taxa de compressêo média: {avg_compression:.2f}x")
 
     return out, json_t, srt_t
 
@@ -662,13 +662,13 @@ def tts_bark(segments, workdir, text_temp=0.6, wave_temp=0.6, history_prompt=Non
     from bark import generate_audio, SAMPLE_RATE
     from scipy.io.wavfile import write
 
-    # Detecção automática de GPU/CPU
+    # Detecçêo automática de GPU/CPU
     use_gpu = torch.cuda.is_available()
     if use_gpu:
         print("GPU detectada! Usando CUDA para TTS (muito mais rápido)...")
         avg_time_per_segment = 1.5  # ~1.5s por segmento na GPU
     else:
-        print("GPU não disponível, usando CPU (mais lento)...")
+        print("GPU nêo disponível, usando CPU (mais lento)...")
         avg_time_per_segment = 8  # ~8s por segmento na CPU
 
     # ESTIMATIVA DE TEMPO
@@ -880,7 +880,7 @@ def sync_elastic(segments_data, workdir, sr, tol=0.15, maxstretch=1.35):
     return results
 
 def calculate_sync_metrics(segments_info):
-    print("\n=== MÉTRICAS DE SINCRONIZAÇÃO ===")
+    print("\n=== MÉTRICAS DE SINCRONIZAÇêO ===")
 
     offsets = []
     ratios = []
@@ -908,7 +908,7 @@ def calculate_sync_metrics(segments_info):
     print(f"  Total de segmentos: {metrics['total_segments']}")
     print(f"  Offset médio: {metrics['avg_offset']:.3f}s")
     print(f"  Offset máximo: {metrics['max_offset']:.3f}s")
-    print(f"  Desvio padrão: {metrics['std_offset']:.3f}s")
+    print(f"  Desvio padrêo: {metrics['std_offset']:.3f}s")
     print(f"  Ratio de velocidade médio: {metrics['avg_speed_ratio']:.3f}x")
     print(f"  Segmentos fora da tolerância: {metrics['segments_over_tolerance']}")
     print(f"  Segmentos comprimidos (>1.1x): {metrics['segments_compressed']}")
@@ -917,7 +917,7 @@ def calculate_sync_metrics(segments_info):
     return metrics
 
 def concat_segments(seg_files, workdir, samplerate, segs_trad=None, preserve_gaps=False, gap_min=0.20):
-    print("\n=== ETAPA 8: Concatenação ===")
+    print("\n=== ETAPA 8: Concatenaçêo ===")
     lst = Path(workdir, "list.txt")
     files_for_concat = []
 
@@ -959,7 +959,7 @@ def mux_video(video_in, wav_in, out_mp4, bitrate):
 def main():
     print("="*70)
     print("  PIPELINE DE DUBLAGEM TÉCNICA v2.0")
-    print("  Otimizado para vídeos de demonstração técnica e programação")
+    print("  Otimizado para vídeos de demonstraçêo técnica e programaçêo")
     print("="*70)
     print("\n=== ETAPA 1: Entrada/cheques ===")
 
@@ -986,7 +986,7 @@ def main():
     ap.add_argument("--enable-vad", action="store_true")
 
     # NOVO: Opções para conteúdo técnico
-    ap.add_argument("--no-simplify", action="store_true", help="Desativa simplificação automática")
+    ap.add_argument("--no-simplify", action="store_true", help="Desativa simplificaçêo automática")
 
     # Sistema de CHECKPOINT/RESUME
     ap.add_argument("--continue", dest="resume", action="store_true", help="Continua do último checkpoint salvo")
@@ -998,7 +998,7 @@ def main():
 
     video_in = Path(args.inp).resolve()
     if not video_in.exists():
-        print("Arquivo de entrada não encontrado:", video_in); sys.exit(1)
+        print("Arquivo de entrada nêo encontrado:", video_in); sys.exit(1)
 
     outdir = Path("dublado")
     outdir.mkdir(exist_ok=True)
@@ -1006,7 +1006,7 @@ def main():
 
     # CHECKPOINT: Detecta qual etapa continuar
     checkpoint_file = Path(workdir, "checkpoint.json")
-    start_from = 2  # Padrão: começa da etapa 2
+    start_from = 2  # Padrêo: começa da etapa 2
 
     if args.resume and checkpoint_file.exists():
         import json
@@ -1018,23 +1018,23 @@ def main():
             print(f"  Última etapa completa: {ckpt.get('last_step', 'Nenhuma')}")
             print(f"{'='*60}\n")
 
-    # ETAPA 2: Extração de áudio
+    # ETAPA 2: Extraçêo de áudio
     audio_src = Path(workdir, "audio_src.wav")
     if start_from <= 2:
-        print("\n=== ETAPA 2: Extração de áudio ===")
+        print("\n=== ETAPA 2: Extraçêo de áudio ===")
         sh(["ffmpeg","-y","-i", str(video_in), "-vn", "-ac","1","-ar","48000","-c:a","pcm_s16le", str(audio_src)])
-        save_checkpoint(workdir, 2, "Extração de áudio")
+        save_checkpoint(workdir, 2, "Extraçêo de áudio")
         start_from = 3
     else:
         print(f"\n[SKIP] ETAPA 2 já completa: {audio_src}")
 
-    # ETAPA 3: Transcrição
+    # ETAPA 3: Transcriçêo
     asr_json = Path(workdir, "asr.json")
     asr_srt = Path(workdir, "asr.srt")
 
     if start_from <= 3:
         asr_json, asr_srt, segs = transcribe_faster_whisper(audio_src, workdir, args.src)
-        save_checkpoint(workdir, 3, "Transcrição")
+        save_checkpoint(workdir, 3, "Transcriçêo")
         start_from = 4
     else:
         print(f"\n[SKIP] ETAPA 3 já completa: {asr_json}")
@@ -1045,7 +1045,7 @@ def main():
             # O formato é {"language": "en", "segments": [...]}
             segs = data.get("segments", data) if isinstance(data, dict) else data
 
-    # ETAPA 4: TRADUÇÃO TÉCNICA
+    # ETAPA 4: TRADUÇêO TÉCNICA
     trad_json = Path(workdir, "asr_trad.json")
     trad_srt = Path(workdir, "asr_trad.srt")
 
@@ -1054,7 +1054,7 @@ def main():
             segs, args.src, args.tgt, workdir,
             simplify=(not args.no_simplify)
         )
-        save_checkpoint(workdir, 4, "Tradução")
+        save_checkpoint(workdir, 4, "Traduçêo")
         start_from = 5
     else:
         print(f"\n[SKIP] ETAPA 4 já completa: {trad_json}")
@@ -1079,7 +1079,7 @@ def main():
             seg_files, sr_segs = tts_bark(segs_trad, workdir, text_temp=args.texttemp, wave_temp=args.wavetemp, history_prompt=args.voice)
         else:
             seg_files, sr_segs = tts_coqui(segs_trad, workdir, args.tgt, speaker=args.voice)
-        save_checkpoint(workdir, 6, "TTS (geração de áudio)")
+        save_checkpoint(workdir, 6, "TTS (geraçêo de áudio)")
         start_from = 7
     else:
         print(f"\n[SKIP] ETAPA 6 já completa: {seg_1} e outros")
@@ -1098,10 +1098,10 @@ def main():
             xf_files.append(out)
         seg_files = xf_files
 
-    # ETAPA 7: Sincronização
+    # ETAPA 7: Sincronizaçêo
     sync_csv = Path(workdir, "segments.csv")
     if start_from <= 7:
-        print("\n=== ETAPA 7: Sincronização ===")
+        print("\n=== ETAPA 7: Sincronizaçêo ===")
         fixed = []
         sync_info = []
 
@@ -1146,10 +1146,10 @@ def main():
 
         seg_files = fixed
         metrics = calculate_sync_metrics(sync_info)
-        save_checkpoint(workdir, 7, "Sincronização")
+        save_checkpoint(workdir, 7, "Sincronizaçêo")
         start_from = 8
     else:
-        print(f"\n[SKIP] ETAPA 7 já completa (sincronização)")
+        print(f"\n[SKIP] ETAPA 7 já completa (sincronizaçêo)")
         # Recarrega arquivos sincronizados
         fixed = sorted(workdir.glob("seg_*_sync.wav"))
         if not fixed:
@@ -1157,11 +1157,11 @@ def main():
         seg_files = fixed
         metrics = {}
 
-    # ETAPA 8: Concatenação
+    # ETAPA 8: Concatenaçêo
     dub_raw = Path(workdir, "dub_raw.wav")
     if start_from <= 8:
         dub_raw = concat_segments(seg_files, workdir, sr_segs, segs_trad=segs_trad, preserve_gaps=args.preserve_gaps, gap_min=args.gap_min)
-        save_checkpoint(workdir, 8, "Concatenação")
+        save_checkpoint(workdir, 8, "Concatenaçêo")
         start_from = 9
     else:
         print(f"\n[SKIP] ETAPA 8 já completa: {dub_raw}")

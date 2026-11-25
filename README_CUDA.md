@@ -1,4 +1,4 @@
-# Guia de Instalação do CUDA para Acelerar GPU
+# Guia de Instalaçêo do CUDA para Acelerar GPU
 
 ## ⚡ Por Que Instalar CUDA?
 
@@ -12,7 +12,7 @@
 
 ---
 
-## 🎯 Instalação Guiada (Recomendada)
+## 🎯 Instalaçêo Guiada (Recomendada)
 
 ### Execute o script automático:
 
@@ -32,7 +32,7 @@ O script irá:
 
 ---
 
-## 📋 Instalação Manual (Detalhada)
+## 📋 Instalaçêo Manual (Detalhada)
 
 Se preferir fazer manualmente ou se o script falhar:
 
@@ -43,7 +43,7 @@ Abra o CMD e execute:
 nvidia-smi
 ```
 
-Deve mostrar sua placa NVIDIA. Se não aparecer:
+Deve mostrar sua placa NVIDIA. Se nêo aparecer:
 - Instale drivers NVIDIA: https://www.nvidia.com/Download/index.aspx
 
 ---
@@ -55,7 +55,7 @@ Deve mostrar sua placa NVIDIA. Se não aparecer:
 2. Selecione:
    - **Operating System:** Windows
    - **Architecture:** x86_64
-   - **Version:** [sua versão do Windows]
+   - **Version:** [sua versêo do Windows]
    - **Installer Type:** exe (local) - **RECOMENDADO** (~3GB)
 
 3. Baixe o arquivo `cuda_11.8.0_windows.exe`
@@ -66,16 +66,16 @@ Deve mostrar sua placa NVIDIA. Se não aparecer:
 
 1. Execute o instalador baixado
 
-2. Na tela de instalação, escolha:
+2. Na tela de instalaçêo, escolha:
    - **Express Installation** (Recomendado)
    - Ou **Custom** e marque:
      - ✅ CUDA Toolkit
      - ✅ CUDA Visual Studio Integration
      - ⬜ CUDA Samples (opcional)
 
-3. Aguarde instalação (~10-15 min)
+3. Aguarde instalaçêo (~10-15 min)
 
-4. Verifique instalação:
+4. Verifique instalaçêo:
 ```bash
 nvcc --version
 ```
@@ -144,7 +144,7 @@ xcopy "C:\caminho\para\cudnn\lib\x64\*.lib" "C:\Program Files\NVIDIA GPU Computi
 
 3. Em **"Variáveis do sistema"**, selecione **"Path"** → **"Editar"**
 
-4. Adicione (se não existir):
+4. Adicione (se nêo existir):
    ```
    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\bin
    C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.8\libnvvp
@@ -174,7 +174,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
-### Passo 8: Testar Instalação
+### Passo 8: Testar Instalaçêo
 
 ```bash
 python -c "import torch; print('CUDA disponível:', torch.cuda.is_available()); print('GPU:', torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'N/A')"
@@ -197,15 +197,15 @@ Execute:
 dublar.bat ccode-dia15.mp4
 ```
 
-Na etapa de transcrição, deve aparecer:
+Na etapa de transcriçêo, deve aparecer:
 ```
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 Tentando usar GPU (CUDA)...
 ✓ GPU carregada, testando...
 ✓ GPU funcionando!
 ```
 
-**Se aparecer "GPU falhou"**, algo não foi instalado corretamente.
+**Se aparecer "GPU falhou"**, algo nêo foi instalado corretamente.
 
 ---
 
@@ -216,10 +216,10 @@ Tentando usar GPU (CUDA)...
 - Reinicie o computador
 
 ### Erro: "cudnn_ops64_9.dll not found"
-- cuDNN não foi copiado corretamente
+- cuDNN nêo foi copiado corretamente
 - Verifique se copiou os arquivos `.dll` para `CUDA\v11.8\bin\`
 
-### PyTorch não detecta CUDA
+### PyTorch nêo detecta CUDA
 ```bash
 # Reinstale PyTorch CUDA
 pip uninstall torch torchvision torchaudio
@@ -231,18 +231,18 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
-## 📊 Comparação CPU vs GPU
+## 📊 Comparaçêo CPU vs GPU
 
-| Operação | CPU | GPU (CUDA) | Speedup |
+| Operaçêo | CPU | GPU (CUDA) | Speedup |
 |----------|-----|------------|---------|
 | Whisper (15 min vídeo) | ~30 min | ~8 min | **3.7x** |
-| M2M100 (tradução) | ~2 min | ~1 min | **2x** |
+| M2M100 (traduçêo) | ~2 min | ~1 min | **2x** |
 | Bark TTS (15 min áudio) | ~90 min | ~30 min | **3x** |
 | **TOTAL** | **~2h** | **~40 min** | **3x** |
 
 ---
 
-## ✅ Checklist de Instalação
+## ✅ Checklist de Instalaçêo
 
 - [ ] GPU NVIDIA detectada (`nvidia-smi` funciona)
 - [ ] CUDA Toolkit 11.8 instalado (`nvcc --version`)
@@ -257,12 +257,12 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ## 🎯 Resumo
 
-**Instalação Rápida (script automático):**
+**Instalaçêo Rápida (script automático):**
 ```bash
 instalar_cuda.bat
 ```
 
-**Instalação Manual:**
+**Instalaçêo Manual:**
 1. Baixar CUDA 11.8
 2. Instalar CUDA
 3. Baixar cuDNN 8.x
@@ -278,7 +278,7 @@ instalar_cuda.bat
 
 ## 💡 Dica
 
-Se a instalação parecer complexa, **use CPU!** O código já está configurado para funcionar perfeitamente em CPU. Só será mais lento, mas 100% funcional.
+Se a instalaçêo parecer complexa, **use CPU!** O código já está configurado para funcionar perfeitamente em CPU. Só será mais lento, mas 100% funcional.
 
 ```bash
 # Funciona sem CUDA, apenas mais lento

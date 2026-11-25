@@ -1,20 +1,20 @@
-# Pipeline de Dublagem v2.0 - Sincronização Melhorada
+# Pipeline de Dublagem v2.0 - Sincronizaçêo Melhorada
 
 ## 🎯 O que há de novo?
 
-Esta versão inclui **melhorias significativas na sincronização** entre tradução e dublagem:
+Esta versêo inclui **melhorias significativas na sincronizaçêo** entre traduçêo e dublagem:
 
 ### ✨ Novas Funcionalidades
 
 1. **VAD (Voice Activity Detection)** - Detecta pausas naturais no áudio original
-2. **Estimador de Duração pré-TTS** - Prevê duração antes de gerar áudio
-3. **Análise de Densidade Linguística** - Considera expansão/contração entre idiomas
+2. **Estimador de Duraçêo pré-TTS** - Prevê duraçêo antes de gerar áudio
+3. **Análise de Densidade Linguística** - Considera expansêo/contraçêo entre idiomas
 4. **Modo Elastic Sync** - Redistribui tempo entre segmentos adjacentes
-5. **Métricas de Qualidade** - Dashboard com estatísticas de sincronização
+5. **Métricas de Qualidade** - Dashboard com estatísticas de sincronizaçêo
 
 ---
 
-## 📦 Instalação
+## 📦 Instalaçêo
 
 ### 1. Instalar dependências Python
 
@@ -64,24 +64,24 @@ python dublar_sync_v2.py \
 
 ### Obrigatórios
 
-| Parâmetro | Descrição | Exemplo |
+| Parâmetro | Descriçêo | Exemplo |
 |-----------|-----------|---------|
 | `--in` | Vídeo de entrada | `--in video.mp4` |
 | `--src` | Idioma original | `--src en` |
 | `--tgt` | Idioma alvo | `--tgt pt` |
 
-### Sincronização (NOVO!)
+### Sincronizaçêo (NOVO!)
 
-| Parâmetro | Descrição | Valores | Padrão |
+| Parâmetro | Descriçêo | Valores | Padrêo |
 |-----------|-----------|---------|--------|
-| `--sync` | Modo de sincronização | `none`, `fit`, `pad`, `smart`, **`elastic`** | `smart` |
-| `--enable-vad` | Ativa detecção de pausas naturais | flag | desativado |
+| `--sync` | Modo de sincronizaçêo | `none`, `fit`, `pad`, `smart`, **`elastic`** | `smart` |
+| `--enable-vad` | Ativa detecçêo de pausas naturais | flag | desativado |
 | `--tolerance` | Tolerância de tempo (%) | 0.0-1.0 | `0.15` (15%) |
-| `--maxstretch` | Máxima compressão/expansão | 1.0-2.0 | `1.35` (35%) |
+| `--maxstretch` | Máxima compressêo/expansêo | 1.0-2.0 | `1.35` (35%) |
 
 ### TTS
 
-| Parâmetro | Descrição | Valores | Padrão |
+| Parâmetro | Descriçêo | Valores | Padrêo |
 |-----------|-----------|---------|--------|
 | `--tts` | Engine de síntese de voz | `bark`, `coqui` | `bark` |
 | `--voice` | Preset de voz | `v2/pt_speaker_0` | None |
@@ -90,19 +90,19 @@ python dublar_sync_v2.py \
 
 ### Outros
 
-| Parâmetro | Descrição | Padrão |
+| Parâmetro | Descriçêo | Padrêo |
 |-----------|-----------|--------|
 | `--out` | Vídeo de saída | `dublado/{nome_original}` |
-| `--maxdur` | Duração máxima por segmento (s) | `10.0` |
+| `--maxdur` | Duraçêo máxima por segmento (s) | `10.0` |
 | `--preserve-gaps` | Preserva silêncios entre falas | desativado |
 | `--gap-min` | Mínimo para inserir silêncio (s) | `0.20` |
-| `--fade` | Duração do fade in/out (s) | `0.02` |
+| `--fade` | Duraçêo do fade in/out (s) | `0.02` |
 | `--rate` | Taxa de amostragem final | `24000` |
 | `--bitrate` | Bitrate do áudio AAC | `192k` |
 
 ---
 
-## 🔧 Modos de Sincronização
+## 🔧 Modos de Sincronizaçêo
 
 ### `none` - Sem ajuste
 - Gera áudio sem modificar velocidade
@@ -131,23 +131,23 @@ python dublar_sync_v2.py \
 
 ## 📊 Entendendo as Métricas
 
-Após a execução, o sistema mostra métricas de qualidade:
+Após a execuçêo, o sistema mostra métricas de qualidade:
 
 ```
-=== MÉTRICAS DE SINCRONIZAÇÃO ===
+=== MÉTRICAS DE SINCRONIZAÇêO ===
   Total de segmentos: 45
   Offset médio: -0.123s           ← Atraso/adiantamento médio
   Offset máximo: 0.847s            ← Maior deslocamento
-  Desvio padrão: 0.234s            ← Consistência (menor = melhor)
-  Ratio de velocidade médio: 1.12x ← Compressão média
+  Desvio padrêo: 0.234s            ← Consistência (menor = melhor)
+  Ratio de velocidade médio: 1.12x ← Compressêo média
   Segmentos fora da tolerância: 3  ← Segmentos problemáticos
   Segmentos comprimidos (>1.1x): 8
   Segmentos expandidos (<0.9x): 2
 ```
 
-**Interpretação:**
-- **Offset médio próximo de 0** = boa sincronização global
-- **Desvio padrão baixo** = sincronização consistente
+**Interpretaçêo:**
+- **Offset médio próximo de 0** = boa sincronizaçêo global
+- **Desvio padrêo baixo** = sincronizaçêo consistente
 - **Poucos segmentos fora da tolerância** = qualidade alta
 
 ---
@@ -156,16 +156,16 @@ Após a execução, o sistema mostra métricas de qualidade:
 
 O sistema agora considera que diferentes idiomas têm comprimentos diferentes:
 
-| Idioma | Fator de Expansão (vs. Inglês) |
+| Idioma | Fator de Expansêo (vs. Inglês) |
 |--------|-------------------------------|
 | Português | +20% |
 | Espanhol | +15% |
 | Francês | +18% |
-| Alemão | -5% |
+| Alemêo | -5% |
 | Japonês | -20% |
 | Chinês | -25% |
 
-Isso permite **estimativas mais precisas** de duração antes de gerar o áudio.
+Isso permite **estimativas mais precisas** de duraçêo antes de gerar o áudio.
 
 ---
 
@@ -175,8 +175,8 @@ Quando `--enable-vad` está ativo:
 
 1. Analisa o áudio original
 2. Detecta pausas naturais (respirações, silêncios dramáticos)
-3. **Quebra segmentos nessas pausas** em vez de apenas por pontuação
-4. Resultado: sincronização mais natural e orgânica
+3. **Quebra segmentos nessas pausas** em vez de apenas por pontuaçêo
+4. Resultado: sincronizaçêo mais natural e orgânica
 
 **Requer:** `librosa` instalado (`pip install librosa`)
 
@@ -189,7 +189,7 @@ Quando `--enable-vad` está ativo:
 python dublar_sync_v2.py --in filme.mp4 --src en --tgt pt
 ```
 
-### Máxima qualidade de sincronização
+### Máxima qualidade de sincronizaçêo
 ```bash
 python dublar_sync_v2.py \
   --in serie_ep01.mp4 \
@@ -233,9 +233,9 @@ projeto/
 ├── dublado/
 │   └── video.mp4              # Vídeo final dublado
 ├── dub_work/
-│   ├── asr.json               # Transcrição original
+│   ├── asr.json               # Transcriçêo original
 │   ├── asr.srt                # Legendas originais
-│   ├── asr_trad.json          # Tradução
+│   ├── asr_trad.json          # Traduçêo
 │   ├── asr_trad.srt           # Legendas traduzidas
 │   ├── segments.csv           # Info dos segmentos (COM MÉTRICAS!)
 │   ├── seg_0001.wav           # Segmentos de áudio
@@ -253,14 +253,14 @@ idx,t_in,t_out,texto_trad,file,estimated_dur,actual_dur
 1,0.0,2.5,"Olá, mundo!",seg_0001.wav,1.234,1.189
 ```
 
-- `estimated_dur`: duração estimada pré-TTS
-- `actual_dur`: duração real gerada
+- `estimated_dur`: duraçêo estimada pré-TTS
+- `actual_dur`: duraçêo real gerada
 
 ---
 
 ## 🐛 Troubleshooting
 
-### VAD não funciona
+### VAD nêo funciona
 ```bash
 pip install librosa soundfile
 ```
@@ -268,13 +268,13 @@ pip install librosa soundfile
 ### Erro "ffmpeg not found"
 - Instale FFmpeg e adicione ao PATH
 
-### Sincronização ruim mesmo com `elastic`
+### Sincronizaçêo ruim mesmo com `elastic`
 - Tente aumentar `--maxstretch` para 1.5
 - Reduza `--tolerance` para 0.08
 - Ative `--enable-vad`
 
 ### Voz muito rápida/lenta
-- Ajuste `--maxstretch` (padrão 1.35)
+- Ajuste `--maxstretch` (padrêo 1.35)
 - Use modo `smart` ou `elastic`
 
 ### Áudio cortado ou com pulos
@@ -283,11 +283,11 @@ pip install librosa soundfile
 
 ---
 
-## 🔬 Comparação de Modos
+## 🔬 Comparaçêo de Modos
 
-| Situação | Modo Recomendado |
+| Situaçêo | Modo Recomendado |
 |----------|------------------|
-| Narração lenta, poucas falas | `pad` |
+| Narraçêo lenta, poucas falas | `pad` |
 | Diálogo rápido, muitas falas | `elastic` + `--enable-vad` |
 | Documentário, ritmo moderado | `smart` |
 | Teste rápido | `none` |
@@ -297,7 +297,7 @@ pip install librosa soundfile
 
 ## 📝 Notas Importantes
 
-1. **Primera execução é lenta** - modelos são baixados automaticamente
+1. **Primera execuçêo é lenta** - modelos sêo baixados automaticamente
 2. **GPU acelera muito** - especialmente Whisper e Bark
 3. **Arquivos grandes** - considere dividir vídeos longos (>1h)
 4. **Idiomas suportados**:

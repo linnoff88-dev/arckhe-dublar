@@ -33,15 +33,15 @@ except Exception as e:
 print("\n[3/5] Verificando áudio...")
 audio_path = Path("dub_work/audio_src.wav")
 if not audio_path.exists():
-    print(f"  [ERRO] Arquivo não encontrado: {audio_path}")
+    print(f"  [ERRO] Arquivo nêo encontrado: {audio_path}")
     exit(1)
 print(f"  [OK] Áudio encontrado: {audio_path}")
 
-# 4. Testa transcrição SEM VAD
-print("\n[4/5] Testando transcrição SEM VAD...")
+# 4. Testa transcriçêo SEM VAD
+print("\n[4/5] Testando transcriçêo SEM VAD...")
 try:
     segments, info = model.transcribe(str(audio_path), language="en", vad_filter=False)
-    print(f"  [OK] Transcrição iniciada")
+    print(f"  [OK] Transcriçêo iniciada")
     print(f"  Idioma: {info.language} (confiança: {info.language_probability:.2f})")
 
     # Processa apenas os primeiros 3 segmentos
@@ -51,19 +51,19 @@ try:
         if i >= 2:
             break
 
-    print("\n  [OK] Transcrição SEM VAD funcionou!")
+    print("\n  [OK] Transcriçêo SEM VAD funcionou!")
 
 except Exception as e:
-    print(f"  [ERRO] Falha na transcrição: {e}")
+    print(f"  [ERRO] Falha na transcriçêo: {e}")
     import traceback
     traceback.print_exc()
 
-# 5. Testa transcrição COM VAD
-print("\n[5/5] Testando transcrição COM VAD...")
+# 5. Testa transcriçêo COM VAD
+print("\n[5/5] Testando transcriçêo COM VAD...")
 try:
     model2 = WhisperModel("base", device="cuda", compute_type="float16")
     segments2, info2 = model2.transcribe(str(audio_path), language="en", vad_filter=True)
-    print(f"  [OK] Transcrição iniciada")
+    print(f"  [OK] Transcriçêo iniciada")
 
     # Processa apenas os primeiros 3 segmentos
     print("\n  Processando primeiros 3 segmentos...")
@@ -72,10 +72,10 @@ try:
         if i >= 2:
             break
 
-    print("\n  [OK] Transcrição COM VAD funcionou!")
+    print("\n  [OK] Transcriçêo COM VAD funcionou!")
 
 except Exception as e:
-    print(f"  [ERRO] Falha na transcrição COM VAD: {e}")
+    print(f"  [ERRO] Falha na transcriçêo COM VAD: {e}")
     import traceback
     traceback.print_exc()
 

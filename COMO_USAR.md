@@ -10,7 +10,7 @@ dublar video.mp4
 - ✅ Dublar de **inglês** para **português**
 - ✅ Usar **Bark TTS** (melhor qualidade)
 - ✅ Voz: `v2/pt_speaker_1` (português)
-- ✅ Sincronização **smart** (automática)
+- ✅ Sincronizaçêo **smart** (automática)
 - ✅ Gerar: `video_dublado.mp4`
 - ✅ Usar **GPU** automaticamente (se disponível)
 
@@ -37,7 +37,7 @@ dublar video.mp4 --src fr --tgt pt
 # Coqui (mais rápido, menos VRAM)
 dublar video.mp4 --tts coqui
 
-# Bark (melhor qualidade, usa mais VRAM) - PADRÃO
+# Bark (melhor qualidade, usa mais VRAM) - PADRêO
 dublar video.mp4 --tts bark
 ```
 
@@ -50,17 +50,17 @@ dublar video.mp4 --voice v2/en_speaker_6
 # Voz feminina inglês
 dublar video.mp4 --voice v2/en_speaker_9
 
-# Voz portuguesa - PADRÃO
+# Voz portuguesa - PADRêO
 dublar video.mp4 --voice v2/pt_speaker_1
 ```
 
-### Mudar Sincronização
+### Mudar Sincronizaçêo
 
 ```batch
-# Smart (automático) - PADRÃO
+# Smart (automático) - PADRêO
 dublar video.mp4 --sync smart
 
-# Fit (ajustar duração exata)
+# Fit (ajustar duraçêo exata)
 dublar video.mp4 --sync fit
 
 # Pad (adicionar silêncio)
@@ -80,7 +80,7 @@ dublar video.mp4 --out meu_video_dublado.mp4
 
 ## Exemplos Práticos
 
-### 1. Uso Padrão (EN→PT, Bark)
+### 1. Uso Padrêo (EN→PT, Bark)
 ```batch
 dublar ccode-dia15.mp4
 ```
@@ -96,7 +96,7 @@ dublar ccode-dia15.mp4 --src en --tgt es --tts coqui --out video_espanhol.mp4
 dublar nei.mp4 --src pt --tgt en --voice v2/en_speaker_6 --out nei_english.mp4
 ```
 
-### 4. Sincronização Perfeita
+### 4. Sincronizaçêo Perfeita
 ```batch
 dublar video.mp4 --sync fit --tolerance 0.0 --maxstretch 1.5
 ```
@@ -142,8 +142,8 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 [EXEC] python dublar.py --in "video.mp4" --src en --tgt pt --tts bark ...
 
 === ETAPA 1: Entrada/cheques ===
-=== ETAPA 2: Extração de áudio ===
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 2: Extraçêo de áudio ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 [GPU] Whisper usando: CUDA
 [GPU] GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 [GPU] VRAM disponível: 8.0 GB
@@ -154,14 +154,14 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 
 ## Parâmetros Disponíveis
 
-| Parâmetro | Valores | Padrão | Descrição |
+| Parâmetro | Valores | Padrêo | Descriçêo |
 |-----------|---------|--------|-----------|
 | `--src` | en, pt, es, fr, de, it, ja, ko, zh, etc. | `en` | Idioma do vídeo original |
 | `--tgt` | en, pt, es, fr, de, it, ja, ko, zh, etc. | `pt` | Idioma da dublagem |
 | `--tts` | `bark`, `coqui` | `bark` | Motor de síntese de voz |
 | `--voice` | String (modelo TTS) | `v2/pt_speaker_1` | Voz específica (Bark) |
-| `--sync` | `none`, `fit`, `pad`, `smart` | `smart` | Modo de sincronização |
-| `--tolerance` | 0.0 - 1.0 | `0.0` | Tolerância de duração |
+| `--sync` | `none`, `fit`, `pad`, `smart` | `smart` | Modo de sincronizaçêo |
+| `--tolerance` | 0.0 - 1.0 | `0.0` | Tolerância de duraçêo |
 | `--maxstretch` | 1.0 - 3.0 | `2.0` | Máximo alongamento |
 | `--out` | Nome do arquivo | `video_dublado.mp4` | Arquivo de saída |
 
@@ -174,7 +174,7 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 - `pt` - Português
 - `es` - Espanhol
 - `fr` - Francês
-- `de` - Alemão
+- `de` - Alemêo
 - `it` - Italiano
 - `ja` - Japonês
 - `ko` - Coreano
@@ -197,7 +197,7 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 
 ### Outros idiomas:
 - `v2/fr_speaker_X` (Francês)
-- `v2/de_speaker_X` (Alemão)
+- `v2/de_speaker_X` (Alemêo)
 - `v2/it_speaker_X` (Italiano)
 
 ---
@@ -217,7 +217,7 @@ Em outro terminal:
 nvidia-smi -l 1
 ```
 
-### 4. Sincronização Smart
+### 4. Sincronizaçêo Smart
 Use `--sync smart` para resultados equilibrados. Ajuste `tolerance` e `maxstretch` se necessário.
 
 ### 5. VRAM Insuficiente?
@@ -227,29 +227,29 @@ Se GPU ficar sem memória:
 
 ---
 
-## Solução de Problemas
+## Soluçêo de Problemas
 
-### Script não executa, só mostra exemplos
+### Script nêo executa, só mostra exemplos
 Certifique-se de passar o nome do vídeo:
 ```batch
 dublar video.mp4
 ```
 
-### "Arquivo não encontrado"
+### "Arquivo nêo encontrado"
 Use caminho completo ou navegue até a pasta:
 ```batch
 cd C:\Users\neima\projetosCC\voz_teste
 dublar video.mp4
 ```
 
-### "Python não encontrado"
-O venv não foi ativado. Execute manualmente:
+### "Python nêo encontrado"
+O venv nêo foi ativado. Execute manualmente:
 ```batch
 call venv\Scripts\activate.bat
 python dublar.py --in video.mp4 --src en --tgt pt --tts bark
 ```
 
-### GPU não está sendo usada
+### GPU nêo está sendo usada
 Verifique PyTorch CUDA:
 ```batch
 python -c "import torch; print(torch.cuda.is_available())"
@@ -258,7 +258,7 @@ Se retornar `False`, reinstale PyTorch com CUDA (veja `INSTALACAO_GPU.md`)
 
 ---
 
-## Comparação de Performance
+## Comparaçêo de Performance
 
 ### Vídeo de 10 minutos:
 
@@ -275,37 +275,37 @@ Se retornar `False`, reinstale PyTorch com CUDA (veja `INSTALACAO_GPU.md`)
 
 ## Arquivos Gerados
 
-Após a execução, você terá:
+Após a execuçêo, você terá:
 
 ```
 voz_teste/
 ├── video_dublado.mp4          # Vídeo final dublado
 └── dub_work/                  # Pasta de trabalho
     ├── audio_src.wav          # Áudio original extraído
-    ├── asr.json               # Transcrição JSON
-    ├── asr.srt                # Transcrição SRT
-    ├── asr_trad.json          # Tradução JSON
-    ├── asr_trad.srt           # Tradução SRT
+    ├── asr.json               # Transcriçêo JSON
+    ├── asr.srt                # Transcriçêo SRT
+    ├── asr_trad.json          # Traduçêo JSON
+    ├── asr_trad.srt           # Traduçêo SRT
     ├── segments.csv           # Segmentos de áudio
     ├── seg_0001.wav           # Áudio TTS segmento 1
     ├── seg_0002.wav           # Áudio TTS segmento 2
     ├── ...
     ├── dub_raw.wav            # Áudio dublado concatenado
     ├── dub_final.wav          # Áudio dublado processado
-    └── logs.json              # Log completo da execução
+    └── logs.json              # Log completo da execuçêo
 ```
 
 ---
 
 ## Referências Rápidas
 
-- **INSTALACAO_GPU.md**: Instalação completa do CUDA/GPU
-- **README_BAT.md**: Documentação detalhada dos scripts .bat
+- **INSTALACAO_GPU.md**: Instalaçêo completa do CUDA/GPU
+- **README_BAT.md**: Documentaçêo detalhada dos scripts .bat
 - **test_gpu.py**: Validar suporte GPU
 - **dublar.py**: Script Python principal
 
 ---
 
 **Criado em**: 2025-10-08
-**Versão**: 1.0
+**Versêo**: 1.0
 **Uso mais simples**: `dublar video.mp4` (padrões: en→pt, bark, smart)

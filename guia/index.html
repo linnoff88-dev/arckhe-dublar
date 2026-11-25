@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dublar — dublagem automática de vídeos com IA</title>
-<meta name="description" content="Dublar: sistema local de dublagem automática de vídeos — transcrição com Whisper, tradução com M2M100 e síntese de voz com Bark ou Coqui TTS, com sincronização inteligente.">
+<meta name="description" content="Dublar: sistema local de dublagem automática de vídeos — transcriçêo com Whisper, traduçêo com M2M100 e síntese de voz com Bark ou Coqui TTS, com sincronizaçêo inteligente.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -117,38 +117,38 @@
     <div>
       <span class="chip">Vídeo/Áudio · dublagem com IA</span>
       <h1>Dublagem automática de vídeos, <span class="amb">local e de ponta a ponta</span></h1>
-      <p class="lead">Transcreve com Whisper, traduz com M2M100 e sintetiza a voz com Bark ou Coqui TTS — tudo rodando na sua máquina, com sincronização inteligente pra encaixar a fala dublada no tempo do vídeo original.</p>
+      <p class="lead">Transcreve com Whisper, traduz com M2M100 e sintetiza a voz com Bark ou Coqui TTS — tudo rodando na sua máquina, com sincronizaçêo inteligente pra encaixar a fala dublada no tempo do vídeo original.</p>
       <div class="cta">
         <a class="btn" href="#guia">Começar o guia</a>
         <a class="btn ghost" href="https://github.com/linnoff88-dev/dublar" target="_blank" rel="noopener">Ver no GitHub</a>
       </div>
     </div>
-    <figure><img src="assets/hero.png" alt="Ilustração do pipeline de dublagem automática do Dublar"></figure>
+    <figure><img src="assets/hero.png" alt="Ilustraçêo do pipeline de dublagem automática do Dublar"></figure>
   </div>
 </header>
 
 <section id="oque"><div class="wrap">
   <span class="chip">O que é</span>
   <h2>Um pipeline completo de dublagem, rodando local</h2>
-  <p class="sub">O Dublar pega um vídeo em um idioma e devolve o mesmo vídeo dublado em outro, sem depender de serviço externo pago — só Python, FFmpeg e os modelos de IA baixados na primeira execução.</p>
+  <p class="sub">O Dublar pega um vídeo em um idioma e devolve o mesmo vídeo dublado em outro, sem depender de serviço externo pago — só Python, FFmpeg e os modelos de IA baixados na primeira execuçêo.</p>
   <div class="grid g3">
-    <div class="card"><h3>🎙️ Transcrição com Whisper</h3><p>Usa faster-whisper pra transcrever o áudio original com timestamps, cobrindo mais de 90 idiomas de origem.</p></div>
-    <div class="card"><h3>🌐 Tradução com M2M100</h3><p>Traduz os segmentos com facebook/m2m100_418M, suportando 100 idiomas de destino.</p></div>
-    <div class="card"><h3>🔊 Voz com Bark ou Coqui TTS</h3><p>Sintetiza a fala traduzida escolhendo entre Bark (multilíngue) ou Coqui TTS, com sincronização smart/fit/pad pra não desalinhar do vídeo.</p></div>
+    <div class="card"><h3>🎙️ Transcriçêo com Whisper</h3><p>Usa faster-whisper pra transcrever o áudio original com timestamps, cobrindo mais de 90 idiomas de origem.</p></div>
+    <div class="card"><h3>🌐 Traduçêo com M2M100</h3><p>Traduz os segmentos com facebook/m2m100_418M, suportando 100 idiomas de destino.</p></div>
+    <div class="card"><h3>🔊 Voz com Bark ou Coqui TTS</h3><p>Sintetiza a fala traduzida escolhendo entre Bark (multilíngue) ou Coqui TTS, com sincronizaçêo smart/fit/pad pra nêo desalinhar do vídeo.</p></div>
   </div>
 </div></section>
 
 <section id="fluxo"><div class="wrap">
   <span class="chip">Como funciona</span>
   <h2>Do vídeo original ao vídeo dublado, em 7 etapas</h2>
-  <p class="sub">Cada execução de <code>dublar.py</code> passa pelo mesmo pipeline, gravando os arquivos intermediários em <code>dub_work/</code> e o resultado final em <code>dublado/</code>.</p>
+  <p class="sub">Cada execuçêo de <code>dublar.py</code> passa pelo mesmo pipeline, gravando os arquivos intermediários em <code>dub_work/</code> e o resultado final em <code>dublado/</code>.</p>
   <div class="flow">
-    <span>Extração de áudio (FFmpeg)</span><span class="arr">→</span>
-    <span>Transcrição (Whisper)</span><span class="arr">→</span>
-    <span>Tradução (M2M100)</span><span class="arr">→</span>
+    <span>Extraçêo de áudio (FFmpeg)</span><span class="arr">→</span>
+    <span>Transcriçêo (Whisper)</span><span class="arr">→</span>
+    <span>Traduçêo (M2M100)</span><span class="arr">→</span>
     <span>Síntese de voz (Bark/Coqui)</span><span class="arr">→</span>
-    <span>Sincronização (smart/fit/pad)</span><span class="arr">→</span>
-    <span>Concatenação</span><span class="arr">→</span>
+    <span>Sincronizaçêo (smart/fit/pad)</span><span class="arr">→</span>
+    <span>Concatenaçêo</span><span class="arr">→</span>
     <span>Mixagem final (FFmpeg)</span>
   </div>
 </div></section>
@@ -161,9 +161,9 @@
     <div class="card"><h3>Python 3.10+</h3><p>Ambiente virtual dedicado, pra isolar as dependências de IA.</p><pre><span class="c"># criar e ativar venv</span>
 python3 -m venv venv
 source venv/bin/activate</pre></div>
-    <div class="card"><h3>FFmpeg</h3><p>Obrigatório — sem ele nada funciona (extração de áudio e mixagem final).</p><pre><span class="c"># Ubuntu/Debian</span>
+    <div class="card"><h3>FFmpeg</h3><p>Obrigatório — sem ele nada funciona (extraçêo de áudio e mixagem final).</p><pre><span class="c"># Ubuntu/Debian</span>
 sudo apt install ffmpeg</pre></div>
-    <div class="card"><h3>Dependências Python</h3><p>Torch (CPU por padrão) + libs do projeto listadas em requirements.txt.</p><pre><span class="c"># instalar deps</span>
+    <div class="card"><h3>Dependências Python</h3><p>Torch (CPU por padrêo) + libs do projeto listadas em requirements.txt.</p><pre><span class="c"># instalar deps</span>
 pip install torch --index-url https://download.pytorch.org/whl/cpu
 pip install -r requirements.txt</pre></div>
   </div>
@@ -171,7 +171,7 @@ pip install -r requirements.txt</pre></div>
 
 <section id="guia"><div class="wrap">
   <span class="chip">Guia de uso · passo a passo</span>
-  <h2>Da instalação ao primeiro vídeo dublado</h2>
+  <h2>Da instalaçêo ao primeiro vídeo dublado</h2>
   <p class="sub">Fluxo básico em Linux. Pra Windows, use <code>instalar.bat</code> e <code>dublar.bat video.mp4</code> (veja o README do repo).</p>
 
   <div class="step"><div class="b">1</div><div>
@@ -183,7 +183,7 @@ pip install -r requirements.txt</pre></div>
 
   <div class="step"><div class="b">2</div><div>
     <h3>Crie o ambiente e instale as dependências</h3>
-    <p>Ambiente virtual Python isolado, com Torch em versão CPU (troque pela build CUDA se tiver GPU NVIDIA — veja INSTALACAO_GPU.md).</p>
+    <p>Ambiente virtual Python isolado, com Torch em versêo CPU (troque pela build CUDA se tiver GPU NVIDIA — veja INSTALACAO_GPU.md).</p>
 <pre><span class="k">python3 -m venv venv</span>
 <span class="k">source venv/bin/activate</span>
 <span class="k">pip install torch --index-url https://download.pytorch.org/whl/cpu</span>
@@ -192,12 +192,12 @@ pip install -r requirements.txt</pre></div>
 
   <div class="step"><div class="b">3</div><div>
     <h3>Rode a dublagem com o script base</h3>
-    <p>O <code>dublar.py</code> é a versão estável — transcreve, traduz (inglês → português por padrão) e sintetiza a voz com Bark, usando sincronização smart.</p>
+    <p>O <code>dublar.py</code> é a versêo estável — transcreve, traduz (inglês → português por padrêo) e sintetiza a voz com Bark, usando sincronizaçêo smart.</p>
 <pre><span class="k">python3 dublar.py video.mp4 --src_lang en --tgt_lang pt --tts bark --sync smart</span>  <span class="c"># gera dublado/video_dublado.mp4</span></pre>
   </div></div>
 
   <div class="step"><div class="b">4</div><div>
-    <h3>Escolha idioma, engine de voz e sincronização</h3>
+    <h3>Escolha idioma, engine de voz e sincronizaçêo</h3>
     <p>Os parâmetros principais controlam idioma de origem/destino, engine TTS e como o áudio dublado se ajusta ao tempo do vídeo.</p>
 <pre><span class="c"># espanhol -> inglês, engine coqui</span>
 <span class="k">python3 dublar.py video.mp4 --src_lang es --tgt_lang en --tts coqui</span>
@@ -205,29 +205,29 @@ pip install -r requirements.txt</pre></div>
 <span class="c"># voz específica do Bark</span>
 <span class="k">python3 dublar.py video.mp4 --voice v2/pt_speaker_5</span></pre>
     <table class="opts">
-      <tr><th>Parâmetro</th><th>Padrão</th><th>Descrição</th></tr>
+      <tr><th>Parâmetro</th><th>Padrêo</th><th>Descriçêo</th></tr>
       <tr><td class="mono">--src_lang</td><td class="mono">en</td><td>Idioma de origem (en, es, fr, pt, etc.)</td></tr>
       <tr><td class="mono">--tgt_lang</td><td class="mono">pt</td><td>Idioma de destino</td></tr>
       <tr><td class="mono">--tts</td><td class="mono">bark</td><td>Engine de voz (bark ou coqui)</td></tr>
-      <tr><td class="mono">--sync</td><td class="mono">smart</td><td>Sincronização (none, fit, pad, smart)</td></tr>
+      <tr><td class="mono">--sync</td><td class="mono">smart</td><td>Sincronizaçêo (none, fit, pad, smart)</td></tr>
       <tr><td class="mono">--voice</td><td class="mono">—</td><td>Voz específica (ex: v2/pt_speaker_5)</td></tr>
       <tr><td class="mono">--rate</td><td class="mono">22050</td><td>Taxa de amostragem do áudio final</td></tr>
     </table>
   </div></div>
 
   <div class="step"><div class="b">5</div><div>
-    <h3>Use a versão técnica pra vídeos de programação</h3>
-    <p>O <code>dublar_tech_v2.py</code> tem um glossário de 100+ termos técnicos e preserva nomes de tecnologias em vez de traduzir (ex.: não traduz "React", "Docker").</p>
+    <h3>Use a versêo técnica pra vídeos de programaçêo</h3>
+    <p>O <code>dublar_tech_v2.py</code> tem um glossário de 100+ termos técnicos e preserva nomes de tecnologias em vez de traduzir (ex.: nêo traduz "React", "Docker").</p>
 <pre><span class="k">python3 dublar_tech_v2.py codigo.mp4 --src_lang en --tgt_lang pt</span></pre>
   </div></div>
 
   <div class="step"><div class="b">6</div><div>
     <h3>Confira os resultados e os logs</h3>
-    <p>O vídeo final fica em <code>dublado/</code>; os arquivos intermediários (transcrição, tradução, áudio segmentado, log completo) ficam em <code>dub_work/</code> pra debug.</p>
+    <p>O vídeo final fica em <code>dublado/</code>; os arquivos intermediários (transcriçêo, traduçêo, áudio segmentado, log completo) ficam em <code>dub_work/</code> pra debug.</p>
 <pre><span class="c"># log completo do processamento</span>
 <span class="k">cat dub_work/logs.json</span>
 
-<span class="c"># transcrição e tradução em legenda</span>
+<span class="c"># transcriçêo e traduçêo em legenda</span>
 <span class="k">cat dub_work/asr.srt</span>
 <span class="k">cat dub_work/asr_trad.srt</span></pre>
   </div></div>
@@ -236,12 +236,12 @@ pip install -r requirements.txt</pre></div>
 <section id="roadmap"><div class="wrap">
   <span class="chip">Roadmap</span>
   <h2>Versões e variações do pipeline</h2>
-  <p class="sub">O projeto evoluiu como uma família de scripts, cada um adicionando um recurso sobre a versão base — sem quebrar as anteriores.</p>
-  <div class="phase"><div class="tag">Base</div><div class="d"><strong>dublar.py</strong><span>Versão estável com as funcionalidades essenciais do pipeline. Ponto de partida recomendado.</span></div></div>
-  <div class="phase"><div class="tag">Sync</div><div class="d"><strong>dublar2.py / dublar31.py</strong><span>Melhorias de sincronização e preservação de pausas/silêncios entre frases, mais natural para palestras.</span></div></div>
-  <div class="phase"><div class="tag">Técnico</div><div class="d"><strong>dublar_tech_v2.py</strong><span>Glossário de termos técnicos, otimizado para tutoriais de programação — preserva nomes de tecnologias.</span></div></div>
-  <div class="phase"><div class="tag">Sync v2</div><div class="d"><strong>dublar_sync_v2.py</strong><span>Sincronização avançada com controle fino de timing e melhor alinhamento de áudio.</span></div></div>
-  <div class="phase"><div class="tag">GPU</div><div class="d"><strong>Aceleração CUDA</strong><span>Suporte opcional a GPU NVIDIA (CUDA 11.8+) pra acelerar transcrição e síntese de voz — veja INSTALACAO_GPU.md e INSTALL_LINUX.md no repo.</span></div></div>
+  <p class="sub">O projeto evoluiu como uma família de scripts, cada um adicionando um recurso sobre a versêo base — sem quebrar as anteriores.</p>
+  <div class="phase"><div class="tag">Base</div><div class="d"><strong>dublar.py</strong><span>Versêo estável com as funcionalidades essenciais do pipeline. Ponto de partida recomendado.</span></div></div>
+  <div class="phase"><div class="tag">Sync</div><div class="d"><strong>dublar2.py / dublar31.py</strong><span>Melhorias de sincronizaçêo e preservaçêo de pausas/silêncios entre frases, mais natural para palestras.</span></div></div>
+  <div class="phase"><div class="tag">Técnico</div><div class="d"><strong>dublar_tech_v2.py</strong><span>Glossário de termos técnicos, otimizado para tutoriais de programaçêo — preserva nomes de tecnologias.</span></div></div>
+  <div class="phase"><div class="tag">Sync v2</div><div class="d"><strong>dublar_sync_v2.py</strong><span>Sincronizaçêo avançada com controle fino de timing e melhor alinhamento de áudio.</span></div></div>
+  <div class="phase"><div class="tag">GPU</div><div class="d"><strong>Aceleraçêo CUDA</strong><span>Suporte opcional a GPU NVIDIA (CUDA 11.8+) pra acelerar transcriçêo e síntese de voz — veja INSTALACAO_GPU.md e INSTALL_LINUX.md no repo.</span></div></div>
 </div></section>
 
 <footer>

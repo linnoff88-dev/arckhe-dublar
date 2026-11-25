@@ -22,10 +22,10 @@ def test_pytorch():
     print_header("1. PyTorch GPU")
     try:
         import torch
-        print(f"✓ PyTorch versão: {torch.__version__}")
+        print(f"✓ PyTorch versêo: {torch.__version__}")
         print(f"✓ CUDA disponível: {torch.cuda.is_available()}")
-        print(f"✓ CUDA versão: {torch.version.cuda}")
-        print(f"✓ cuDNN versão: {torch.backends.cudnn.version()}")
+        print(f"✓ CUDA versêo: {torch.version.cuda}")
+        print(f"✓ cuDNN versêo: {torch.backends.cudnn.version()}")
 
         if torch.cuda.is_available():
             print(f"✓ GPU count: {torch.cuda.device_count()}")
@@ -34,14 +34,14 @@ def test_pytorch():
             print(f"✓ VRAM total: {props.total_memory / 1024**3:.2f} GB")
             print(f"✓ VRAM livre: {(props.total_memory - torch.cuda.memory_allocated(0)) / 1024**3:.2f} GB")
 
-            # Teste de operação GPU
+            # Teste de operaçêo GPU
             x = torch.randn(1000, 1000, device='cuda')
             y = torch.randn(1000, 1000, device='cuda')
             z = torch.matmul(x, y)
-            print(f"✓ Teste de operação GPU: OK (matriz 1000x1000)")
+            print(f"✓ Teste de operaçêo GPU: OK (matriz 1000x1000)")
             return True
         else:
-            print("✗ GPU não disponível!")
+            print("✗ GPU nêo disponível!")
             return False
     except Exception as e:
         print(f"✗ Erro: {e}")
@@ -51,7 +51,7 @@ def test_ctranslate2():
     print_header("2. CTranslate2 (faster-whisper)")
     try:
         import ctranslate2
-        print(f"✓ CTranslate2 versão: {ctranslate2.__version__}")
+        print(f"✓ CTranslate2 versêo: {ctranslate2.__version__}")
         cuda_count = ctranslate2.get_cuda_device_count()
         print(f"✓ CUDA devices: {cuda_count}")
 
@@ -59,7 +59,7 @@ def test_ctranslate2():
             print(f"✓ CTranslate2 pode usar GPU")
             return True
         else:
-            print("✗ CTranslate2 não detectou GPU")
+            print("✗ CTranslate2 nêo detectou GPU")
             return False
     except Exception as e:
         print(f"✗ Erro: {e}")
@@ -90,13 +90,13 @@ def test_transformers():
 
         if torch.cuda.is_available():
             print(f"  Testando M2M100 em GPU...")
-            # Não vamos carregar o modelo completo, apenas verificar que pode mover para GPU
+            # Nêo vamos carregar o modelo completo, apenas verificar que pode mover para GPU
             device = torch.device("cuda")
             tensor = torch.randn(10, 10).to(device)
             print(f"✓ Transformers pode usar GPU (device: {tensor.device})")
             return True
         else:
-            print("✗ GPU não disponível para Transformers")
+            print("✗ GPU nêo disponível para Transformers")
             return False
     except Exception as e:
         print(f"✗ Erro: {e}")
@@ -119,13 +119,13 @@ def test_bark():
         print(f"✓ Bark importado com sucesso")
 
         if torch.cuda.is_available():
-            print(f"  Testando geração de áudio curto em GPU...")
+            print(f"  Testando geraçêo de áudio curto em GPU...")
             # Teste simples sem pré-carregar todos os modelos
             audio = generate_audio("test", output_full=False)
             print(f"✓ Bark configurado para usar GPU")
             return True
         else:
-            print("✗ GPU não disponível para Bark")
+            print("✗ GPU nêo disponível para Bark")
             return False
     except Exception as e:
         print(f"✗ Erro ao testar Bark: {e}")
@@ -154,10 +154,10 @@ def test_memory():
                 return True
             else:
                 print(f"⚠ VRAM pode ser insuficiente ({total_mem:.2f} GB)")
-                print(f"  Recomendação: Use modelos menores ou processe sequencialmente")
+                print(f"  Recomendaçêo: Use modelos menores ou processe sequencialmente")
                 return False
         else:
-            print("✗ GPU não disponível")
+            print("✗ GPU nêo disponível")
             return False
     except Exception as e:
         print(f"✗ Erro: {e}")

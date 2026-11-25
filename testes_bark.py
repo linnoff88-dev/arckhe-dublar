@@ -6,14 +6,14 @@ from scipy.io.wavfile import write
 import subprocess, shutil, sys
 import torch
 
-# texto curto, com pausas e pontuação para melhorar naturalidade
+# texto curto, com pausas e pontuaçêo para melhorar naturalidade
 TEXTO = (
     "Olá! Tudo bem? "
     "Este é um teste curto do Bark. "
     "Quero uma fala clara, natural e suave."
 )
 
-# temperaturas mais baixas reduzem metalização/ruído
+# temperaturas mais baixas reduzem metalizaçêo/ruído
 TEXT_TEMP = 0.6
 WAVE_TEMP = 0.6
 
@@ -51,7 +51,7 @@ if ffmpeg:
     subprocess.run(cmd, check=True)
     print("OK ->", FINAL_WAV)
 else:
-    print("ffmpeg não encontrado. Rode manualmente:")
+    print("ffmpeg nêo encontrado. Rode manualmente:")
     print(f'ffmpeg -y -i {RAW_WAV} -af "{filters}" {FINAL_WAV}')
 
 print("Concluído.")

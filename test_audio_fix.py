@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Script para testar a correção do pós-processamento de áudio
+Script para testar a correçêo do pós-processamento de áudio
 Aplica os filtros ANTIGOS e NOVOS no dub_raw.wav e compara
 """
 
@@ -9,7 +9,7 @@ import subprocess
 from pathlib import Path
 
 print("=" * 70)
-print("  TESTE DE CORREÇÃO DO PÓS-PROCESSAMENTO DE ÁUDIO")
+print("  TESTE DE CORREÇêO DO PÓS-PROCESSAMENTO DE ÁUDIO")
 print("=" * 70)
 print()
 
@@ -17,7 +17,7 @@ workdir = Path('dub_work')
 raw_file = workdir / 'dub_raw.wav'
 
 if not raw_file.exists():
-    print(f"ERRO: {raw_file} não encontrado!")
+    print(f"ERRO: {raw_file} nêo encontrado!")
     print("Execute 'dublar nei.mp4' primeiro para gerar os arquivos intermediários.")
     exit(1)
 
@@ -87,7 +87,7 @@ print()
 # TESTE 3: Comparar volumes
 # ============================================================================
 print("=" * 70)
-print("TESTE 3: Comparação de Volumes")
+print("TESTE 3: Comparaçêo de Volumes")
 print("=" * 70)
 print()
 
@@ -149,7 +149,7 @@ for name, file_path in files_to_compare:
         else:
             print(f"{name:<40} N/A             N/A             Erro na análise")
     else:
-        print(f"{name:<40} N/A             N/A             Arquivo não existe")
+        print(f"{name:<40} N/A             N/A             Arquivo nêo existe")
 
 print()
 
@@ -175,7 +175,7 @@ if len(results) >= 3:
     if old_mean < -50:
         print("❌ Filtros ANTIGOS destruíram o áudio (< -50 dB)")
     else:
-        print("⚠️  Filtros ANTIGOS reduziram volume mas não destruíram")
+        print("⚠️  Filtros ANTIGOS reduziram volume mas nêo destruíram")
 
     print()
 
@@ -183,7 +183,7 @@ if len(results) >= 3:
         improvement = new_mean - old_mean
         print(f"✅ Filtros NOVOS melhoraram volume em {improvement:.1f} dB")
     else:
-        print(f"⚠️  Filtros NOVOS não melhoraram (diferença: {new_mean - old_mean:.1f} dB)")
+        print(f"⚠️  Filtros NOVOS nêo melhoraram (diferença: {new_mean - old_mean:.1f} dB)")
 
     print()
 

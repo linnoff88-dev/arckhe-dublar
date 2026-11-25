@@ -15,9 +15,9 @@ Você já deve ter executado `dublar nei.mp4` pelo menos uma vez, para ter os ar
 
 ---
 
-## 🧪 TESTE 1: Verificar Correção do Split
+## 🧪 TESTE 1: Verificar Correçêo do Split
 
-### **O que testa**: Função `split_long_segments()` com timestamps proporcionais
+### **O que testa**: Funçêo `split_long_segments()` com timestamps proporcionais
 
 ### **Como executar**:
 ```batch
@@ -44,9 +44,9 @@ python test_correcoes.py
 - Parte 1: 5.55s→15.55s (10.00s) ✅
 - Parte 2: 15.55s→17.55s (2.00s) ✅
 
-#### Parte 2 - Comparação de timestamps:
+#### Parte 2 - Comparaçêo de timestamps:
 ```
-COMPARAÇÃO: Timestamps Antigos vs Novos
+COMPARAÇêO: Timestamps Antigos vs Novos
 
 Seg   Antigo               Novo                 Diferença
 ------------------------------------------------------------
@@ -54,9 +54,9 @@ Seg   Antigo               Novo                 Diferença
 2     15.54s->17.55s (2.01s) 15.55s->17.55s (2.00s)  -0.01s
 ```
 
-#### Parte 3 - Sincronização com novos alvos:
+#### Parte 3 - Sincronizaçêo com novos alvos:
 ```
-TESTE 2: Sincronização com novos alvos
+TESTE 2: Sincronizaçêo com novos alvos
 
 Seg   Alvo Antigo  Alvo Novo    TTS Gerado   Ajuste Novo
 -------------------------------------------------------------
@@ -66,12 +66,12 @@ Seg   Alvo Antigo  Alvo Novo    TTS Gerado   Ajuste Novo
 
 ### **O que validar**:
 - ✅ Timestamps proporcionais ao tamanho do texto
-- ✅ Alvos de sincronização mais realistas
-- ✅ Ratios de compressão/expansão razoáveis (<1.3x)
+- ✅ Alvos de sincronizaçêo mais realistas
+- ✅ Ratios de compressêo/expansêo razoáveis (<1.3x)
 
 ---
 
-## 🧪 TESTE 2: Verificar Correção do Pós-Processamento de Áudio
+## 🧪 TESTE 2: Verificar Correçêo do Pós-Processamento de Áudio
 
 ### **O que testa**: Filtros de áudio (antigos vs novos)
 
@@ -93,9 +93,9 @@ Filtros novos: loudnorm=I=-14:TP=-1.5:LRA=11
 ✅ Gerado: dub_work/test_final_NEW.wav
 ```
 
-#### Comparação de volumes:
+#### Comparaçêo de volumes:
 ```
-TESTE 3: Comparação de Volumes
+TESTE 3: Comparaçêo de Volumes
 
 Arquivo                                  Mean Volume     Max Volume      Status
 ----------------------------------------------------------------------------------
@@ -158,11 +158,11 @@ dublar nei.mp4
 [SPLIT] Resultado: 19 segmentos (1 divididos, 17 mantidos)
 ```
 
-#### Etapa 7 - Sincronização:
+#### Etapa 7 - Sincronizaçêo:
 ```
-=== ETAPA 7: Sincronização ===
+=== ETAPA 7: Sincronizaçêo ===
 [SYNC] Segmento: seg_0001_xf.wav | Alvo: 10.00s | Atual: 11.93s | Range: [9.50s - 10.50s]
-[SYNC] → Ação: FIT (áudio longo, comprimir)
+[SYNC] → Açêo: FIT (áudio longo, comprimir)
   [FIT] Ajustando: 11.93s → 10.00s (ratio=0.838)
 ```
 
@@ -172,9 +172,9 @@ dublar nei.mp4
 >> ffmpeg -y -i dub_raw.wav -af loudnorm=I=-14:TP=-1.5:LRA=11 -ar 24000 -ac 1 dub_final.wav
 ```
 
-### **Validação final**:
+### **Validaçêo final**:
 
-1. **Duração do vídeo**:
+1. **Duraçêo do vídeo**:
 ```batch
 ffprobe -v error -show_entries format=duration -of default=nw=1 dublado/nei.mp4
 ```
@@ -184,31 +184,31 @@ ffprobe -v error -show_entries format=duration -of default=nw=1 dublado/nei.mp4
 ```batch
 ffmpeg -i dublado/nei.mp4 -af volumedetect -vn -f null - 2>&1 | findstr "volume"
 ```
-**Esperado**: `mean_volume: -20.0 dB` ou melhor (não -91 dB)
+**Esperado**: `mean_volume: -20.0 dB` ou melhor (nêo -91 dB)
 
 3. **Bitrate de áudio**:
 ```batch
 ffprobe -v error -select_streams a:0 -show_entries stream=bit_rate -of default=nw=1 dublado/nei.mp4
 ```
-**Esperado**: ~192000 (192 kbps, não 1 kbps)
+**Esperado**: ~192000 (192 kbps, nêo 1 kbps)
 
 4. **Arquivo no diretório correto**:
 ```batch
 dir dublado\nei.mp4
 ```
-**Esperado**: Arquivo existe em `dublado/nei.mp4` (não `video_dublado.mp4` na raiz)
+**Esperado**: Arquivo existe em `dublado/nei.mp4` (nêo `video_dublado.mp4` na raiz)
 
 ---
 
 ## 📊 RESUMO DE VALIDAÇÕES
 
-| Correção | Como Testar | Resultado Esperado |
+| Correçêo | Como Testar | Resultado Esperado |
 |----------|-------------|-------------------|
 | Split proporcionais | `python test_correcoes.py` | Timestamps refletem % do texto |
 | Volume audível | `python test_audio_fix.py` | Volume > -30 dB |
-| Sincronização | Logs do dublar | Ratios < 1.3x |
+| Sincronizaçêo | Logs do dublar | Ratios < 1.3x |
 | Diretório correto | `dir dublado\nei.mp4` | Arquivo existe |
-| Duração correta | `ffprobe dublado/nei.mp4` | ~114s |
+| Duraçêo correta | `ffprobe dublado/nei.mp4` | ~114s |
 
 ---
 
@@ -218,7 +218,7 @@ dir dublado\nei.mp4
 **A**: Provavelmente os arquivos TTS (seg_*.wav) foram gerados com volume baixo pelo Bark. O loudnorm deveria corrigir isso.
 
 ### **Q: test_final_NEW.wav ainda está com volume baixo?**
-**A**: Se sim, o problema está no áudio gerado pelo Bark, não no pós-processamento. Verifique:
+**A**: Se sim, o problema está no áudio gerado pelo Bark, nêo no pós-processamento. Verifique:
 ```batch
 ffmpeg -i dub_work/seg_0001.wav -af volumedetect -f null - 2>&1 | findstr "volume"
 ```
@@ -231,7 +231,7 @@ set "MAXDUR=0"
 Ou rode: `dublar nei.mp4 --maxdur 0`
 
 ### **Q: O vídeo ainda saiu maior que o original?**
-**A**: Verifique o console na Etapa 7. Se mostrar "EXPANDIR" em vez de "COMPRIMIR", há um problema na sincronização.
+**A**: Verifique o console na Etapa 7. Se mostrar "EXPANDIR" em vez de "COMPRIMIR", há um problema na sincronizaçêo.
 
 ---
 

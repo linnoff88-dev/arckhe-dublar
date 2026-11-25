@@ -10,7 +10,7 @@
 
 ## Causas Identificadas
 
-### 1. ❌ Função `safe_fade` está DUPLICANDO a duração
+### 1. ❌ Funçêo `safe_fade` está DUPLICANDO a duraçêo
 
 **Código problemático** (linha 276-280):
 ```python
@@ -27,7 +27,7 @@ def safe_fade(in_path, out_path, workdir):
 
 O `areverse` está causando problemas no ffmpeg!
 
-### 2. ❌ Sincronização não está funcionando
+### 2. ❌ Sincronizaçêo nêo está funcionando
 
 A lógica `sync_smart` chama `sync_fit` corretamente, mas o resultado AUMENTA em vez de diminuir!
 
@@ -44,7 +44,7 @@ Real: 13.86s ❌ (+18% em vez de -15%!)
 
 ## Soluções Imediatas
 
-### ✅ Solução 1: Desabilitar Fade (Mais Rápido)
+### ✅ Soluçêo 1: Desabilitar Fade (Mais Rápido)
 
 ```batch
 dublar nei.mp4 --fade 0 --sync fit --maxstretch 1.2 --out dublagem/nei_corrigido.mp4
@@ -52,21 +52,21 @@ dublar nei.mp4 --fade 0 --sync fit --maxstretch 1.2 --out dublagem/nei_corrigido
 
 **Parâmetros**:
 - `--fade 0`: Desabilita safe_fade
-- `--sync fit`: Força compressão para duração exata
-- `--maxstretch 1.2`: Limita distorção (20% max)
+- `--sync fit`: Força compressêo para duraçêo exata
+- `--maxstretch 1.2`: Limita distorçêo (20% max)
 
-### ✅ Solução 2: Usar Coqui TTS (Recomendado)
+### ✅ Soluçêo 2: Usar Coqui TTS (Recomendado)
 
 ```batch
 dublar nei.mp4 --tts coqui --sync smart --tolerance 0.1 --out dublagem/nei_coqui.mp4
 ```
 
 **Vantagens**:
-- Coqui é mais preciso com duração
+- Coqui é mais preciso com duraçêo
 - Voz mais rápida
-- Melhor sincronização
+- Melhor sincronizaçêo
 
-### ✅ Solução 3: Corrigir função `safe_fade`
+### ✅ Soluçêo 3: Corrigir funçêo `safe_fade`
 
 **Trocar** (linha 276-280):
 ```python
@@ -83,9 +83,9 @@ sh(["ffmpeg","-y","-i", in_path.name,
 
 ---
 
-## Correção Permanente do Código
+## Correçêo Permanente do Código
 
-Vou aplicar a correção no `dublar.py`:
+Vou aplicar a correçêo no `dublar.py`:
 
 ```python
 def safe_fade(in_path, out_path, workdir):
@@ -99,7 +99,7 @@ def safe_fade(in_path, out_path, workdir):
 
 ## Como Redublar Corretamente
 
-### Opção A: Sem fade, com fit (Rápido)
+### Opçêo A: Sem fade, com fit (Rápido)
 ```batch
 # Limpar pasta de trabalho
 rm -rf dub_work
@@ -108,7 +108,7 @@ rm -rf dub_work
 dublar nei.mp4 --fade 0 --sync fit --maxstretch 1.2 --out dublagem/nei_v2.mp4
 ```
 
-### Opção B: Com Coqui (Qualidade)
+### Opçêo B: Com Coqui (Qualidade)
 ```batch
 # Limpar
 rm -rf dub_work
@@ -117,9 +117,9 @@ rm -rf dub_work
 dublar nei.mp4 --tts coqui --sync smart --tolerance 0.1 --out dublagem/nei_coqui.mp4
 ```
 
-### Opção C: Corrigir código + redublar
+### Opçêo C: Corrigir código + redublar
 ```batch
-# 1. Aplicar correção no dublar.py (ver acima)
+# 1. Aplicar correçêo no dublar.py (ver acima)
 
 # 2. Limpar
 rm -rf dub_work
@@ -139,7 +139,7 @@ ffmpeg -i nei.mp4 -t 30 -c copy nei_30s.mp4
 # Testar sem fade
 dublar nei_30s.mp4 --fade 0 --sync fit --out dublagem/teste_30s.mp4
 
-# Verificar duração
+# Verificar duraçêo
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 nei_30s.mp4
 ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dublagem/teste_30s.mp4
 ```
@@ -148,11 +148,11 @@ ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:no
 
 ## Resumo das Correções Necessárias
 
-| Problema | Solução | Prioridade |
+| Problema | Soluçêo | Prioridade |
 |----------|---------|------------|
 | `safe_fade` duplica áudio | Corrigir filtro ffmpeg | 🔴 CRÍTICO |
 | Bark gera áudio longo | Usar `--sync fit --fade 0` | 🔴 CRÍTICO |
-| Tradução com erros | Usar modelo maior M2M100 | 🟡 MÉDIO |
+| Traduçêo com erros | Usar modelo maior M2M100 | 🟡 MÉDIO |
 | Voz lenta | Ajustar Bark ou usar Coqui | 🟡 MÉDIO |
 
 ---
@@ -171,4 +171,4 @@ dublar nei.mp4 --tts coqui --sync smart --out dublagem/nei_coqui.mp4
 
 **Data**: 2025-10-08 20:35
 **Status**: 🚨 ERRO CRÍTICO IDENTIFICADO
-**Ação**: Redublar com `--fade 0` ou corrigir `safe_fade`
+**Açêo**: Redublar com `--fade 0` ou corrigir `safe_fade`

@@ -25,7 +25,7 @@ dublar video.mp4
 Isso irá:
 - Dublar de **inglês (en)** para **português (pt)**
 - Usar **Bark TTS** com voz `v2/pt_speaker_1`
-- Sincronização **smart** (automática)
+- Sincronizaçêo **smart** (automática)
 - Gerar `video_dublado.mp4`
 
 ### Com Parâmetros Personalizados
@@ -40,7 +40,7 @@ dublar video.mp4 --tts coqui
 REM Mudar voz do Bark
 dublar video.mp4 --voice v2/en_speaker_6
 
-REM Mudar sincronização
+REM Mudar sincronizaçêo
 dublar video.mp4 --sync fit --tolerance 0.15 --maxstretch 1.5
 
 REM Nome de arquivo de saída personalizado
@@ -54,25 +54,25 @@ dublar video.mp4 --src en --tgt pt --tts bark --voice v2/pt_speaker_1 --sync sma
 
 ## Parâmetros Disponíveis
 
-| Parâmetro | Valores | Padrão | Descrição |
+| Parâmetro | Valores | Padrêo | Descriçêo |
 |-----------|---------|--------|-----------|
 | `--src` | en, pt, es, fr, de, etc. | `en` | Idioma do áudio original |
 | `--tgt` | en, pt, es, fr, de, etc. | `pt` | Idioma da dublagem |
 | `--tts` | `bark`, `coqui` | `bark` | Motor de síntese de voz |
 | `--voice` | String (voz do TTS) | `v2/pt_speaker_1` | Voz específica (Bark) |
-| `--sync` | `none`, `fit`, `pad`, `smart` | `smart` | Modo de sincronização |
-| `--tolerance` | 0.0 - 1.0 | `0.0` | Tolerância de duração |
+| `--sync` | `none`, `fit`, `pad`, `smart` | `smart` | Modo de sincronizaçêo |
+| `--tolerance` | 0.0 - 1.0 | `0.0` | Tolerância de duraçêo |
 | `--maxstretch` | 1.0 - 3.0 | `2.0` | Máximo de alongamento |
 | `--out` | Nome de arquivo | `video_dublado.mp4` | Arquivo de saída |
 
 ---
 
-## Modos de Sincronização
+## Modos de Sincronizaçêo
 
-### `none` - Sem sincronização
-Áudio gerado sem ajuste de duração. Pode ficar dessincronizado.
+### `none` - Sem sincronizaçêo
+Áudio gerado sem ajuste de duraçêo. Pode ficar dessincronizado.
 
-### `fit` - Ajustar duração
+### `fit` - Ajustar duraçêo
 Comprime ou alonga o áudio para caber exatamente no tempo original.
 
 ### `pad` - Adicionar silêncio
@@ -87,7 +87,7 @@ Combina `fit` e `pad` de forma inteligente:
 
 ## Exemplos Práticos
 
-### 1. Dublar vídeo do inglês para português (padrão)
+### 1. Dublar vídeo do inglês para português (padrêo)
 ```batch
 dublar meu_video.mp4
 ```
@@ -102,7 +102,7 @@ dublar video.mp4 --src en --tgt es
 dublar video_pt.mp4 --src pt --tgt en --tts coqui
 ```
 
-### 4. Dublar com sincronização perfeita
+### 4. Dublar com sincronizaçêo perfeita
 ```batch
 dublar video.mp4 --sync fit --tolerance 0.0 --maxstretch 2.0
 ```
@@ -123,9 +123,9 @@ dublar "C:\Videos\meu_video.mp4" --out "C:\Videos\dublado.mp4"
 
 Para usar `dublar` de qualquer pasta no Windows:
 
-### Opção 1: Adicionar pasta ao PATH
+### Opçêo 1: Adicionar pasta ao PATH
 
-1. Clique com botão direito em "Este Computador" → Propriedades
+1. Clique com botêo direito em "Este Computador" → Propriedades
 2. Configurações avançadas do sistema → Variáveis de ambiente
 3. Em "Variáveis do sistema", encontre `Path` e clique em Editar
 4. Clique em "Novo" e adicione:
@@ -141,7 +141,7 @@ dublar video.mp4
 ```
 De qualquer pasta!
 
-### Opção 2: Copiar dublar_global.bat para System32
+### Opçêo 2: Copiar dublar_global.bat para System32
 
 ```batch
 REM Executar como Administrador
@@ -155,10 +155,10 @@ Agora você pode usar `dublar` globalmente.
 ## O que o Script Faz
 
 1. **Verifica arquivo de entrada**
-   - Se não existir, mostra erro
+   - Se nêo existir, mostra erro
 
 2. **Processa parâmetros**
-   - Usa padrões se não especificados
+   - Usa padrões se nêo especificados
    - Permite sobrescrever qualquer parâmetro
 
 3. **Ativa ambiente virtual**
@@ -166,7 +166,7 @@ Agora você pode usar `dublar` globalmente.
    - Caso contrário, usa Python do sistema
 
 4. **Verifica Python e GPU**
-   - Mostra versão do Python
+   - Mostra versêo do Python
    - Detecta se GPU está disponível
 
 5. **Executa dublar.py**
@@ -181,7 +181,7 @@ Agora você pode usar `dublar` globalmente.
 
 ## Logs e Mensagens
 
-### Durante a execução, você verá:
+### Durante a execuçêo, você verá:
 
 ```
 ========================================
@@ -212,8 +212,8 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 [EXEC] python dublar.py --in "video.mp4" --src en --tgt pt ...
 
 === ETAPA 1: Entrada/cheques ===
-=== ETAPA 2: Extração de áudio ===
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 2: Extraçêo de áudio ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 [GPU] Whisper usando: CUDA
 [GPU] GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 ...
@@ -221,18 +221,18 @@ GPU: NVIDIA GeForce RTX 4070 Laptop GPU
 
 ---
 
-## Solução de Problemas
+## Soluçêo de Problemas
 
-### Erro: "Python não encontrado"
+### Erro: "Python nêo encontrado"
 ```batch
 REM Certifique-se que Python está no PATH
 python --version
 
-REM Se não estiver, instale Python ou ative o venv manualmente
+REM Se nêo estiver, instale Python ou ative o venv manualmente
 call venv\Scripts\activate.bat
 ```
 
-### Erro: "dublar.bat não é reconhecido"
+### Erro: "dublar.bat nêo é reconhecido"
 ```batch
 REM Use o caminho completo
 C:\Users\neima\projetosCC\voz_teste\dublar.bat video.mp4
@@ -242,7 +242,7 @@ cd C:\Users\neima\projetosCC\voz_teste
 dublar video.mp4
 ```
 
-### Erro: "GPU não disponível"
+### Erro: "GPU nêo disponível"
 ```batch
 REM Verifique se PyTorch CUDA está instalado
 python -c "import torch; print(torch.cuda.is_available())"
@@ -258,7 +258,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 1. **Teste com vídeo curto primeiro**
    - Use um vídeo de 1-2 minutos para testar configurações
 
-2. **Use sincronização `smart`**
+2. **Use sincronizaçêo `smart`**
    - É o modo mais equilibrado para a maioria dos casos
 
 3. **Bark vs Coqui**
@@ -277,7 +277,7 @@ pip install torch torchvision torchaudio --index-url https://download.pytorch.or
 
 ---
 
-## Arquivo de Configuração (Futuro)
+## Arquivo de Configuraçêo (Futuro)
 
 Você pode criar um arquivo `dublar.config` para definir padrões:
 
@@ -292,14 +292,14 @@ TOLERANCE=0.0
 MAXSTRETCH=2.0
 ```
 
-*Nota: Esta funcionalidade não está implementada ainda, mas pode ser adicionada.*
+*Nota: Esta funcionalidade nêo está implementada ainda, mas pode ser adicionada.*
 
 ---
 
 ## Referências
 
 - **dublar.py**: Script Python principal
-- **INSTALACAO_GPU.md**: Guia de instalação GPU
+- **INSTALACAO_GPU.md**: Guia de instalaçêo GPU
 - **test_gpu.py**: Script de teste GPU
 - **FIX_CUDA.md**: Problemas comuns CUDA
 
@@ -334,5 +334,5 @@ call "C:\Users\neima\projetosCC\voz_teste\dublar.bat" %*
 ---
 
 **Criado em**: 2025-10-08
-**Versão**: 1.0
+**Versêo**: 1.0
 **Autor**: Claude Code + Usuario

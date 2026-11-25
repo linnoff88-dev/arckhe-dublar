@@ -6,11 +6,11 @@
 - Ambiente virtual Python configurado
 
 ## ❌ O que falta:
-- PyTorch com suporte CUDA (atualmente está versão CPU)
+- PyTorch com suporte CUDA (atualmente está versêo CPU)
 
 ---
 
-## 🚀 INSTALAÇÃO SIMPLES (1 comando):
+## 🚀 INSTALAÇêO SIMPLES (1 comando):
 
 ```bash
 instalar_pytorch_gpu.bat
@@ -25,7 +25,7 @@ Isso vai:
 
 ---
 
-## 📋 Depois da instalação:
+## 📋 Depois da instalaçêo:
 
 ### Testar se GPU funciona:
 ```bash
@@ -47,7 +47,7 @@ O script **automaticamente**:
 - ✅ Ativa ambiente virtual
 - ✅ Adiciona cuDNN ao PATH
 - ✅ Detecta e usa GPU se disponível
-- ✅ Usa CPU se GPU não funcionar
+- ✅ Usa CPU se GPU nêo funcionar
 
 ---
 
@@ -75,7 +75,7 @@ instalar_pytorch_gpu.bat
 ### Erro: "Could not locate cudnn64_9.dll"
 ```bash
 # O dublar.bat já adiciona automaticamente ao PATH
-# Se ainda não funcionar, reinicie o computador
+# Se ainda nêo funcionar, reinicie o computador
 ```
 
 ### Forçar CPU (se GPU der problema):

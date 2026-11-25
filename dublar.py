@@ -12,7 +12,7 @@ def sh(cmd, cwd=None):
 def ensure_ffmpeg():
     for bin in ("ffmpeg","ffprobe"):
         if not shutil.which(bin):
-            print(f"{bin} não encontrado no PATH.")
+            print(f"{bin} nêo encontrado no PATH.")
             sys.exit(1)
 
 def ffprobe_duration(path):
@@ -35,7 +35,7 @@ def ts_stamp(t):
 
 # ---------------- etapa 3: ASR ----------------
 def transcribe_faster_whisper(wav_path, workdir, src_lang):
-    print("\n=== ETAPA 3: Transcrição (Whisper) ===")
+    print("\n=== ETAPA 3: Transcriçêo (Whisper) ===")
     from faster_whisper import WhisperModel
     import torch
 
@@ -48,8 +48,8 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
 
     print(f"[INFO] Whisper usando: {device.upper()} (CTranslate2 mais estável em CPU)")
     if torch.cuda.is_available():
-        print(f"[INFO] GPU disponível mas não usada pelo Whisper: {torch.cuda.get_device_name(0)}")
-        print(f"[INFO] M2M100 e Bark usarão GPU normalmente")
+        print(f"[INFO] GPU disponível mas nêo usada pelo Whisper: {torch.cuda.get_device_name(0)}")
+        print(f"[INFO] M2M100 e Bark usarêo GPU normalmente")
 
     model = WhisperModel("medium", device=device, compute_type=compute_type)
 
@@ -76,9 +76,9 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
     print(f"Transcrito: {len(segs)} segmentos")
     return json_path, srt_path, segs
 
-# ---------------- etapa 4: tradução ----------------
+# ---------------- etapa 4: traduçêo ----------------
 def translate_segments_m2m100(segs, src, tgt, workdir):
-    print("\n=== ETAPA 4: Tradução (facebook/m2m100_418M) ===")
+    print("\n=== ETAPA 4: Traduçêo (facebook/m2m100_418M) ===")
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
     import torch
 
@@ -145,7 +145,7 @@ def split_long_segments(segments, maxdur):
         text = (s.get("text_trad") or "").strip()
         dur = max(0.001, end - start)
 
-        # Não dividir se duração OK ou texto curto
+        # Nêo dividir se duraçêo OK ou texto curto
         if dur <= maxdur or len(text.split()) < 16:
             out.append(s)
             continue
@@ -153,7 +153,7 @@ def split_long_segments(segments, maxdur):
         print(f"[SPLIT] Segmento {seg_idx}: {start:.2f}s->{end:.2f}s ({dur:.2f}s, {len(text)} chars)")
         print(f"[SPLIT]   Texto: \"{text[:60]}...\"")
 
-        # Dividir texto em pontuação
+        # Dividir texto em pontuaçêo
         parts = re.split(r'([\.!\?:;,\u2026])', text)
         cps = max(len(text)/dur, 8.0)
 
@@ -179,14 +179,14 @@ def split_long_segments(segments, maxdur):
             out.append(s)
             continue
 
-        # CORREÇÃO: Distribuir timestamps PROPORCIONALMENTE ao tamanho do texto
+        # CORREÇêO: Distribuir timestamps PROPORCIONALMENTE ao tamanho do texto
         total_chars = sum(len(p) for p in pieces)
         cur = start
 
         print(f"[SPLIT]   Dividindo em {len(pieces)} partes (total: {total_chars} chars):")
 
         for i, piece in enumerate(pieces):
-            # Calcular duração proporcional ao tamanho do texto
+            # Calcular duraçêo proporcional ao tamanho do texto
             piece_ratio = len(piece) / total_chars
             piece_dur = dur * piece_ratio
             nxt = cur + piece_dur
@@ -212,15 +212,15 @@ def tts_bark(segments, workdir, text_temp=0.6, wave_temp=0.6, history_prompt=Non
     import os
     import torch
 
-    # PATCH CRÍTICO: PyTorch 2.6 mudou torch.load para weights_only=True por padrão
-    # Bark não é compatível, então precisamos patchear a função _load_model do Bark
+    # PATCH CRÍTICO: PyTorch 2.6 mudou torch.load para weights_only=True por padrêo
+    # Bark nêo é compatível, entêo precisamos patchear a funçêo _load_model do Bark
     print(f"[INFO] Aplicando patch para PyTorch 2.6 + Bark...")
 
     import bark.generation as bark_gen
     _original_torch_load = torch.load
 
     def _patched_torch_load(f, map_location=None, *args, **kwargs):
-        # Forçar weights_only=False para modelos Bark (são confiáveis)
+        # Forçar weights_only=False para modelos Bark (sêo confiáveis)
         kwargs['weights_only'] = False
         return _original_torch_load(f, map_location=map_location, *args, **kwargs)
 
@@ -235,7 +235,7 @@ def tts_bark(segments, workdir, text_temp=0.6, wave_temp=0.6, history_prompt=Non
     print(f"[GPU] Bark usando: {device.upper()}")
     if device == "cuda":
         os.environ['SUNO_USE_SMALL_MODELS'] = '0'  # Usar modelos grandes em GPU
-        os.environ['SUNO_OFFLOAD_CPU'] = '0'  # Não fazer offload para CPU
+        os.environ['SUNO_OFFLOAD_CPU'] = '0'  # Nêo fazer offload para CPU
         print(f"[GPU] Modelos Bark carregados em GPU")
 
     history = None
@@ -305,7 +305,7 @@ def atempo_chain(factor):
     return ",".join(chain)
 
 def safe_fade(in_path, out_path, workdir):
-    # fade-in e fade-out simples (sem areverse que causa bugs de duração)
+    # fade-in e fade-out simples (sem areverse que causa bugs de duraçêo)
     sh(["ffmpeg","-y","-i", in_path.name,
         "-af","afade=t=in:d=0.01,afade=t=out:d=0.01",
         out_path.name], cwd=workdir)
@@ -315,7 +315,7 @@ def sync_fit(p, target, workdir, sr, tol, maxstretch):
     ratio = target/cur if cur>0 else 1.0
 
     # Sempre comprimir/expandir quando ratio está fora da tolerância
-    # Não retornar 'p' sem processar (isso causava áudios com duração errada)
+    # Nêo retornar 'p' sem processar (isso causava áudios com duraçêo errada)
     if cur<=0:
         return p
 
@@ -360,18 +360,18 @@ def sync_smart(p, target, workdir, sr, tol, maxstretch):
     print(f"  [SYNC] Segmento: {p.name} | Alvo: {target:.2f}s | Atual: {cur:.2f}s | Range: [{low:.2f}s - {high:.2f}s]")
 
     if cur < low:
-        print(f"  [SYNC] → Ação: PAD (áudio curto)")
+        print(f"  [SYNC] → Açêo: PAD (áudio curto)")
         return sync_pad(p, target, workdir, sr)     # curto → completa silêncio
     elif cur > high:
-        print(f"  [SYNC] → Ação: FIT (áudio longo, comprimir)")
+        print(f"  [SYNC] → Açêo: FIT (áudio longo, comprimir)")
         return sync_fit(p, target, workdir, sr, tol, maxstretch)  # longo → comprime
     else:
-        print(f"  [SYNC] → Ação: OK (dentro da tolerância)")
+        print(f"  [SYNC] → Açêo: OK (dentro da tolerância)")
         return p
 
 # ---------------- etapa 8: concat ----------------
 def concat_segments(seg_files, workdir, samplerate):
-    print("\n=== ETAPA 8: Concatenação ===")
+    print("\n=== ETAPA 8: Concatenaçêo ===")
     lst = Path(workdir, "list.txt")
     with open(lst, "w", encoding="utf-8") as f:
         for p in seg_files:
@@ -385,7 +385,7 @@ def concat_segments(seg_files, workdir, samplerate):
 def postprocess_audio(wav_in, workdir, samplerate):
     print("\n=== ETAPA 9: Pós-processo ===")
     out = Path(workdir, "dub_final.wav")
-    # Filtros simplificados: apenas normalização de volume (removido afftdn e equalizer problemáticos)
+    # Filtros simplificados: apenas normalizaçêo de volume (removido afftdn e equalizer problemáticos)
     fx = "loudnorm=I=-14:TP=-1.5:LRA=11"
     sh(["ffmpeg","-y","-i", wav_in.name, "-af", fx, "-ar", str(samplerate), "-ac","1", out.name], cwd=workdir)
     return out
@@ -415,7 +415,7 @@ def main():
     ap.add_argument("--maxdur", type=float, default=10.0)
     ap.add_argument("--texttemp", type=float, default=0.6)
     ap.add_argument("--wavetemp", type=float, default=0.6)
-    ap.add_argument("--fade", type=int, default=1)  # 1=sim, 0=não
+    ap.add_argument("--fade", type=int, default=1)  # 1=sim, 0=nêo
     args = ap.parse_args()
 
     ensure_ffmpeg()
@@ -423,9 +423,9 @@ def main():
 
     video_in = Path(args.inp).resolve()
     if not video_in.exists():
-        print("Arquivo de entrada não encontrado:", video_in); sys.exit(1)
+        print("Arquivo de entrada nêo encontrado:", video_in); sys.exit(1)
 
-    print("\n=== ETAPA 2: Extração de áudio ===")
+    print("\n=== ETAPA 2: Extraçêo de áudio ===")
     audio_src = Path(workdir, "audio_src.wav")
     sh(["ffmpeg","-y","-i", str(video_in), "-vn", "-ac","1","-ar","48000","-c:a","pcm_s16le", str(audio_src)])
 
@@ -448,7 +448,7 @@ def main():
             xf_files.append(out)
         seg_files = xf_files
 
-    print("\n=== ETAPA 7: Sincronização ===")
+    print("\n=== ETAPA 7: Sincronizaçêo ===")
     fixed = []
     for i, s in enumerate(segs_trad, 1):
         target = max(0.05, s["end"] - s["start"])

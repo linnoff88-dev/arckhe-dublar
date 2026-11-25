@@ -9,9 +9,9 @@ voz_teste/
 │   └── ccode-dia15.mp4       ← Vídeo dublado FINAL
 └── dub_work/                 ← Pasta de trabalho (intermediários)
     ├── audio_src.wav         ← [ETAPA 2] Áudio extraído
-    ├── asr.json              ← [ETAPA 3] Transcrição em JSON
+    ├── asr.json              ← [ETAPA 3] Transcriçêo em JSON
     ├── asr.srt               ← [ETAPA 3] Legendas originais
-    ├── asr_trad.json         ← [ETAPA 4] Tradução em JSON
+    ├── asr_trad.json         ← [ETAPA 4] Traduçêo em JSON
     ├── asr_trad.srt          ← [ETAPA 4] Legendas traduzidas
     ├── segments.csv          ← [ETAPA 6] Info dos segmentos TTS
     ├── seg_0001.wav          ← [ETAPA 6] Segmento 1 TTS
@@ -20,7 +20,7 @@ voz_teste/
     ├── seg_0001_xf.wav       ← [ETAPA 6.1] Com fade (se --fade > 0)
     ├── seg_0001_xf_fit.wav   ← [ETAPA 7] Sincronizado (se sync ≠ none)
     ├── sil_0001.wav          ← [ETAPA 8] Silêncios (se --preserve-gaps)
-    ├── list.txt              ← [ETAPA 8] Lista para concatenação
+    ├── list.txt              ← [ETAPA 8] Lista para concatenaçêo
     ├── dub_raw.wav           ← [ETAPA 8] Áudio concatenado
     ├── dub_final.wav         ← [ETAPA 9] Áudio pós-processado
     └── logs.json             ← [FINAL] Logs completos + métricas
@@ -30,14 +30,14 @@ voz_teste/
 
 ## 🔍 Detalhamento por Etapa
 
-### ETAPA 1: Validação
+### ETAPA 1: Validaçêo
 **Arquivos:** Nenhum (apenas checks)
 - Verifica se ffmpeg existe
 - Verifica se vídeo de entrada existe
 
 ---
 
-### ETAPA 2: Extração de Áudio
+### ETAPA 2: Extraçêo de Áudio
 **Comando:** `ffmpeg -i video.mp4 -vn -ac 1 -ar 48000 audio_src.wav`
 
 **Arquivos criados:**
@@ -52,12 +52,12 @@ dir dub_work\audio_src.wav
 
 ---
 
-### ETAPA 3: Transcrição (Whisper)
+### ETAPA 3: Transcriçêo (Whisper)
 **Biblioteca:** faster-whisper
 
 **Arquivos criados:**
 ```
-dub_work/asr.json        ← Transcrição completa em JSON
+dub_work/asr.json        ← Transcriçêo completa em JSON
 dub_work/asr.srt         ← Legendas formato SRT
 ```
 
@@ -81,12 +81,12 @@ type dub_work\asr.json
 
 ---
 
-### ETAPA 4: Tradução (M2M100)
+### ETAPA 4: Traduçêo (M2M100)
 **Biblioteca:** transformers
 
 **Arquivos criados:**
 ```
-dub_work/asr_trad.json   ← Tradução em JSON
+dub_work/asr_trad.json   ← Traduçêo em JSON
 dub_work/asr_trad.srt    ← Legendas traduzidas
 ```
 
@@ -142,7 +142,7 @@ dub_work/seg_NNNN.wav    ← Áudio do segmento N
 ```csv
 idx,t_in,t_out,texto_trad,file,estimated_dur,actual_dur,compression_ratio
 1,0.0,2.5,"Olá mundo",seg_0001.wav,1.234,1.189,0.85
-2,2.5,5.0,"Vamos criar função",seg_0002.wav,2.100,2.050,0.90
+2,2.5,5.0,"Vamos criar funçêo",seg_0002.wav,2.100,2.050,0.90
 ```
 
 **Como verificar:**
@@ -171,7 +171,7 @@ dir dub_work\seg_*_xf.wav
 
 ---
 
-### ETAPA 7: Sincronização
+### ETAPA 7: Sincronizaçêo
 **Quando:** Se `--sync` ≠ none
 
 **Arquivos criados:**
@@ -194,7 +194,7 @@ dir dub_work\seg_*_pad.wav
 
 ---
 
-### ETAPA 8: Concatenação
+### ETAPA 8: Concatenaçêo
 **Arquivos criados:**
 
 ```
@@ -229,9 +229,9 @@ dub_work/dub_final.wav   ← ÁUDIO FINAL processado
 ```
 
 **Processamento aplicado:**
-- Normalização de volume (loudnorm)
-- Redução de ruído (afftdn)
-- Equalização (equalizer)
+- Normalizaçêo de volume (loudnorm)
+- Reduçêo de ruído (afftdn)
+- Equalizaçêo (equalizer)
 
 **Como verificar:**
 ```bash
@@ -277,7 +277,7 @@ dub_work/logs.json       ← Logs completos com métricas
 
 ---
 
-## ✅ Checklist de Verificação
+## ✅ Checklist de Verificaçêo
 
 Para diagnosticar onde o processo parou, verifique na ordem:
 
@@ -319,21 +319,21 @@ dir dub_work
 **Cenários:**
 
 ### Só tem `audio_src.wav`
-→ Processo travou na **ETAPA 3 (Transcrição)**
+→ Processo travou na **ETAPA 3 (Transcriçêo)**
 
 ### Tem `audio_src.wav` e `asr.json`/`asr.srt`
-→ Processo travou na **ETAPA 4 (Tradução)**
+→ Processo travou na **ETAPA 4 (Traduçêo)**
 
 ### Tem até `asr_trad.json`/`asr_trad.srt`
 → Processo travou na **ETAPA 6 (TTS)**
 
-### Tem `seg_*.wav` mas não tem `dub_raw.wav`
+### Tem `seg_*.wav` mas nêo tem `dub_raw.wav`
 → Processo travou na **ETAPA 8 (Concat)**
 
-### Tem `dub_raw.wav` mas não tem `dub_final.wav`
+### Tem `dub_raw.wav` mas nêo tem `dub_final.wav`
 → Processo travou na **ETAPA 9 (Pós-processo)**
 
-### Tem `dub_final.wav` mas vídeo não está em `dublado/`
+### Tem `dub_final.wav` mas vídeo nêo está em `dublado/`
 → Processo travou na **ETAPA 10 (Mux)**
 
 ---

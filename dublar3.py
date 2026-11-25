@@ -12,7 +12,7 @@ def sh(cmd, cwd=None):
 def ensure_ffmpeg():
     for bin in ("ffmpeg","ffprobe"):
         if not shutil.which(bin):
-            print(f"{bin} não encontrado no PATH.")
+            print(f"{bin} nêo encontrado no PATH.")
             sys.exit(1)
 
 def ffprobe_duration(path):
@@ -35,7 +35,7 @@ def ts_stamp(t):
 
 # ---------------- etapa 3: ASR ----------------
 def transcribe_faster_whisper(wav_path, workdir, src_lang):
-    print("\n=== ETAPA 3: Transcrição (Whisper) ===")
+    print("\n=== ETAPA 3: Transcriçêo (Whisper) ===")
     from faster_whisper import WhisperModel
     model = WhisperModel("medium", device="auto")
     segments, _ = model.transcribe(str(wav_path), language=src_lang, vad_filter=True)
@@ -54,9 +54,9 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
     print(f"Transcrito: {len(segs)} segmentos")
     return json_path, srt_path, segs
 
-# ---------------- etapa 4: tradução ----------------
+# ---------------- etapa 4: traduçêo ----------------
 def translate_segments_m2m100(segs, src, tgt, workdir):
-    print("\n=== ETAPA 4: Tradução (facebook/m2m100_418M) ===")
+    print("\n=== ETAPA 4: Traduçêo (facebook/m2m100_418M) ===")
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
     model_name = "facebook/m2m100_418M"
     tok = AutoTokenizer.from_pretrained(model_name)
@@ -222,7 +222,7 @@ def sync_fit(p, target, workdir, sr, tol, maxstretch):
     """
     Ajusta o áudio do trecho para caber exatamente no tempo 'target'.
     Estratégia:
-      - Se a diferença for pequena (<= tolerance): não usa atempo. Apenas:
+      - Se a diferença for pequena (<= tolerance): nêo usa atempo. Apenas:
          * se sobrar: atrim para target exato
          * se faltar: apad + atrim para target exato
       - Se a diferença for grande: usa atempo (limitado por maxstretch) e SEMPRE finaliza com atrim.
@@ -288,7 +288,7 @@ def sync_smart(p, target, workdir, sr, tol, maxstretch):
 
 # ---------------- etapa 8: concat ----------------
 def concat_segments(seg_files, workdir, samplerate):
-    print("\n=== ETAPA 8: Concatenação ===")
+    print("\n=== ETAPA 8: Concatenaçêo ===")
     lst = Path(workdir, "list.txt")
     with open(lst, "w", encoding="utf-8") as f:
         for p in seg_files:
@@ -331,7 +331,7 @@ def main():
     ap.add_argument("--maxdur", type=float, default=10.0)
     ap.add_argument("--texttemp", type=float, default=0.6)
     ap.add_argument("--wavetemp", type=float, default=0.6)
-    ap.add_argument("--fade", type=int, default=1)  # 1=sim, 0=não
+    ap.add_argument("--fade", type=int, default=1)  # 1=sim, 0=nêo
     args = ap.parse_args()
 
     ensure_ffmpeg()
@@ -339,9 +339,9 @@ def main():
 
     video_in = Path(args.inp).resolve()
     if not video_in.exists():
-        print("Arquivo de entrada não encontrado:", video_in); sys.exit(1)
+        print("Arquivo de entrada nêo encontrado:", video_in); sys.exit(1)
 
-    # <<< NOVO: define pasta "dublado" e cria se não existir >>>
+    # <<< NOVO: define pasta "dublado" e cria se nêo existir >>>
     outdir = Path("dublado")
     outdir.mkdir(exist_ok=True)
 
@@ -351,7 +351,7 @@ def main():
     else:
         out_mp4 = outdir / video_in.name
 
-    print("\n=== ETAPA 2: Extração de áudio ===")
+    print("\n=== ETAPA 2: Extraçêo de áudio ===")
     audio_src = Path(workdir, "audio_src.wav")
     sh(["ffmpeg","-y","-i", str(video_in), "-vn", "-ac","1","-ar","48000","-c:a","pcm_s16le", str(audio_src)])
 
@@ -374,7 +374,7 @@ def main():
             xf_files.append(out)
         seg_files = xf_files
 
-    print("\n=== ETAPA 7: Sincronização ===")
+    print("\n=== ETAPA 7: Sincronizaçêo ===")
     fixed = []
     for i, s in enumerate(segs_trad, 1):
         target = max(0.05, s["end"] - s["start"])

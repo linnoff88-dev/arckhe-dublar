@@ -1,6 +1,6 @@
 # dublar_sync_v2.py
-# Pipeline de dublagem com MELHORIAS DE SINCRONIZAÇÃO AVANÇADAS
-# Inclui: VAD, estimador de duração, densidade linguística, elastic sync, métricas
+# Pipeline de dublagem com MELHORIAS DE SINCRONIZAÇêO AVANÇADAS
+# Inclui: VAD, estimador de duraçêo, densidade linguística, elastic sync, métricas
 
 import os, sys, json, csv, argparse, subprocess, shutil, re, warnings
 from pathlib import Path
@@ -25,7 +25,7 @@ def make_silence_wav(workdir, idx, dur, sr):
 def ensure_ffmpeg():
     for bin in ("ffmpeg","ffprobe"):
         if not shutil.which(bin):
-            print(f"{bin} não encontrado no PATH.")
+            print(f"{bin} nêo encontrado no PATH.")
             sys.exit(1)
 
 def ffprobe_duration(path):
@@ -50,13 +50,13 @@ def ts_stamp(t):
 class LinguisticDensity:
     """Analisa densidade de caracteres/palavras por segundo entre idiomas"""
 
-    # Fatores de expansão médios (relativo ao inglês)
+    # Fatores de expansêo médios (relativo ao inglês)
     EXPANSION_FACTORS = {
         "pt": 1.20,  # Português 20% mais longo
         "pt-br": 1.20,
         "es": 1.15,  # Espanhol 15% mais longo
         "fr": 1.18,  # Francês 18% mais longo
-        "de": 0.95,  # Alemão 5% mais curto
+        "de": 0.95,  # Alemêo 5% mais curto
         "it": 1.12,  # Italiano 12% mais longo
         "en": 1.00,  # Inglês (baseline)
         "ja": 0.80,  # Japonês 20% mais curto
@@ -66,14 +66,14 @@ class LinguisticDensity:
 
     @classmethod
     def get_expansion_factor(cls, src_lang, tgt_lang):
-        """Retorna fator de expansão esperado"""
+        """Retorna fator de expansêo esperado"""
         src = cls.EXPANSION_FACTORS.get(src_lang.lower(), 1.0)
         tgt = cls.EXPANSION_FACTORS.get(tgt_lang.lower(), 1.0)
         return tgt / src
 
     @classmethod
     def estimate_duration(cls, text, reference_duration, src_lang, tgt_lang):
-        """Estima duração da tradução baseada em expansão linguística"""
+        """Estima duraçêo da traduçêo baseada em expansêo linguística"""
         factor = cls.get_expansion_factor(src_lang, tgt_lang)
         return reference_duration * factor
 
@@ -134,20 +134,20 @@ def detect_speech_pauses(audio_path, min_silence_dur=0.3):
         return pauses
 
     except ImportError:
-        print("  [AVISO] librosa não instalado. VAD desabilitado.")
+        print("  [AVISO] librosa nêo instalado. VAD desabilitado.")
         print("  Instale com: pip install librosa")
         return []
     except Exception as e:
         print(f"  [AVISO] Erro no VAD: {e}")
         return []
 
-# ---------------- NOVO: Estimador de duração pré-TTS ----------------
+# ---------------- NOVO: Estimador de duraçêo pré-TTS ----------------
 def estimate_tts_duration(text, lang="pt", base_wps=2.5):
     """
-    Estima duração do TTS antes de gerar áudio
+    Estima duraçêo do TTS antes de gerar áudio
     base_wps: palavras por segundo (2-3 é conversacional normal)
     """
-    # Remove pontuação e conta palavras
+    # Remove pontuaçêo e conta palavras
     words = len(text.split())
 
     # Ajuste por idioma
@@ -161,10 +161,10 @@ def estimate_tts_duration(text, lang="pt", base_wps=2.5):
     factor = speed_factors.get(lang.lower(), 1.0)
     adjusted_wps = base_wps * factor
 
-    # Duração base
+    # Duraçêo base
     duration = words / adjusted_wps
 
-    # Adiciona pausas por pontuação
+    # Adiciona pausas por pontuaçêo
     pauses = text.count('.') * 0.3 + text.count(',') * 0.15 + text.count('?') * 0.3 + text.count('!') * 0.3
 
     total = duration + pauses
@@ -172,7 +172,7 @@ def estimate_tts_duration(text, lang="pt", base_wps=2.5):
 
 # ---------------- etapa 3: ASR ----------------
 def transcribe_faster_whisper(wav_path, workdir, src_lang):
-    print("\n=== ETAPA 3: Transcrição (Whisper) ===")
+    print("\n=== ETAPA 3: Transcriçêo (Whisper) ===")
     from faster_whisper import WhisperModel
 
     # Tenta GPU primeiro, se falhar usa CPU
@@ -206,9 +206,9 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
     print(f"Transcrito: {len(segs)} segmentos")
     return json_path, srt_path, segs
 
-# ---------------- etapa 4: tradução ----------------
+# ---------------- etapa 4: traduçêo ----------------
 def translate_segments_m2m100(segs, src, tgt, workdir):
-    print("\n=== ETAPA 4: Tradução (facebook/m2m100_418M) ===")
+    print("\n=== ETAPA 4: Traduçêo (facebook/m2m100_418M) ===")
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
     model_name = "facebook/m2m100_418M"
     tok = AutoTokenizer.from_pretrained(model_name)
@@ -262,7 +262,7 @@ def split_long_segments_vad(segments, maxdur, audio_src_path=None):
     """
     Split inteligente melhorado que considera:
     - Pausas naturais detectadas por VAD
-    - Pontuação
+    - Pontuaçêo
     - Densidade linguística
     """
     print("\n=== ETAPA 5: Split inteligente com VAD ===")
@@ -282,7 +282,7 @@ def split_long_segments_vad(segments, maxdur, audio_src_path=None):
         text = (s.get("text_trad") or "").strip()
         dur = max(0.001, end - start)
 
-        # Não divide se for curto ou poucas palavras
+        # Nêo divide se for curto ou poucas palavras
         if dur <= maxdur or len(text.split()) < 16:
             out.append(s)
             continue
@@ -290,7 +290,7 @@ def split_long_segments_vad(segments, maxdur, audio_src_path=None):
         # Verifica se há pausas naturais neste segmento
         segment_pauses = [(p[0], p[1]) for p in pauses if start <= p[0] < end]
 
-        # Se há pausas naturais, usa elas como pontos de divisão
+        # Se há pausas naturais, usa elas como pontos de divisêo
         if segment_pauses:
             # Divide nos pontos de pausa
             parts_by_pause = []
@@ -331,7 +331,7 @@ def split_long_segments_vad(segments, maxdur, audio_src_path=None):
                         })
                 continue
 
-        # Fallback: split por pontuação (método original)
+        # Fallback: split por pontuaçêo (método original)
         parts = re.split(r'([\.!\?:;,\u2026])', text)
         cps = max(len(text)/dur, 8.0)
 
@@ -400,14 +400,14 @@ def tts_bark(segments, workdir, text_temp=0.6, wave_temp=0.6, history_prompt=Non
             if len(re.findall(r"[A-Za-zÀ-ÿ0-9]", txt)) < 3:
                 txt = "pausa curta"
 
-            # NOVO: Estima duração antes de gerar
+            # NOVO: Estima duraçêo antes de gerar
             estimated = s.get("trad_estimated_dur", estimate_tts_duration(txt, "pt"))
 
             out = Path(workdir, f"seg_{i:04d}.wav")
             audio = generate_audio(txt, history_prompt=history, text_temp=text_temp, waveform_temp=wave_temp)
             write(out, SAMPLE_RATE, audio)
 
-            # NOVO: Mede duração real
+            # NOVO: Mede duraçêo real
             actual_dur = ffprobe_duration(out)
 
             seg_files.append(out)
@@ -518,10 +518,10 @@ def sync_smart(p, target, workdir, sr, tol, maxstretch):
     else:
         return p, 1.0
 
-# ---------------- NOVO: Elastic Sync com redistribuição ----------------
+# ---------------- NOVO: Elastic Sync com redistribuiçêo ----------------
 def sync_elastic(segments_data, workdir, sr, tol=0.15, maxstretch=1.35):
     """
-    Sincronização elástica que redistribui tempo entre segmentos adjacentes
+    Sincronizaçêo elástica que redistribui tempo entre segmentos adjacentes
     segments_data: lista de (path, target_duration, segment_info)
     """
     print("\n=== Modo ELASTIC: Redistribuindo tempo entre segmentos ===")
@@ -573,10 +573,10 @@ def sync_elastic(segments_data, workdir, sr, tol=0.15, maxstretch=1.35):
 # ---------------- NOVO: Métricas de qualidade ----------------
 def calculate_sync_metrics(segments_info):
     """
-    Calcula métricas de qualidade da sincronização
+    Calcula métricas de qualidade da sincronizaçêo
     segments_info: lista de dicts com 'target', 'actual', 'ratio'
     """
-    print("\n=== MÉTRICAS DE SINCRONIZAÇÃO ===")
+    print("\n=== MÉTRICAS DE SINCRONIZAÇêO ===")
 
     offsets = []
     ratios = []
@@ -604,7 +604,7 @@ def calculate_sync_metrics(segments_info):
     print(f"  Total de segmentos: {metrics['total_segments']}")
     print(f"  Offset médio: {metrics['avg_offset']:.3f}s")
     print(f"  Offset máximo: {metrics['max_offset']:.3f}s")
-    print(f"  Desvio padrão: {metrics['std_offset']:.3f}s")
+    print(f"  Desvio padrêo: {metrics['std_offset']:.3f}s")
     print(f"  Ratio de velocidade médio: {metrics['avg_speed_ratio']:.3f}x")
     print(f"  Segmentos fora da tolerância: {metrics['segments_over_tolerance']}")
     print(f"  Segmentos comprimidos (>1.1x): {metrics['segments_compressed']}")
@@ -614,7 +614,7 @@ def calculate_sync_metrics(segments_info):
 
 # ---------------- etapa 8: concat ----------------
 def concat_segments(seg_files, workdir, samplerate, segs_trad=None, preserve_gaps=False, gap_min=0.20):
-    print("\n=== ETAPA 8: Concatenação ===")
+    print("\n=== ETAPA 8: Concatenaçêo ===")
     lst = Path(workdir, "list.txt")
     files_for_concat = []
 
@@ -656,9 +656,9 @@ def mux_video(video_in, wav_in, out_mp4, bitrate):
 
 # ---------------- main ----------------
 def main():
-    print("=== PIPELINE DE DUBLAGEM v2.0 - SINCRONIZAÇÃO MELHORADA ===")
+    print("=== PIPELINE DE DUBLAGEM v2.0 - SINCRONIZAÇêO MELHORADA ===")
     print("=== ETAPA 1: Entrada/cheques ===")
-    ap = argparse.ArgumentParser(description="Dublagem com sincronização avançada")
+    ap = argparse.ArgumentParser(description="Dublagem com sincronizaçêo avançada")
     ap.add_argument("--in", dest="inp", required=True)
     ap.add_argument("--out", dest="out", default=None)
     ap.add_argument("--src", required=True)
@@ -678,7 +678,7 @@ def main():
 
     ap.add_argument("--preserve-gaps", action="store_true")
     ap.add_argument("--gap-min", type=float, default=0.20)
-    ap.add_argument("--enable-vad", action="store_true", help="Ativa detecção de pausas naturais")
+    ap.add_argument("--enable-vad", action="store_true", help="Ativa detecçêo de pausas naturais")
 
     args = ap.parse_args()
 
@@ -687,13 +687,13 @@ def main():
 
     video_in = Path(args.inp).resolve()
     if not video_in.exists():
-        print("Arquivo de entrada não encontrado:", video_in); sys.exit(1)
+        print("Arquivo de entrada nêo encontrado:", video_in); sys.exit(1)
 
     outdir = Path("dublado")
     outdir.mkdir(exist_ok=True)
     out_mp4 = Path(args.out) if args.out else (outdir / video_in.name)
 
-    print("\n=== ETAPA 2: Extração de áudio ===")
+    print("\n=== ETAPA 2: Extraçêo de áudio ===")
     audio_src = Path(workdir, "audio_src.wav")
     sh(["ffmpeg","-y","-i", str(video_in), "-vn", "-ac","1","-ar","48000","-c:a","pcm_s16le", str(audio_src)])
 
@@ -705,7 +705,7 @@ def main():
     if args.enable_vad:
         segs_trad = split_long_segments_vad(segs_trad, args.maxdur, audio_src)
     else:
-        # Usa função original simplificada
+        # Usa funçêo original simplificada
         segs_trad = split_long_segments_vad(segs_trad, args.maxdur, None)
 
     # Etapa 6: TTS
@@ -725,8 +725,8 @@ def main():
             xf_files.append(out)
         seg_files = xf_files
 
-    # Etapa 7: Sincronização
-    print("\n=== ETAPA 7: Sincronização ===")
+    # Etapa 7: Sincronizaçêo
+    print("\n=== ETAPA 7: Sincronizaçêo ===")
     fixed = []
     sync_info = []
 

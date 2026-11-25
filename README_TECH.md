@@ -1,9 +1,9 @@
 # Pipeline de Dublagem TÉCNICA v2.0
 
-## 🎯 Otimizado para Vídeos de Demonstração Técnica
+## 🎯 Otimizado para Vídeos de Demonstraçêo Técnica
 
-Esta versão é **especializada para conteúdo técnico** como:
-- Tutoriais de programação
+Esta versêo é **especializada para conteúdo técnico** como:
+- Tutoriais de programaçêo
 - Demonstrações de código
 - Aulas de desenvolvimento
 - Apresentações técnicas
@@ -14,26 +14,26 @@ Esta versão é **especializada para conteúdo técnico** como:
 ## ✨ Melhorias Específicas para Conteúdo Técnico
 
 ### 1. **Glossário de 100+ Termos Técnicos**
-Preserva termos que NÃO devem ser traduzidos:
+Preserva termos que NêO devem ser traduzidos:
 - `string`, `array`, `function`, `class`, `async`, `await`
 - `git`, `commit`, `push`, `pull`, `branch`
 - `npm`, `docker`, `API`, `JSON`, `HTTP`
 - Nomes de linguagens, frameworks, bibliotecas
 
-### 2. **Controle de Comprimento na Tradução**
-- Analisa duração do segmento original
-- Limita palavras na tradução para caber no tempo
+### 2. **Controle de Comprimento na Traduçêo**
+- Analisa duraçêo do segmento original
+- Limita palavras na traduçêo para caber no tempo
 - Evita traduções muito longas que causam dessincronia
 
-### 3. **Simplificação Inteligente**
+### 3. **Simplificaçêo Inteligente**
 Remove palavras de enchimento mantendo clareza:
 - "você sabe" → removido
 - "basicamente" → removido
 - "por exemplo" → "ex:"
 - "o que eu quero dizer é" → removido
 
-### 4. **Melhor Geração de Traduções**
-- `num_beams=5`: tradução mais fluida
+### 4. **Melhor Geraçêo de Traduções**
+- `num_beams=5`: traduçêo mais fluida
 - `length_penalty=1.2`: penaliza traduções longas
 - `no_repeat_ngram_size=3`: evita repetições
 
@@ -57,17 +57,17 @@ python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voi
 
 ## 🆕 Novas Opções Disponíveis
 
-### Opção 1: Desativar simplificação (tradução literal completa)
+### Opçêo 1: Desativar simplificaçêo (traduçêo literal completa)
 ```bash
 python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voice v2/pt_speaker_1 --sync smart --tolerance 0.0 --maxstretch 2.0 --no-simplify
 ```
 
-### Opção 2: Usar modo elastic (melhor redistribuição)
+### Opçêo 2: Usar modo elastic (melhor redistribuiçêo)
 ```bash
 python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voice v2/pt_speaker_1 --sync elastic --tolerance 0.0 --maxstretch 2.0
 ```
 
-### Opção 3: Ativar VAD (detectar pausas naturais)
+### Opçêo 3: Ativar VAD (detectar pausas naturais)
 ```bash
 python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voice v2/pt_speaker_1 --sync smart --tolerance 0.0 --maxstretch 2.0 --enable-vad
 ```
@@ -84,20 +84,20 @@ python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voi
 ### Antes (M2M100 puro):
 ```
 Original: "Now we'll import the string module and create an array"
-Tradução: "Agora vamos importar o módulo de cordas e criar um arranjo"
+Traduçêo: "Agora vamos importar o módulo de cordas e criar um arranjo"
 ❌ Problema: "string" virou "cordas", "array" virou "arranjo"
 ```
 
-### Depois (versão técnica):
+### Depois (versêo técnica):
 ```
 Original: "Now we'll import the string module and create an array"
-Tradução: "Agora vamos importar o módulo string e criar um array"
+Traduçêo: "Agora vamos importar o módulo string e criar um array"
 ✅ Termos técnicos preservados!
 ```
 
 ---
 
-## 🔧 Exemplos de Tradução Técnica
+## 🔧 Exemplos de Traduçêo Técnica
 
 ### Exemplo 1: Termos preservados
 ```
@@ -105,9 +105,9 @@ EN: "Let's use async/await with promises in JavaScript"
 PT: "Vamos usar async/await com promises em JavaScript"
 ```
 
-### Exemplo 2: Simplificação automática
+### Exemplo 2: Simplificaçêo automática
 ```
-Original tradução: "Bem, basicamente o que eu quero dizer é que você sabe, nós vamos fazer um loop"
+Original traduçêo: "Bem, basicamente o que eu quero dizer é que você sabe, nós vamos fazer um loop"
 Simplificado: "Vamos fazer um loop"
 ```
 
@@ -115,8 +115,8 @@ Simplificado: "Vamos fazer um loop"
 ```
 Segmento: 3.5 segundos
 Original: 15 palavras
-Tradução normal: 22 palavras (muito longo!)
-Tradução otimizada: 17 palavras (cabe no tempo)
+Traduçêo normal: 22 palavras (muito longo!)
+Traduçêo otimizada: 17 palavras (cabe no tempo)
 ```
 
 ---
@@ -126,11 +126,11 @@ Tradução otimizada: 17 palavras (cabe no tempo)
 O CSV agora inclui:
 ```csv
 idx,t_in,t_out,texto_trad,file,estimated_dur,actual_dur,compression_ratio
-1,0.0,2.5,"Vamos criar uma função",seg_0001.wav,1.234,1.189,0.85
+1,0.0,2.5,"Vamos criar uma funçêo",seg_0001.wav,1.234,1.189,0.85
 ```
 
-- `compression_ratio`: 0.85 = tradução 15% mais curta (bom!)
-- `compression_ratio`: 1.25 = tradução 25% mais longa (pode ser problema)
+- `compression_ratio`: 0.85 = traduçêo 15% mais curta (bom!)
+- `compression_ratio`: 1.25 = traduçêo 25% mais longa (pode ser problema)
 
 ---
 
@@ -147,7 +147,7 @@ console, log, import, export, callback, props, state
 
 ### Termos traduzidos corretamente:
 ```
-function    → função
+function    → funçêo
 method      → método
 variable    → variável
 parameter   → parâmetro
@@ -163,34 +163,34 @@ test        → teste
 
 ### "Termos ainda sendo traduzidos incorretamente"
 - Adicione ao conjunto `PRESERVE_TERMS` no código (linha ~75)
-- Ou use `--no-simplify` para tradução mais literal
+- Ou use `--no-simplify` para traduçêo mais literal
 
-### "Tradução muito curta/cortada"
+### "Traduçêo muito curta/cortada"
 ```bash
---no-simplify  # Desativa simplificação automática
+--no-simplify  # Desativa simplificaçêo automática
 ```
 
-### "Tradução muito longa"
+### "Traduçêo muito longa"
 - O sistema já limita automaticamente
 - Se ainda longo, aumente `--maxstretch` para 2.5
 
-### "Perdi clareza com simplificação"
+### "Perdi clareza com simplificaçêo"
 ```bash
---no-simplify  # Mantém tradução completa
+--no-simplify  # Mantém traduçêo completa
 ```
 
 ---
 
-## 📋 Comparação: Normal vs. Técnica
+## 📋 Comparaçêo: Normal vs. Técnica
 
 | Aspecto | dublar_sync_v2.py | dublar_tech_v2.py |
 |---------|-------------------|-------------------|
-| Público | Geral | **Técnico/Programação** |
+| Público | Geral | **Técnico/Programaçêo** |
 | Glossário técnico | ❌ | ✅ 100+ termos |
-| Preservação de termos | ❌ | ✅ Automática |
-| Controle de comprimento | ❌ | ✅ Baseado em duração |
-| Simplificação | ❌ | ✅ Opcional |
-| Qualidade tradução | Boa | **Melhor (beams=5)** |
+| Preservaçêo de termos | ❌ | ✅ Automática |
+| Controle de comprimento | ❌ | ✅ Baseado em duraçêo |
+| Simplificaçêo | ❌ | ✅ Opcional |
+| Qualidade traduçêo | Boa | **Melhor (beams=5)** |
 | Métricas extras | Básicas | **+ compression_ratio** |
 
 ---
@@ -208,7 +208,7 @@ test        → teste
 ```
 
 ### 3. **Ajuste maxstretch baseado no ritmo**
-- Narração lenta: `--maxstretch 1.3`
+- Narraçêo lenta: `--maxstretch 1.3`
 - Ritmo normal: `--maxstretch 2.0` (seu caso)
 - Muito rápido: `--maxstretch 2.5`
 
@@ -224,18 +224,18 @@ test        → teste
 
 ## 🔍 Analisando Resultados
 
-Após execução, confira:
+Após execuçêo, confira:
 
 1. **`dub_work/asr_trad.json`** - Veja se termos técnicos foram preservados
 2. **`dub_work/segments.csv`** - Confira compression_ratio de cada segmento
-3. **`dub_work/logs.json`** - Métricas completas de sincronização
+3. **`dub_work/logs.json`** - Métricas completas de sincronizaçêo
 
 ### Exemplo de análise:
 ```json
 {
   "compression_ratio": 0.92,  // ✅ Bom! 8% mais curto
   "text_original": "Let's create a new async function",
-  "text_trad": "Vamos criar uma nova função async"
+  "text_trad": "Vamos criar uma nova funçêo async"
 }
 ```
 
@@ -243,7 +243,7 @@ Após execução, confira:
 
 ## 🎬 Workflow Recomendado
 
-1. **Primeira execução (teste rápido)**
+1. **Primeira execuçêo (teste rápido)**
 ```bash
 python dublar_tech_v2.py --in video.mp4 --src en --tgt pt --tts bark --voice v2/pt_speaker_1 --sync smart --tolerance 0.0 --maxstretch 2.0
 ```
@@ -251,11 +251,11 @@ python dublar_tech_v2.py --in video.mp4 --src en --tgt pt --tts bark --voice v2/
 2. **Confira resultados**
 - Assista o vídeo dublado
 - Verifique `segments.csv` para ver compression_ratio
-- Leia `asr_trad.srt` para checar tradução
+- Leia `asr_trad.srt` para checar traduçêo
 
 3. **Ajuste fino (se necessário)**
 ```bash
-# Se tradução muito simplificada:
+# Se traduçêo muito simplificada:
 --no-simplify
 
 # Se ainda dessincronia:
@@ -267,7 +267,7 @@ python dublar_tech_v2.py --in video.mp4 --src en --tgt pt --tts bark --voice v2/
 
 ---
 
-## 📝 Customização do Glossário
+## 📝 Customizaçêo do Glossário
 
 Para adicionar seus próprios termos:
 
@@ -290,8 +290,8 @@ PRESERVE_TERMS = {
 Após dublar, confira:
 
 - [ ] Termos técnicos preservados (string, array, etc.)
-- [ ] Nomes de funções/variáveis não traduzidos
-- [ ] Sincronização aceitável (offset médio < 0.3s)
+- [ ] Nomes de funções/variáveis nêo traduzidos
+- [ ] Sincronizaçêo aceitável (offset médio < 0.3s)
 - [ ] Voz natural (sem acelerações extremas)
 - [ ] Áudio limpo (sem pulos ou cortes)
 - [ ] Legendas corretas
@@ -300,7 +300,7 @@ Após dublar, confira:
 
 ## 🎯 Resumo
 
-Para seus vídeos de demonstração técnica:
+Para seus vídeos de demonstraçêo técnica:
 
 **Comando básico (igual ao anterior, só muda o arquivo):**
 ```bash
@@ -309,9 +309,9 @@ python dublar_tech_v2.py --in ccode-dia10.mp4 --src en --tgt pt --tts bark --voi
 
 **Ganhos automáticos:**
 ✅ Preserva termos técnicos
-✅ Tradução mais curta (cabe no tempo)
+✅ Traduçêo mais curta (cabe no tempo)
 ✅ Remove palavras de enchimento
-✅ Melhor qualidade de tradução
+✅ Melhor qualidade de traduçêo
 ✅ Métricas detalhadas
 
 **Sem precisar mudar NADA no comando!**

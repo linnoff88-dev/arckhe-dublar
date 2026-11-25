@@ -2,7 +2,7 @@
 
 ## O Que É?
 
-O sistema de **checkpoint/resume** permite que você continue o processo de dublagem **de onde parou** caso ocorra algum erro ou interrupção. Isso economiza horas de reprocessamento!
+O sistema de **checkpoint/resume** permite que você continue o processo de dublagem **de onde parou** caso ocorra algum erro ou interrupçêo. Isso economiza horas de reprocessamento!
 
 ## Como Funciona?
 
@@ -12,13 +12,13 @@ Cada etapa do pipeline salva um checkpoint ao ser concluída:
 
 | Etapa | Nome | Checkpoint |
 |-------|------|------------|
-| 2 | Extração de áudio | `audio_src.wav` criado |
-| 3 | Transcrição (Whisper) | `asr.json`, `asr.srt` criados |
-| 4 | Tradução (M2M100) | `asr_trad.json`, `asr_trad.srt` criados |
+| 2 | Extraçêo de áudio | `audio_src.wav` criado |
+| 3 | Transcriçêo (Whisper) | `asr.json`, `asr.srt` criados |
+| 4 | Traduçêo (M2M100) | `asr_trad.json`, `asr_trad.srt` criados |
 | 5 | Split de segmentos | Segmentos ajustados |
 | 6 | TTS (Bark/Coqui) | `seg_0001.wav`, `seg_0002.wav`, etc. |
-| 7 | Sincronização | Arquivos `seg_*_sync.wav` |
-| 8 | Concatenação | `dub_raw.wav` |
+| 7 | Sincronizaçêo | Arquivos `seg_*_sync.wav` |
+| 8 | Concatenaçêo | `dub_raw.wav` |
 | 9 | Pós-processamento | `dub_final.wav` |
 | 10 | Mux final | Vídeo dublado em `dublado/` |
 
@@ -28,7 +28,7 @@ O arquivo `dub_work/checkpoint.json` contém:
 
 ```json
 {
-  "last_step": "TTS (geração de áudio)",
+  "last_step": "TTS (geraçêo de áudio)",
   "last_step_num": 6,
   "next_step": 7,
   "timestamp": "2025-10-08T10:30:45.123456"
@@ -41,7 +41,7 @@ O arquivo `dub_work/checkpoint.json` contém:
 
 ### Caso 1: Erro Durante Processamento
 
-Se o processo falhar durante **ETAPA 6 (TTS - geração de áudio)**:
+Se o processo falhar durante **ETAPA 6 (TTS - geraçêo de áudio)**:
 
 ```
 === ETAPA 6: TTS (Bark) ===
@@ -59,7 +59,7 @@ O processo vai **pular as etapas 2-5** (já completas) e **continuar da etapa 6*
 
 ---
 
-### Caso 2: Interrupção Manual (Ctrl+C)
+### Caso 2: Interrupçêo Manual (Ctrl+C)
 
 Se você interromper o processo com Ctrl+C durante qualquer etapa:
 
@@ -89,13 +89,13 @@ dublar.bat ccode-dia15.mp4
 ```
 C:\> dublar.bat ccode-dia15.mp4
 
-=== ETAPA 3: Transcrição ===
+=== ETAPA 3: Transcriçêo ===
 [OK] 146 segmentos transcritos
-[CHECKPOINT] Etapa 3 salva: Transcrição
+[CHECKPOINT] Etapa 3 salva: Transcriçêo
 
-=== ETAPA 4: Tradução ===
+=== ETAPA 4: Traduçêo ===
 [OK] 146 segmentos traduzidos
-[CHECKPOINT] Etapa 4 salva: Tradução
+[CHECKPOINT] Etapa 4 salva: Traduçêo
 
 === ETAPA 6: TTS (Bark) ===
   [30/146] 20.5% - ETA: 15m 12s
@@ -128,7 +128,7 @@ C:\> dublar.bat --continue
 
 ### Exemplo 2: Testar Diferentes Sincronizações
 
-Você quer testar diferentes modos de sincronização **sem reprocessar TTS** (que demora 20 minutos):
+Você quer testar diferentes modos de sincronizaçêo **sem reprocessar TTS** (que demora 20 minutos):
 
 ```bash
 # Primeira vez: processa tudo até sync=smart
@@ -144,7 +144,7 @@ O script vai **pular etapas 2-6** e recomeçar da **etapa 7** com `sync=elastic`
 
 ---
 
-## Detecção Automática
+## Detecçêo Automática
 
 O script detecta **automaticamente** quais arquivos existem:
 
@@ -166,25 +166,25 @@ if seg_0001.wav existe:
 ### ✅ Antes (sem checkpoint)
 
 ```
-ETAPA 3 (Transcrição): 7 minutos
-ETAPA 4 (Tradução): 1 minuto
+ETAPA 3 (Transcriçêo): 7 minutos
+ETAPA 4 (Traduçêo): 1 minuto
 ETAPA 6 (TTS): 20 minutos ❌ ERRO!
 
 --- Corrige o erro ---
 
 REINICIA TUDO:
-ETAPA 3 (Transcrição): 7 minutos (DE NOVO!)
-ETAPA 4 (Tradução): 1 minuto (DE NOVO!)
+ETAPA 3 (Transcriçêo): 7 minutos (DE NOVO!)
+ETAPA 4 (Traduçêo): 1 minuto (DE NOVO!)
 ETAPA 6 (TTS): 20 minutos (DE NOVO!)
 
-Total perdido: 8 minutos + frustração
+Total perdido: 8 minutos + frustraçêo
 ```
 
 ### ✅ Agora (com checkpoint)
 
 ```
-ETAPA 3 (Transcrição): 7 minutos ✓
-ETAPA 4 (Tradução): 1 minuto ✓
+ETAPA 3 (Transcriçêo): 7 minutos ✓
+ETAPA 4 (Traduçêo): 1 minuto ✓
 ETAPA 6 (TTS): 20 minutos ❌ ERRO!
 
 --- Corrige o erro ---
@@ -202,7 +202,7 @@ Total economizado: 8 minutos 🚀
 
 ## Limitações
 
-1. **Não funciona entre vídeos diferentes**: O checkpoint é por pasta `dub_work/`, então cada vídeo deve ter sua própria pasta.
+1. **Nêo funciona entre vídeos diferentes**: O checkpoint é por pasta `dub_work/`, entêo cada vídeo deve ter sua própria pasta.
 
 2. **Mudança de parâmetros**: Se você mudar parâmetros críticos (ex: `--src en` para `--src pt`), é melhor limpar `dub_work/` e começar do zero.
 
@@ -217,11 +217,11 @@ Total economizado: 8 minutos 🚀
 
 ## Arquivos Importantes
 
-| Arquivo | Função |
+| Arquivo | Funçêo |
 |---------|--------|
 | `dub_work/checkpoint.json` | Estado do checkpoint (qual etapa continuar) |
-| `dub_work/asr.json` | Transcrição original (ETAPA 3) |
-| `dub_work/asr_trad.json` | Tradução (ETAPA 4) |
+| `dub_work/asr.json` | Transcriçêo original (ETAPA 3) |
+| `dub_work/asr_trad.json` | Traduçêo (ETAPA 4) |
 | `dub_work/seg_*.wav` | Segmentos de áudio gerados (ETAPA 6) |
 | `dub_work/dub_raw.wav` | Áudio concatenado (ETAPA 8) |
 | `dub_work/dub_final.wav` | Áudio final processado (ETAPA 9) |
@@ -240,7 +240,7 @@ type dub_work\checkpoint.json
 Edite `checkpoint.json`:
 ```json
 {
-  "last_step": "Transcrição",
+  "last_step": "Transcriçêo",
   "last_step_num": 3,
   "next_step": 4
 }
@@ -259,7 +259,7 @@ dublar.bat video.mp4
 ### "ERRO: Nenhum checkpoint encontrado!"
 - Execute primeiro uma dublagem normal: `dublar.bat video.mp4`
 
-### "SKIP ETAPA 6 mas seg_0001.wav não existe!"
+### "SKIP ETAPA 6 mas seg_0001.wav nêo existe!"
 - Limpe a pasta: `rd /s /q dub_work` e recomece
 
 ### "Processo continua mas refaz tudo!"
@@ -271,7 +271,7 @@ dublar.bat video.mp4
 ## Resumo
 
 ```bash
-# Primeira execução (processo normal)
+# Primeira execuçêo (processo normal)
 dublar.bat video.mp4
 
 # Se der erro, continue de onde parou:

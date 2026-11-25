@@ -1,14 +1,14 @@
 # dublar.py
-# Pipeline local de dublagem com etapas claras + sincronização opcional.
+# Pipeline local de dublagem com etapas claras + sincronizaçêo opcional.
 # Etapas:
 # 1) Entrada/cheques
-# 2) Extração de áudio
-# 3) Transcrição (Whisper)
-# 4) Tradução (M2M100)
-# 5) Preparação de segmentos (split inteligente)
+# 2) Extraçêo de áudio
+# 3) Transcriçêo (Whisper)
+# 4) Traduçêo (M2M100)
+# 5) Preparaçêo de segmentos (split inteligente)
 # 6) TTS (Bark ou Coqui) + (opcional) micro-fade
-# 7) Sincronização por janela (fit/loose/none)
-# 8) Concatenação
+# 7) Sincronizaçêo por janela (fit/loose/none)
+# 8) Concatenaçêo
 # 9) Pós-processo
 # 10) Mux final + logs
 
@@ -22,10 +22,10 @@ def sh(cmd, cwd=None):
 
 def ensure_ffmpeg():
     if not shutil.which("ffmpeg"):
-        print("ffmpeg não encontrado no PATH.")
+        print("ffmpeg nêo encontrado no PATH.")
         sys.exit(1)
     if not shutil.which("ffprobe"):
-        print("ffprobe não encontrado no PATH (vem junto com ffmpeg).")
+        print("ffprobe nêo encontrado no PATH (vem junto com ffmpeg).")
         sys.exit(1)
 
 def ffprobe_duration(wav_path):
@@ -46,9 +46,9 @@ def ts_stamp(t):
     s = t % 60
     return f"{h:02d}:{m:02d}:{s:06.3f}".replace(".", ",")
 
-# -------------------- etapa 3: transcrição --------------------
+# -------------------- etapa 3: transcriçêo --------------------
 def transcribe_faster_whisper(wav_path, workdir, src_lang):
-    print("\n=== ETAPA 3: Transcrição (Whisper) ===")
+    print("\n=== ETAPA 3: Transcriçêo (Whisper) ===")
     from faster_whisper import WhisperModel
     model = WhisperModel("medium", device="auto")
     segments, info = model.transcribe(str(wav_path), language=src_lang, vad_filter=True)
@@ -72,9 +72,9 @@ def transcribe_faster_whisper(wav_path, workdir, src_lang):
     print(f"Transcrito: {len(segs)} segmentos")
     return json_path, srt_path, segs
 
-# -------------------- etapa 4: tradução --------------------
+# -------------------- etapa 4: traduçêo --------------------
 def translate_segments_m2m100(segs, src, tgt, workdir):
-    print("\n=== ETAPA 4: Tradução (facebook/m2m100_418M) ===")
+    print("\n=== ETAPA 4: Traduçêo (facebook/m2m100_418M) ===")
     from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
     model_name = "facebook/m2m100_418M"
     tok = AutoTokenizer.from_pretrained(model_name)
@@ -127,9 +127,9 @@ def translate_segments_m2m100(segs, src, tgt, workdir):
     print(f"Traduzido: {len(out)} segmentos")
     return out, json_t, srt_t
 
-# -------------------- etapa 5: preparação (split inteligente) --------------------
+# -------------------- etapa 5: preparaçêo (split inteligente) --------------------
 def split_long_segments(segments, maxdur):
-    print("\n=== ETAPA 5: Preparação de segmentos (split inteligente) ===")
+    print("\n=== ETAPA 5: Preparaçêo de segmentos (split inteligente) ===")
     if maxdur is None or maxdur <= 0:
         print("Split desativado.")
         return segments
@@ -144,7 +144,7 @@ def split_long_segments(segments, maxdur):
         if dur <= maxdur or len(text.split()) < 16:
             out.append(s); continue
 
-        parts = re.split(r'([\.!\?:;,\u2026])', text)  # mantém pontuação separada
+        parts = re.split(r'([\.!\?:;,\u2026])', text)  # mantém pontuaçêo separada
         pieces = []
         buf = ""
         for chunk in parts:
@@ -246,7 +246,7 @@ def tts_coqui(segments, workdir, tgt_lang, speaker=None):
     print(f"TTS Coqui gerou: {len(seg_files)} arquivos")
     return seg_files, sample_rate
 
-# -------------------- etapa 7: sincronização --------------------
+# -------------------- etapa 7: sincronizaçêo --------------------
 def atempo_chain(factor):
     chain = []
     f = float(factor)
@@ -277,9 +277,9 @@ def micro_fade_inplace(wav_path, workdir):
     sh(["ffmpeg", "-y", "-i", wav_path.name, "-af", "afade=t=in:ss=0:d=0.02,afade=t=out:st=0.02:d=0.02", out.name], cwd=workdir)
     return out
 
-# -------------------- etapa 8: concatenação --------------------
+# -------------------- etapa 8: concatenaçêo --------------------
 def concat_segments(seg_files, workdir, samplerate):
-    print("\n=== ETAPA 8: Concatenação ===")
+    print("\n=== ETAPA 8: Concatenaçêo ===")
     lst = Path(workdir, "list.txt")
     with open(lst, "w", encoding="utf-8") as f:
         for p in seg_files:
@@ -320,7 +320,7 @@ def mux_video(video_in, wav_in, out_mp4, bitrate):
 # -------------------- main --------------------
 def main():
     print("=== ETAPA 1: Entrada/cheques ===")
-    ap = argparse.ArgumentParser(description="Dublagem local com Whisper + M2M100 + Bark/Coqui (com sincronização opcional)")
+    ap = argparse.ArgumentParser(description="Dublagem local com Whisper + M2M100 + Bark/Coqui (com sincronizaçêo opcional)")
     ap.add_argument("--in", dest="inp", required=True, help="vídeo de entrada, ex: video.mp4")
     ap.add_argument("--out", dest="out", default="video_dublado.mp4", help="arquivo MP4 de saída")
     ap.add_argument("--src", required=True, help="idioma origem, ex: en")
@@ -330,14 +330,14 @@ def main():
     ap.add_argument("--rate", type=int, default=24000, help="sample rate final (Hz)")
     ap.add_argument("--bitrate", default="192k", help="bitrate AAC (ex: 192k)")
 
-    # novas flags de sincronização/prosódia
-    ap.add_argument("--sync", choices=["none", "fit", "loose"], default="fit", help="ajuste de duração por segmento")
-    ap.add_argument("--tolerance", type=float, default=0.15, help="tolerância de variação (ex: 0.15 = 15%)")
+    # novas flags de sincronizaçêo/prosódia
+    ap.add_argument("--sync", choices=["none", "fit", "loose"], default="fit", help="ajuste de duraçêo por segmento")
+    ap.add_argument("--tolerance", type=float, default=0.15, help="tolerância de variaçêo (ex: 0.15 = 15%)")
     ap.add_argument("--maxstretch", type=float, default=1.35, help="limite de stretching (ex: 1.35)")
     ap.add_argument("--maxdur", type=float, default=10.0, help="quebra segmentos acima desse tempo (s). 0 = desativa")
     ap.add_argument("--texttemp", type=float, default=0.6, help="Bark: temperatura de texto")
     ap.add_argument("--wavetemp", type=float, default=0.6, help="Bark: temperatura de waveform")
-    ap.add_argument("--fade", type=int, default=1, help="aplica micro-fade in/out em cada segmento (1=sim, 0=não)")
+    ap.add_argument("--fade", type=int, default=1, help="aplica micro-fade in/out em cada segmento (1=sim, 0=nêo)")
     args = ap.parse_args()
 
     ensure_ffmpeg()
@@ -346,11 +346,11 @@ def main():
 
     video_in = Path(args.inp).resolve()
     if not video_in.exists():
-        print("Arquivo de entrada não encontrado:", video_in)
+        print("Arquivo de entrada nêo encontrado:", video_in)
         sys.exit(1)
 
-    # -------------------- etapa 2: extração de áudio --------------------
-    print("\n=== ETAPA 2: Extração de áudio (ffmpeg) ===")
+    # -------------------- etapa 2: extraçêo de áudio --------------------
+    print("\n=== ETAPA 2: Extraçêo de áudio (ffmpeg) ===")
     audio_src = Path(workdir, "audio_src.wav")
     sh(["ffmpeg", "-y", "-i", str(video_in), "-vn", "-ac", "1", "-ar", "48000", "-c:a", "pcm_s16le", str(audio_src)])
 
@@ -374,8 +374,8 @@ def main():
         print("\n=== ETAPA 6.1: Micro-fade por segmento ===")
         seg_files = [micro_fade_inplace(p, workdir) for p in seg_files]
 
-    # 7) sincronização por janela
-    print("\n=== ETAPA 7: Sincronização por segmento ===")
+    # 7) sincronizaçêo por janela
+    print("\n=== ETAPA 7: Sincronizaçêo por segmento ===")
     if args.sync in ("fit", "loose"):
         fixed_files = []
         for i, s in enumerate(segs_trad, 1):
@@ -391,9 +391,9 @@ def main():
             fixed_files.append(fixed)
         seg_files = fixed_files
     else:
-        print("Sincronização: desativada (none)")
+        print("Sincronizaçêo: desativada (none)")
 
-    # 8) concatenação
+    # 8) concatenaçêo
     dub_raw = concat_segments(seg_files, workdir, sr_segs)
 
     # 9) pós-processo

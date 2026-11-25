@@ -1,18 +1,18 @@
-# ðŸŽ¬ Dublar - Sistema de Dublagem AutomÃ¡tica de VÃ­deos
+# ê°Å¸Å½Â¬ Dublar - Sistema de Dublagem AutomêÂ¡tica de VêÂ­deos
 
-Sistema completo de dublagem automÃ¡tica de vÃ­deos usando IA para transcriÃ§Ã£o, traduÃ§Ã£o e sÃ­ntese de voz.
+Sistema completo de dublagem automêÂ¡tica de vêÂ­deos usando IA para transcriêÂ§êÂ£o, traduêÂ§êÂ£o e sêÂ­ntese de voz.
 
-## ðŸŒŸ CaracterÃ­sticas
+## ê°Å¸ÅÅ¸ CaracterêÂ­sticas
 
-- **TranscriÃ§Ã£o automÃ¡tica** com Whisper (faster-whisper)
-- **TraduÃ§Ã£o** com facebook/m2m100_418M (suporta mÃºltiplos idiomas)
-- **SÃ­ntese de voz** com Bark ou Coqui TTS
-- **SincronizaÃ§Ã£o inteligente** com 4 modos: none, fit, pad, smart
+- **TranscriêÂ§êÂ£o automêÂ¡tica** com Whisper (faster-whisper)
+- **TraduêÂ§êÂ£o** com facebook/m2m100_418M (suporta mêÂºltiplos idiomas)
+- **SêÂ­ntese de voz** com Bark ou Coqui TTS
+- **SincronizaêÂ§êÂ£o inteligente** com 4 modos: none, fit, pad, smart
 - **Suporte GPU** NVIDIA CUDA (opcional, funciona em CPU)
-- **PreservaÃ§Ã£o de termos tÃ©cnicos** em vÃ­deos de programaÃ§Ã£o
-- **Processamento em lote** de mÃºltiplos vÃ­deos
+- **PreservaêÂ§êÂ£o de termos têÂ©cnicos** em vêÂ­deos de programaêÂ§êÂ£o
+- **Processamento em lote** de mêÂºltiplos vêÂ­deos
 
-## ðŸš€ InÃ­cio RÃ¡pido
+## ê°Å¸Å¡â¬ InêÂ­cio RêÂ¡pido
 
 ### Windows:
 ```bash
@@ -33,124 +33,124 @@ pip install -r requirements.txt
 python3 dublar.py video.mp4 --src_lang en --tgt_lang pt --tts bark --sync smart
 ```
 
-**ðŸ“– [Guia completo de instalaÃ§Ã£o Linux](INSTALL_LINUX.md)**
+**ê°Å¸ââ [Guia completo de instalaêÂ§êÂ£o Linux](INSTALL_LINUX.md)**
 
-## ðŸ“‹ Requisitos
+## ê°Å¸ââ¹ Requisitos
 
 - **Python**: 3.10 ou superior
-- **FFmpeg**: ObrigatÃ³rio (processamento de vÃ­deo/Ã¡udio)
-- **RAM**: 8GB mÃ­nimo, 16GB+ recomendado
+- **FFmpeg**: ObrigatêÂ³rio (processamento de vêÂ­deo/êÂ¡udio)
+- **RAM**: 8GB mêÂ­nimo, 16GB+ recomendado
 - **Disco**: 10GB+ para modelos de IA
-- **GPU** (opcional): NVIDIA com CUDA 11.8+ para processamento mais rÃ¡pido
+- **GPU** (opcional): NVIDIA com CUDA 11.8+ para processamento mais rêÂ¡pido
 
-## ðŸŽ¯ Uso BÃ¡sico
+## ê°Å¸Å½Â¯ Uso BêÂ¡sico
 
 ### Sintaxe:
 ```bash
-python dublar.py VIDEO.mp4 [opÃ§Ãµes]
+python dublar.py VIDEO.mp4 [opêÂ§êÂµes]
 ```
 
 ### Exemplos:
 
-**InglÃªs â†’ PortuguÃªs (padrÃ£o):**
+**InglêÂªs ê¢â â PortuguêÂªs (padrêÂ£o):**
 ```bash
 python dublar.py tutorial.mp4
 ```
 
-**Espanhol â†’ InglÃªs:**
+**Espanhol ê¢â â InglêÂªs:**
 ```bash
 python dublar.py video.mp4 --src_lang es --tgt_lang en
 ```
 
-**VÃ­deo tÃ©cnico com preservaÃ§Ã£o de termos:**
+**VêÂ­deo têÂ©cnico com preservaêÂ§êÂ£o de termos:**
 ```bash
 python dublar_tech_v2.py codigo.mp4 --src_lang en --tgt_lang pt
 ```
 
-**Usar voz especÃ­fica:**
+**Usar voz especêÂ­fica:**
 ```bash
 python dublar.py video.mp4 --voice v2/pt_speaker_5
 ```
 
-### ParÃ¢metros Principais:
+### ParêÂ¢metros Principais:
 
-| ParÃ¢metro | PadrÃ£o | DescriÃ§Ã£o |
+| ParêÂ¢metro | PadrêÂ£o | DescriêÂ§êÂ£o |
 |-----------|--------|-----------|
 | `--src_lang` | `en` | Idioma de origem (en, es, fr, pt, etc.) |
 | `--tgt_lang` | `pt` | Idioma de destino |
 | `--tts` | `bark` | Engine de voz (`bark` ou `coqui`) |
-| `--sync` | `smart` | Modo de sincronizaÃ§Ã£o (`none`, `fit`, `pad`, `smart`) |
-| `--voice` | - | Voz especÃ­fica (ex: `v2/pt_speaker_5`) |
-| `--rate` | `22050` | Taxa de amostragem do Ã¡udio final |
+| `--sync` | `smart` | Modo de sincronizaêÂ§êÂ£o (`none`, `fit`, `pad`, `smart`) |
+| `--voice` | - | Voz especêÂ­fica (ex: `v2/pt_speaker_5`) |
+| `--rate` | `22050` | Taxa de amostragem do êÂ¡udio final |
 
-### Modos de SincronizaÃ§Ã£o:
+### Modos de SincronizaêÂ§êÂ£o:
 
 - **`none`**: Sem ajuste, pode desincronizar
-- **`fit`**: Comprime/expande Ã¡udio para caber no tempo
-- **`pad`**: Adiciona silÃªncio se necessÃ¡rio
-- **`smart`**: AutomÃ¡tico (pad se curto, fit se longo) - **Recomendado**
+- **`fit`**: Comprime/expande êÂ¡udio para caber no tempo
+- **`pad`**: Adiciona silêÂªncio se necessêÂ¡rio
+- **`smart`**: AutomêÂ¡tico (pad se curto, fit se longo) - **Recomendado**
 
-## ðŸ“ Estrutura de Arquivos
+## ê°Å¸âÂ Estrutura de Arquivos
 
 ```
 dublar/
-â”œâ”€â”€ dublar.py              # Script principal
-â”œâ”€â”€ dublar2.py             # VersÃ£o com melhorias de sync
-â”œâ”€â”€ dublar3.py             # VersÃ£o com output em pasta separada
-â”œâ”€â”€ dublar31.py            # VersÃ£o com preservaÃ§Ã£o de gaps
-â”œâ”€â”€ dublar_tech_v2.py      # Otimizado para vÃ­deos tÃ©cnicos
-â”œâ”€â”€ dublar_sync_v2.py      # VersÃ£o com sync avanÃ§ado
-â”‚
-â”œâ”€â”€ requirements.txt       # DependÃªncias Python
-â”‚
-â”œâ”€â”€ instalar.bat           # Instalador Windows
-â”œâ”€â”€ dublar.bat             # Launcher Windows
-â”œâ”€â”€ ativar_gpu.bat         # Configurar GPU no Windows
-â”‚
-â”œâ”€â”€ test_*.py              # Scripts de teste
-â”‚
-â”œâ”€â”€ INSTALL_LINUX.md       # ðŸ“– Guia de instalaÃ§Ã£o Linux
-â”œâ”€â”€ README_TECH.md         # DocumentaÃ§Ã£o versÃ£o tÃ©cnica
-â”œâ”€â”€ README_SYNC_V2.md      # DocumentaÃ§Ã£o sync v2
-â”œâ”€â”€ README_BAT.md          # DocumentaÃ§Ã£o scripts Windows
-â”œâ”€â”€ MAPA_ARQUIVOS.md       # Estrutura detalhada do projeto
-â”‚
-â”œâ”€â”€ venv/                  # Ambiente virtual (vocÃª cria)
-â”œâ”€â”€ dub_work/              # TemporÃ¡rios (criado automaticamente)
-â””â”€â”€ dublado/               # VÃ­deos finais (criado automaticamente)
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar.py              # Script principal
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar2.py             # VersêÂ£o com melhorias de sync
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar3.py             # VersêÂ£o com output em pasta separada
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar31.py            # VersêÂ£o com preservaêÂ§êÂ£o de gaps
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar_tech_v2.py      # Otimizado para vêÂ­deos têÂ©cnicos
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar_sync_v2.py      # VersêÂ£o com sync avanêÂ§ado
+ê¢ââ
+ê¢âÅê¢ââ¬ê¢ââ¬ requirements.txt       # DependêÂªncias Python
+ê¢ââ
+ê¢âÅê¢ââ¬ê¢ââ¬ instalar.bat           # Instalador Windows
+ê¢âÅê¢ââ¬ê¢ââ¬ dublar.bat             # Launcher Windows
+ê¢âÅê¢ââ¬ê¢ââ¬ ativar_gpu.bat         # Configurar GPU no Windows
+ê¢ââ
+ê¢âÅê¢ââ¬ê¢ââ¬ test_*.py              # Scripts de teste
+ê¢ââ
+ê¢âÅê¢ââ¬ê¢ââ¬ INSTALL_LINUX.md       # ê°Å¸ââ Guia de instalaêÂ§êÂ£o Linux
+ê¢âÅê¢ââ¬ê¢ââ¬ README_TECH.md         # DocumentaêÂ§êÂ£o versêÂ£o têÂ©cnica
+ê¢âÅê¢ââ¬ê¢ââ¬ README_SYNC_V2.md      # DocumentaêÂ§êÂ£o sync v2
+ê¢âÅê¢ââ¬ê¢ââ¬ README_BAT.md          # DocumentaêÂ§êÂ£o scripts Windows
+ê¢âÅê¢ââ¬ê¢ââ¬ MAPA_ARQUIVOS.md       # Estrutura detalhada do projeto
+ê¢ââ
+ê¢âÅê¢ââ¬ê¢ââ¬ venv/                  # Ambiente virtual (vocêÂª cria)
+ê¢âÅê¢ââ¬ê¢ââ¬ dub_work/              # TemporêÂ¡rios (criado automaticamente)
+ê¢ââê¢ââ¬ê¢ââ¬ dublado/               # VêÂ­deos finais (criado automaticamente)
 ```
 
-## ðŸ”§ VersÃµes DisponÃ­veis
+## ê°Å¸âÂ§ VersêÂµes DisponêÂ­veis
 
 ### Scripts Principais:
 
-1. **`dublar.py`** - VersÃ£o base estÃ¡vel
+1. **`dublar.py`** - VersêÂ£o base estêÂ¡vel
    - Funcionalidades essenciais
-   - Melhor para comeÃ§ar
+   - Melhor para comeêÂ§ar
 
-2. **`dublar_tech_v2.py`** - Para vÃ­deos tÃ©cnicos
-   - GlossÃ¡rio de 100+ termos tÃ©cnicos
+2. **`dublar_tech_v2.py`** - Para vêÂ­deos têÂ©cnicos
+   - GlossêÂ¡rio de 100+ termos têÂ©cnicos
    - Preserva nomes de tecnologias
-   - Otimizado para tutoriais de programaÃ§Ã£o
-   - [ðŸ“– DocumentaÃ§Ã£o](README_TECH.md)
+   - Otimizado para tutoriais de programaêÂ§êÂ£o
+   - [ê°Å¸ââ DocumentaêÂ§êÂ£o](README_TECH.md)
 
-3. **`dublar_sync_v2.py`** - SincronizaÃ§Ã£o avanÃ§ada
-   - Melhor alinhamento de Ã¡udio
+3. **`dublar_sync_v2.py`** - SincronizaêÂ§êÂ£o avanêÂ§ada
+   - Melhor alinhamento de êÂ¡udio
    - Controle fino de timing
-   - [ðŸ“– DocumentaÃ§Ã£o](README_SYNC_V2.md)
+   - [ê°Å¸ââ DocumentaêÂ§êÂ£o](README_SYNC_V2.md)
 
-4. **`dublar31.py`** - Com preservaÃ§Ã£o de pausas
-   - MantÃ©m silÃªncios entre frases
+4. **`dublar31.py`** - Com preservaêÂ§êÂ£o de pausas
+   - MantêÂ©m silêÂªncios entre frases
    - Mais natural para palestras
 
-## ðŸ§ª Testar InstalaÃ§Ã£o
+## ê°Å¸Â§Âª Testar InstalaêÂ§êÂ£o
 
 ```bash
-# Ativar ambiente (se ainda nÃ£o ativou)
+# Ativar ambiente (se ainda nêÂ£o ativou)
 source venv/bin/activate  # Linux
 # venv\Scripts\activate   # Windows
 
-# Teste rÃ¡pido
+# Teste rêÂ¡pido
 python test_quick.py
 
 # Testar GPU
@@ -160,64 +160,64 @@ python test_gpu.py
 python test_whisper_gpu.py
 ```
 
-## ðŸŒ Idiomas Suportados
+## ê°Å¸ÅÂ Idiomas Suportados
 
-### TranscriÃ§Ã£o (Whisper):
+### TranscriêÂ§êÂ£o (Whisper):
 Mais de 90 idiomas incluindo: en, pt, es, fr, de, it, ja, ko, zh, ru, ar, hi, etc.
 
-### TraduÃ§Ã£o (M2M100):
+### TraduêÂ§êÂ£o (M2M100):
 100 idiomas incluindo todos os principais.
 
-### SÃ­ntese de Voz:
-- **Bark**: MultilÃ­ngue (en, pt, es, fr, de, it, pl, zh, ja, hi, etc.)
+### SêÂ­ntese de Voz:
+- **Bark**: MultilêÂ­ngue (en, pt, es, fr, de, it, pl, zh, ja, hi, etc.)
 - **Coqui TTS**: Varia por modelo
 
-## ðŸ“Š Fluxo de Processamento
+## ê°Å¸âÅ  Fluxo de Processamento
 
 ```
-1. ExtraÃ§Ã£o de Ãudio (FFmpeg)
-   video.mp4 â†’ audio_src.wav
+1. ExtraêÂ§êÂ£o de êÂudio (FFmpeg)
+   video.mp4 ê¢â â audio_src.wav
 
-2. TranscriÃ§Ã£o (Whisper)
-   audio_src.wav â†’ asr.srt + asr.json
+2. TranscriêÂ§êÂ£o (Whisper)
+   audio_src.wav ê¢â â asr.srt + asr.json
 
-3. TraduÃ§Ã£o (M2M100)
-   asr.json â†’ asr_trad.json + asr_trad.srt
+3. TraduêÂ§êÂ£o (M2M100)
+   asr.json ê¢â â asr_trad.json + asr_trad.srt
 
-4. SÃ­ntese de Voz (Bark/Coqui)
-   asr_trad.json â†’ seg_0001.wav, seg_0002.wav, ...
+4. SêÂ­ntese de Voz (Bark/Coqui)
+   asr_trad.json ê¢â â seg_0001.wav, seg_0002.wav, ...
 
-5. SincronizaÃ§Ã£o (smart/fit/pad/none)
-   seg_*.wav â†’ seg_*_fit.wav
+5. SincronizaêÂ§êÂ£o (smart/fit/pad/none)
+   seg_*.wav ê¢â â seg_*_fit.wav
 
-6. ConcatenaÃ§Ã£o + PÃ³s-processamento
-   seg_*_fit.wav â†’ dub_final.wav
+6. ConcatenaêÂ§êÂ£o + PêÂ³s-processamento
+   seg_*_fit.wav ê¢â â dub_final.wav
 
 7. Mixagem Final (FFmpeg)
-   video.mp4 + dub_final.wav â†’ video_dublado.mp4
+   video.mp4 + dub_final.wav ê¢â â video_dublado.mp4
 ```
 
-## ðŸŽ“ DocumentaÃ§Ã£o Adicional
+## ê°Å¸Å½â DocumentaêÂ§êÂ£o Adicional
 
-- **[INSTALL_LINUX.md](INSTALL_LINUX.md)** - Guia completo de instalaÃ§Ã£o no Linux
-- **[README_TECH.md](README_TECH.md)** - VersÃ£o otimizada para vÃ­deos tÃ©cnicos
-- **[README_SYNC_V2.md](README_SYNC_V2.md)** - SincronizaÃ§Ã£o avanÃ§ada
+- **[INSTALL_LINUX.md](INSTALL_LINUX.md)** - Guia completo de instalaêÂ§êÂ£o no Linux
+- **[README_TECH.md](README_TECH.md)** - VersêÂ£o otimizada para vêÂ­deos têÂ©cnicos
+- **[README_SYNC_V2.md](README_SYNC_V2.md)** - SincronizaêÂ§êÂ£o avanêÂ§ada
 - **[README_BAT.md](README_BAT.md)** - Scripts Windows (.bat)
 - **[MAPA_ARQUIVOS.md](MAPA_ARQUIVOS.md)** - Estrutura completa do projeto
-- **[FIX_CUDA.md](FIX_CUDA.md)** - SoluÃ§Ã£o de problemas CUDA
+- **[FIX_CUDA.md](FIX_CUDA.md)** - SoluêÂ§êÂ£o de problemas CUDA
 - **[INSTALACAO_GPU.md](INSTALACAO_GPU.md)** - Configurar GPU NVIDIA
 
-## âš ï¸ Notas Importantes
+## ê¢Å¡Â ê¯Â¸Â Notas Importantes
 
-1. **DiretÃ³rios automÃ¡ticos**: `dub_work/` e `dublado/` sÃ£o criados automaticamente - nÃ£o crie manualmente
-2. **FFmpeg obrigatÃ³rio**: Sem FFmpeg nada funciona
+1. **DiretêÂ³rios automêÂ¡ticos**: `dub_work/` e `dublado/` sêÂ£o criados automaticamente - nêÂ£o crie manualmente
+2. **FFmpeg obrigatêÂ³rio**: Sem FFmpeg nada funciona
 3. **GPU opcional**: Funciona em CPU, apenas mais lento
-4. **Primeira execuÃ§Ã£o**: Download de modelos pode levar tempo (5-10GB)
-5. **MemÃ³ria**: VÃ­deos longos (+30min) podem precisar de 16GB+ RAM
+4. **Primeira execuêÂ§êÂ£o**: Download de modelos pode levar tempo (5-10GB)
+5. **MemêÂ³ria**: VêÂ­deos longos (+30min) podem precisar de 16GB+ RAM
 
-## ðŸ› SoluÃ§Ã£o de Problemas
+## ê°Å¸Ââº SoluêÂ§êÂ£o de Problemas
 
-### FFmpeg nÃ£o encontrado:
+### FFmpeg nêÂ£o encontrado:
 ```bash
 # Ubuntu/Debian
 sudo apt install ffmpeg
@@ -228,39 +228,39 @@ sudo apt install ffmpeg
 
 ### Erro de CUDA/GPU:
 ```bash
-# ForÃ§ar CPU (mais estÃ¡vel)
+# ForêÂ§ar CPU (mais estêÂ¡vel)
 # Edite o script e mude device="cuda" para device="cpu"
 ```
 
-### Falta de memÃ³ria:
+### Falta de memêÂ³ria:
 ```bash
-# Use vÃ­deos menores ou processe em partes
-# Reduza batch_size no cÃ³digo
+# Use vêÂ­deos menores ou processe em partes
+# Reduza batch_size no cêÂ³digo
 ```
 
-### Modelos nÃ£o baixam:
+### Modelos nêÂ£o baixam:
 ```bash
-# Verifique conexÃ£o com internet
-# Modelos sÃ£o baixados automaticamente do HuggingFace
+# Verifique conexêÂ£o com internet
+# Modelos sêÂ£o baixados automaticamente do HuggingFace
 ```
 
-## ðŸ“ Logs e Debug
+## ê°Å¸âÂ Logs e Debug
 
-Cada execuÃ§Ã£o gera:
+Cada execuêÂ§êÂ£o gera:
 - `dub_work/logs.json` - Log completo do processo
-- `dub_work/asr.srt` - TranscriÃ§Ã£o original
-- `dub_work/asr_trad.srt` - TraduÃ§Ã£o
-- `dub_work/*.wav` - Arquivos de Ã¡udio intermediÃ¡rios
+- `dub_work/asr.srt` - TranscriêÂ§êÂ£o original
+- `dub_work/asr_trad.srt` - TraduêÂ§êÂ£o
+- `dub_work/*.wav` - Arquivos de êÂ¡udio intermediêÂ¡rios
 
-## ðŸ¤ Contribuindo
+## ê°Å¸Â¤Â Contribuindo
 
-Pull requests sÃ£o bem-vindos! Para mudanÃ§as maiores, abra uma issue primeiro.
+Pull requests sêÂ£o bem-vindos! Para mudanêÂ§as maiores, abra uma issue primeiro.
 
-## ðŸ“„ LicenÃ§a
+## ê°Å¸ââ LicenêÂ§a
 
-Este projeto Ã© open source.
+Este projeto êÂ© open source.
 
-## ðŸ”— Links Ãšteis
+## ê°Å¸ââ Links êÅ¡teis
 
 - **FFmpeg**: https://ffmpeg.org
 - **Whisper**: https://github.com/openai/whisper
@@ -269,8 +269,8 @@ Este projeto Ã© open source.
 
 ---
 
-**Desenvolvido com â¤ï¸ usando IA de ponta para dublagem de vÃ­deos**
+**Desenvolvido com ê¢ÂÂ¤ê¯Â¸Â usando IA de ponta para dublagem de vêÂ­deos**
 
 ---
 
-Projeto adaptado da comunidade ARCKHÉ TDS - Marca Arckhe
+Projeto adaptado da comunidade ARCKHê TDS - ARCKHÉe

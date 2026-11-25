@@ -15,7 +15,7 @@ print("=" * 60)
 print()
 
 # ============================================================================
-# TESTE 1: Verificar função de split corrigida
+# TESTE 1: Verificar funçêo de split corrigida
 # ============================================================================
 print("=" * 60)
 print("TESTE 1: Split com timestamps proporcionais")
@@ -29,13 +29,13 @@ with open('dub_work/asr_trad.json', 'r', encoding='utf-8') as f:
 segments = data['segments']
 maxdur = 10.0
 
-print(f"Configuração: maxdur={maxdur}s")
+print(f"Configuraçêo: maxdur={maxdur}s")
 print(f"Total de segmentos: {len(segments)}")
 print()
 
 # Simular split_long_segments corrigido
 def split_long_segments_NEW(segments, maxdur):
-    """Versão corrigida com timestamps proporcionais"""
+    """Versêo corrigida com timestamps proporcionais"""
     if not maxdur or maxdur <= 0:
         return segments
 
@@ -47,7 +47,7 @@ def split_long_segments_NEW(segments, maxdur):
         text = (s.get("text_trad") or "").strip()
         dur = max(0.001, end - start)
 
-        # Não dividir se duração OK ou texto curto
+        # Nêo dividir se duraçêo OK ou texto curto
         if dur <= maxdur or len(text.split()) < 16:
             out.append(s)
             continue
@@ -55,7 +55,7 @@ def split_long_segments_NEW(segments, maxdur):
         print(f"[SPLIT] Segmento {seg_idx}: {start:.2f}s->{end:.2f}s ({dur:.2f}s, {len(text)} chars)")
         print(f"[SPLIT]   Texto: \"{text[:60]}...\"")
 
-        # Dividir texto em pontuação
+        # Dividir texto em pontuaçêo
         parts = re.split(r'([\.!\?:;,\u2026])', text)
         cps = max(len(text)/dur, 8.0)
 
@@ -88,7 +88,7 @@ def split_long_segments_NEW(segments, maxdur):
         print(f"[SPLIT]   Dividindo em {len(pieces)} partes (total: {total_chars} chars):")
 
         for i, piece in enumerate(pieces):
-            # Calcular duração proporcional ao tamanho do texto
+            # Calcular duraçêo proporcional ao tamanho do texto
             piece_ratio = len(piece) / total_chars
             piece_dur = dur * piece_ratio
             nxt = cur + piece_dur
@@ -114,7 +114,7 @@ segments_split = split_long_segments_NEW(segments, maxdur)
 
 print()
 print("-" * 60)
-print("COMPARAÇÃO: Timestamps Antigos vs Novos")
+print("COMPARAÇêO: Timestamps Antigos vs Novos")
 print("-" * 60)
 print()
 
@@ -144,11 +144,11 @@ for i in range(min(5, len(old_segments))):
 print()
 
 # ============================================================================
-# TESTE 2: Simular sincronização com novos timestamps
+# TESTE 2: Simular sincronizaçêo com novos timestamps
 # ============================================================================
 print()
 print("=" * 60)
-print("TESTE 2: Sincronização com novos alvos")
+print("TESTE 2: Sincronizaçêo com novos alvos")
 print("=" * 60)
 print()
 
@@ -156,7 +156,7 @@ print()
 from subprocess import check_output
 
 def get_duration(file_path):
-    """Pega duração de arquivo WAV usando ffprobe"""
+    """Pega duraçêo de arquivo WAV usando ffprobe"""
     try:
         out = check_output([
             "ffprobe", "-v", "error",
@@ -168,7 +168,7 @@ def get_duration(file_path):
     except:
         return 0.0
 
-print("Comparando duração TTS gerada vs alvo esperado:")
+print("Comparando duraçêo TTS gerada vs alvo esperado:")
 print()
 print(f"{'Seg':<5} {'Alvo Antigo':<12} {'Alvo Novo':<12} {'TTS Gerado':<12} {'Ajuste Novo':<15}")
 print("-" * 65)
@@ -180,7 +180,7 @@ for i in range(min(5, len(segments_split))):
     # Alvo novo (corrigido)
     new_target = segments_split[i]['end'] - segments_split[i]['start']
 
-    # Duração real do TTS
+    # Duraçêo real do TTS
     tts_file = Path('dub_work', f'seg_{i+1:04d}.wav')
     if tts_file.exists():
         tts_dur = get_duration(tts_file)
@@ -273,7 +273,7 @@ if final_file.exists():
             print(f"  Status: OK")
     print()
 
-print("NOTA: Com a correção aplicada, o pós-processamento agora usa:")
+print("NOTA: Com a correçêo aplicada, o pós-processamento agora usa:")
 print("  fx = \"loudnorm=I=-14:TP=-1.5:LRA=11\"")
 print("  (removido afftdn e equalizer problemáticos)")
 print()
@@ -288,18 +288,18 @@ print("=" * 60)
 print()
 
 print("✅ TESTE 1 - Split com timestamps proporcionais:")
-print("   - Timestamps agora refletem proporção do texto")
-print("   - Primeira parte do segmento 1 deve ter ~10.0s (não 9.99s)")
+print("   - Timestamps agora refletem proporçêo do texto")
+print("   - Primeira parte do segmento 1 deve ter ~10.0s (nêo 9.99s)")
 print()
 
-print("✅ TESTE 2 - Sincronização com novos alvos:")
-print("   - Alvos de sincronização agora são mais realistas")
-print("   - Menos compressão/expansão necessária")
+print("✅ TESTE 2 - Sincronizaçêo com novos alvos:")
+print("   - Alvos de sincronizaçêo agora sêo mais realistas")
+print("   - Menos compressêo/expansêo necessária")
 print()
 
 print("✅ TESTE 3 - Volume do áudio:")
 print("   - Problema identificado: dub_final.wav está mudo (-91dB)")
-print("   - Correção aplicada: filtros simplificados no pós-processamento")
+print("   - Correçêo aplicada: filtros simplificados no pós-processamento")
 print()
 
 print("=" * 60)

@@ -8,7 +8,7 @@ Invalid handle. Cannot load symbol cudnnCreateTensorDescriptor
 
 ---
 
-## ✅ Solução Aplicada
+## ✅ Soluçêo Aplicada
 
 Os arquivos `dublar_tech_v2.py` e `dublar_sync_v2.py` **já foram corrigidos** para:
 
@@ -35,10 +35,10 @@ Tentando usar GPU (CUDA)...
 ✓ GPU disponível
 ```
 
-### Se GPU não funcionar (vai usar CPU):
+### Se GPU nêo funcionar (vai usar CPU):
 ```
 Tentando usar GPU (CUDA)...
-GPU não disponível (...)
+GPU nêo disponível (...)
 Usando CPU (pode ser mais lento)...
 ```
 
@@ -50,7 +50,7 @@ Usando CPU (pode ser mais lento)...
 
 Se você quer que a GPU funcione para processar mais rápido:
 
-### Opção 1: Instalar CUDA Toolkit + cuDNN (Complexo)
+### Opçêo 1: Instalar CUDA Toolkit + cuDNN (Complexo)
 
 1. Instale CUDA Toolkit 11.8 ou 12.x:
    https://developer.nvidia.com/cuda-downloads
@@ -62,11 +62,11 @@ Se você quer que a GPU funcione para processar mais rápido:
    - `C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.x\bin`
    - Pasta onde você extraiu cuDNN
 
-### Opção 2: Usar CPU (Mais Simples)
+### Opçêo 2: Usar CPU (Mais Simples)
 
-O código já usa CPU automaticamente se GPU falhar. Apenas será ~2-3x mais lento na transcrição.
+O código já usa CPU automaticamente se GPU falhar. Apenas será ~2-3x mais lento na transcriçêo.
 
-**Para vídeos de demonstração técnica (10-20 min), CPU é aceitável.**
+**Para vídeos de demonstraçêo técnica (10-20 min), CPU é aceitável.**
 
 ---
 
@@ -80,7 +80,7 @@ python dublar_tech_v2.py --in video.mp4 --src en --tgt pt ...
 
 Procure por:
 ```
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 Tentando usar GPU (CUDA)...
 ✓ GPU disponível  ← Usando GPU (rápido)
 ```
@@ -88,20 +88,20 @@ Tentando usar GPU (CUDA)...
 ou
 
 ```
-=== ETAPA 3: Transcrição (Whisper) ===
+=== ETAPA 3: Transcriçêo (Whisper) ===
 Tentando usar GPU (CUDA)...
-GPU não disponível (...)
+GPU nêo disponível (...)
 Usando CPU (pode ser mais lento)...  ← Usando CPU (mais lento mas funciona)
 ```
 
 ---
 
-## 📊 Comparação de Velocidade
+## 📊 Comparaçêo de Velocidade
 
 | Componente | CPU | GPU |
 |------------|-----|-----|
-| Whisper (transcrição) | ~2-3x real-time | ~0.5x real-time |
-| M2M100 (tradução) | Rápido | Rápido |
+| Whisper (transcriçêo) | ~2-3x real-time | ~0.5x real-time |
+| M2M100 (traduçêo) | Rápido | Rápido |
 | Bark (TTS) | Lento (~10s/seg) | Mais rápido (~3s/seg) |
 
 **Nota:** Mesmo em CPU, o pipeline funciona. Só demora mais.
@@ -110,7 +110,7 @@ Usando CPU (pode ser mais lento)...  ← Usando CPU (mais lento mas funciona)
 
 ## ✅ Resumo
 
-**Você não precisa fazer nada!**
+**Você nêo precisa fazer nada!**
 
 O código já foi corrigido para:
 - ✅ Tentar GPU automaticamente

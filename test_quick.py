@@ -29,10 +29,10 @@ print(f"✅ Encontrados {len(seg_files)} arquivos seg_*.wav")
 print()
 
 # ============================================================================
-# ETAPA 1: Criar lista de arquivos para concatenação
+# ETAPA 1: Criar lista de arquivos para concatenaçêo
 # ============================================================================
 print("=" * 70)
-print("ETAPA 1: Criando lista de concatenação")
+print("ETAPA 1: Criando lista de concatenaçêo")
 print("=" * 70)
 print()
 
@@ -69,7 +69,7 @@ result = subprocess.run(cmd_concat, capture_output=True, text=True)
 if result.returncode == 0:
     print(f"✅ Concatenado: {concat_out}")
 
-    # Verificar duração
+    # Verificar duraçêo
     try:
         dur_result = subprocess.check_output([
             "ffprobe", "-v", "error",
@@ -78,7 +78,7 @@ if result.returncode == 0:
             str(concat_out)
         ], text=True).strip()
         duration = float(dur_result)
-        print(f"   Duração: {duration:.2f}s")
+        print(f"   Duraçêo: {duration:.2f}s")
     except:
         pass
 else:
@@ -115,7 +115,7 @@ result = subprocess.run(cmd_post, capture_output=True, text=True)
 if result.returncode == 0:
     print(f"✅ Pós-processado: {final_out}")
 
-    # Verificar duração
+    # Verificar duraçêo
     try:
         dur_result = subprocess.check_output([
             "ffprobe", "-v", "error",
@@ -124,7 +124,7 @@ if result.returncode == 0:
             str(final_out)
         ], text=True).strip()
         duration = float(dur_result)
-        print(f"   Duração: {duration:.2f}s")
+        print(f"   Duraçêo: {duration:.2f}s")
     except:
         pass
 else:
@@ -199,7 +199,7 @@ print()
 # Procurar vídeo original
 video_in = Path('nei.mp4')
 if not video_in.exists():
-    print("⚠️  nei.mp4 não encontrado na raiz, pulando mux")
+    print("⚠️  nei.mp4 nêo encontrado na raiz, pulando mux")
     video_in = None
 else:
     video_out = Path('test_VIDEO_CORRECTED.mp4')
@@ -222,7 +222,7 @@ else:
     if result.returncode == 0:
         print(f"✅ Vídeo gerado: {video_out}")
 
-        # Verificar duração e bitrate
+        # Verificar duraçêo e bitrate
         try:
             probe = subprocess.check_output([
                 "ffprobe", "-v", "error",
@@ -294,7 +294,7 @@ print()
 print("2. Comparar com vídeo antigo (se existir):")
 print("   ffplay video_dublado.mp4")
 print()
-print("3. Verificar duração (deve ser ~114s):")
+print("3. Verificar duraçêo (deve ser ~114s):")
 if video_in:
     print(f"   ffprobe -v error -show_entries format=duration {video_out}")
 print()
